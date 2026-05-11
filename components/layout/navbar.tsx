@@ -110,13 +110,13 @@ export function Navbar() {
               </button>
             )}
             <Link
-              href="mailto:hello@unitystud.io"
+              href="mailto:sean@seancorey.net"
               className={cn(
                 buttonVariants({ size: "sm" }),
                 "bg-teal hover:bg-teal-dark text-white rounded-full px-5 text-sm transition-colors duration-300 shadow-none"
               )}
             >
-              Book a call
+              Work with me
             </Link>
           </div>
 

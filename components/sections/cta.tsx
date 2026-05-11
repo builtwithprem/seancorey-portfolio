@@ -52,13 +52,13 @@ export function Cta() {
           className="flex flex-wrap items-center justify-center gap-4"
         >
           <Link
-            href="mailto:hello@unitystud.io"
+            href="mailto:sean@seancorey.net"
             className={cn(
               buttonVariants({ size: "lg" }),
               "bg-teal hover:bg-teal-dark text-white rounded-full px-10 gap-2 text-base shadow-none transition-colors duration-300"
             )}
           >
-            Book a call <ArrowRight size={16} />
+            Work with me <ArrowRight size={16} />
           </Link>
           <Link
             href="/#work"

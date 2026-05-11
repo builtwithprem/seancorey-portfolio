@@ -7,9 +7,8 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const headlineLines = [
-  { text: "I design digital", accent: false },
-  { text: "experiences that", accent: false },
-  { text: "leave a mark.", accent: true },
+  { text: "Web designer", accent: false },
+  { text: "+ AI Strategist", accent: true },
 ];
 
 const stats = [
@@ -45,17 +44,16 @@ export function Hero() {
         >
           <span className="inline-block w-2 h-2 rounded-full bg-teal" />
           <span className="text-xs uppercase tracking-[0.22em] text-zinc-500 dark:text-zinc-400 font-sans">
-            Web Designer &middot; 20 Years of Practice
+            20 Years of Practice
           </span>
         </motion.div>
 
         {/* Headline — line-by-line clip reveal */}
-        {/* V1 (original, larger): clamp(2.75rem,6.5vw,6.5rem), max-w-5xl */}
-        <h1 className="font-display font-bold leading-[1.05] tracking-tight mb-10 max-w-2xl">
+        <h1 className="font-display font-bold leading-[1.02] tracking-tight mb-10 max-w-5xl">
           {headlineLines.map((line, i) => (
             <span key={i} className="block overflow-hidden">
               <motion.span
-                className={`block text-[clamp(2rem,4.2vw,4.2rem)] ${
+                className={`block text-[clamp(2.75rem,6.5vw,6.5rem)] ${
                   line.accent
                     ? "text-teal"
                     : "text-zinc-900 dark:text-zinc-50"
@@ -78,18 +76,18 @@ export function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.75, ease: "easeOut" }}
-          className="text-lg text-zinc-500 dark:text-zinc-400 max-w-md leading-relaxed font-sans mb-12"
+          transition={{ duration: 0.7, delay: 0.65, ease: "easeOut" }}
+          className="text-lg text-zinc-500 dark:text-zinc-400 max-w-lg leading-relaxed font-sans mb-12"
         >
-          Senior web designer working with ambitious brands and founders to
-          craft clear, considered digital experiences built to last.
+          Senior web designer helping mission-driven brands use AI thoughtfully
+          to build better digital experiences.
         </motion.p>
 
         {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.9, ease: "easeOut" }}
+          transition={{ duration: 0.7, delay: 0.8, ease: "easeOut" }}
           className="flex flex-wrap items-center gap-4"
         >
           <Link
@@ -102,7 +100,7 @@ export function Hero() {
             View my work <ArrowRight size={16} />
           </Link>
           <Link
-            href="mailto:hello@unitystud.io"
+            href="mailto:sean@seancorey.net"
             className={cn(
               buttonVariants({ variant: "outline", size: "lg" }),
               "rounded-full px-8 border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 shadow-none transition-colors duration-300"
@@ -116,7 +114,7 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.1, ease: "easeOut" }}
+          transition={{ duration: 1, delay: 1.0, ease: "easeOut" }}
           className="mt-20 pt-8 border-t border-zinc-200 dark:border-zinc-800 flex flex-wrap gap-12"
         >
           {stats.map((stat) => (
@@ -136,7 +134,7 @@ export function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.4 }}
+        transition={{ duration: 1, delay: 1.3 }}
         className="absolute bottom-8 left-8 lg:left-16 flex flex-col items-start gap-2"
       >
         <span className="text-[10px] uppercase tracking-[0.2em] text-zinc-400">

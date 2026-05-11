@@ -78,18 +78,18 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               className="flex flex-col gap-4"
             >
               <Link
-                href="mailto:hello@unitystud.io"
+                href="mailto:sean@seancorey.net"
                 onClick={onClose}
                 className="text-zinc-400 hover:text-white text-sm font-sans transition-colors duration-200"
               >
-                hello@unitystud.io
+                sean@seancorey.net
               </Link>
               <Link
-                href="mailto:hello@unitystud.io"
+                href="mailto:sean@seancorey.net"
                 onClick={onClose}
                 className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-teal hover:bg-teal-dark text-white font-sans text-sm font-medium transition-colors duration-300 self-start"
               >
-                Book a call
+                Work with me
               </Link>
             </motion.div>
           </div>

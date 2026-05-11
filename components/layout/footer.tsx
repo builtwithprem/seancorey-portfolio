@@ -4,7 +4,7 @@ const navLinks = [
   { href: "/#work", label: "Work" },
   { href: "/#services", label: "Services" },
   { href: "/about", label: "About" },
-  { href: "mailto:hello@unitystud.io", label: "Contact" },
+  { href: "mailto:sean@seancorey.net", label: "Contact" },
 ];
 
 const socialLinks = [
@@ -59,10 +59,10 @@ export function Footer() {
               Get in touch
             </h3>
             <Link
-              href="mailto:hello@unitystud.io"
+              href="mailto:sean@seancorey.net"
               className="text-sm text-zinc-400 hover:text-white transition-colors duration-200 font-sans block mb-6"
             >
-              hello@unitystud.io
+              sean@seancorey.net
             </Link>
             <div className="flex flex-col gap-2">
               {socialLinks.map((social) => (
