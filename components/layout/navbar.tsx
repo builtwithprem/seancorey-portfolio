@@ -27,11 +27,15 @@ function rgb(c: readonly [number, number, number]) {
   return `rgb(${c[0]},${c[1]},${c[2]})`;
 }
 
+// One-page site: scroll to section instead of navigating
 const navLinks = [
-  { href: "/#work",     label: "Work"     },
-  { href: "/#services", label: "Services" },
-  { href: "/about",     label: "About"    },
+  { id: "work",     label: "Work"     },
+  { id: "services", label: "Services" },
 ];
+
+function scrollTo(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+}
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
@@ -115,16 +119,16 @@ export function Navbar() {
           {/* Logo — inherits color from motion.nav */}
           <Logo />
 
-          {/* Desktop links — no explicit color class, inherits */}
+          {/* Desktop links — smooth scroll, inherits color from motion.nav */}
           <ul className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <li key={link.href}>
-                <Link
-                  href={link.href}
-                  className="text-sm tracking-wide hover:opacity-60 transition-opacity duration-300"
+              <li key={link.id}>
+                <button
+                  onClick={() => scrollTo(link.id)}
+                  className="text-sm tracking-wide hover:opacity-60 transition-opacity duration-300 cursor-pointer"
                 >
                   {link.label}
-                </Link>
+                </button>
               </li>
             ))}
           </ul>

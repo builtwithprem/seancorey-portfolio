@@ -50,15 +50,15 @@ export function Cta() {
           >
             Work with me <ArrowRight size={16} />
           </Link>
-          <Link
-            href="/#work"
+          <button
+            onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
             className={cn(
               buttonVariants({ variant: "outline", size: "lg" }),
-              "rounded-full px-8 text-base border-[#253631]/30 text-[#253631] hover:bg-[#253631]/8 dark:border-white/30 dark:text-white dark:hover:bg-white/10 shadow-none transition-colors duration-300"
+              "rounded-full px-8 text-base border-[#253631]/30 text-[#253631] hover:bg-[#253631]/8 dark:border-white/30 dark:text-white dark:hover:bg-white/10 shadow-none transition-colors duration-300 cursor-pointer"
             )}
           >
             See my work
-          </Link>
+          </button>
         </motion.div>
       </div>
     </section>
