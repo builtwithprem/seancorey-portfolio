@@ -1,56 +1,60 @@
 "use client";
 
+import { useState } from "react";
 import { motion } from "motion/react";
-import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { ContactModal } from "@/components/ui/contact-modal";
 
 export function Cta() {
-  return (
-    <section
-      id="contact"
-      data-section-theme="dark"
-      className="bg-[#253631] py-28 lg:py-40"
-    >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display font-bold text-[clamp(2.75rem,6.5vw,6rem)] text-white leading-[1.04] tracking-tight mb-12 max-w-3xl mx-auto"
-        >
-          Ready to make something great?
-        </motion.h2>
+  const [modalOpen, setModalOpen] = useState(false);
 
-        <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-wrap items-center justify-center gap-4"
-        >
-          <Link
-            href="mailto:hello@unitystud.io"
-            className={cn(
-              buttonVariants({ size: "lg" }),
-              "bg-[#D5E3DE] hover:bg-[#D5E3DE]/85 text-[#253631] rounded-full px-10 gap-2 text-base shadow-none transition-colors duration-300"
-            )}
+  return (
+    <>
+      <section
+        id="contact"
+        data-section-theme="dark"
+        className="bg-[#253631] py-28 lg:py-40"
+      >
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
+          <motion.h2
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="font-display font-bold text-[clamp(2.25rem,5vw,4.5rem)] text-white leading-[1.1] mb-8 max-w-3xl mx-auto"
           >
-            Work with me <ArrowRight size={16} />
-          </Link>
-          <button
-            onClick={() => document.getElementById("work")?.scrollIntoView({ behavior: "smooth" })}
-            className={cn(
-              buttonVariants({ variant: "outline", size: "lg" }),
-              "rounded-full px-8 text-base border-white/30 text-white hover:bg-white/10 shadow-none transition-colors duration-300 cursor-pointer"
-            )}
+            Ready to make something great?
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="text-[1.5rem] text-white/70 leading-relaxed font-sans max-w-2xl mx-auto mb-12"
           >
-            See my work
-          </button>
-        </motion.div>
-      </div>
-    </section>
+            If you&apos;re working on something meaningful and want a thoughtful partner
+            who understands both the technical and human side of building digital
+            experiences, get in touch.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <button
+              onClick={() => setModalOpen(true)}
+              className="inline-flex items-center gap-2 bg-[#D5E3DE] hover:bg-[#D5E3DE]/85 text-[#253631] rounded-full px-10 h-12 text-base font-sans shadow-none transition-colors duration-300"
+            >
+              Let&apos;s work together <ArrowRight size={16} />
+            </button>
+          </motion.div>
+        </div>
+      </section>
+
+      <ContactModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+    </>
   );
 }
