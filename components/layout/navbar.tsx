@@ -19,7 +19,6 @@ const FADE_THRESHOLD = 0.6;
 const SAGE   = [213, 227, 222] as const; // #D5E3DE
 const FOREST = [ 37,  54,  49] as const; // #253631
 const WHITE  = [255, 255, 255] as const;
-const WARM   = [249, 247, 245] as const; // #F9F7F5 — CTA section bg
 
 function lerp(a: number, b: number, t: number) {
   return Math.round(a + (b - a) * t);
@@ -107,6 +106,26 @@ export function Navbar() {
       }
     }
 
+    /*
+      About → Contact: progressive SAGE → FOREST, FOREST → WHITE.
+      Mirrors the hero direction (light→dark). Anchored to "about-transition"
+      so navbar syncs to LightTransitionGroup's exact timing.
+    */
+    const aboutTransitionEl = document.getElementById("about-transition");
+    const contactEl         = document.getElementById("contact");
+    if (aboutTransitionEl && contactEl) {
+      const aboutGroupTop = aboutTransitionEl.getBoundingClientRect().top + y;
+      const contactTop    = contactEl.getBoundingClientRect().top + y;
+      const aboutFadeStart = aboutGroupTop - vh * FADE_THRESHOLD;
+      if (y >= aboutFadeStart && y < contactTop) {
+        const t = Math.min(1, Math.max(0, (y - aboutFadeStart) / (vh * FADE_THRESHOLD)));
+        navBg.set(`rgb(${lerp(SAGE[0], FOREST[0], t)},${lerp(SAGE[1], FOREST[1], t)},${lerp(SAGE[2], FOREST[2], t)})`);
+        navColor.set(`rgb(${lerp(FOREST[0], WHITE[0], t)},${lerp(FOREST[1], WHITE[1], t)},${lerp(FOREST[2], WHITE[2], t)})`);
+        setNavIsDark(t > 0.5);
+        return;
+      }
+    }
+
     // Binary section detection for all other sections below the hero
     const sections = document.querySelectorAll<HTMLElement>("[data-section-theme]");
     let isDark = true;
@@ -120,10 +139,7 @@ export function Navbar() {
         break;
       }
     }
-    // CTA section (#contact) has its own warm off-white bg — match it exactly
-    const bgColor = isDark                    ? rgb(FOREST)
-                  : matchedId === "contact"   ? rgb(WARM)
-                  : rgb(SAGE);
+    const bgColor = isDark ? rgb(FOREST) : rgb(SAGE);
     navBg.set(bgColor);
     navColor.set(isDark ? rgb(WHITE) : rgb(FOREST));
     setNavIsDark(isDark);

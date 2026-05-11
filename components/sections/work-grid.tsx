@@ -119,7 +119,7 @@ export function WorkGrid() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.h2
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -129,10 +129,10 @@ export function WorkGrid() {
         </motion.h2>
 
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           className="text-[1.3rem] text-white/60 leading-relaxed font-sans max-w-xl mb-16"
         >
           A selection of projects spanning e-commerce, education, wellness, and mission-driven brands.

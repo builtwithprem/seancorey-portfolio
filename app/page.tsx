@@ -1,6 +1,6 @@
 import { HeroGroup } from "@/components/sections/hero-group";
 import { WorkGrid } from "@/components/sections/work-grid";
-import { DarkTransitionGroup } from "@/components/sections/values-group";
+import { DarkTransitionGroup, LightTransitionGroup } from "@/components/sections/values-group";
 import { Services } from "@/components/sections/services";
 import { About } from "@/components/sections/about";
 import { Cta } from "@/components/sections/cta";
@@ -20,7 +20,10 @@ export default function Home() {
       <WorkGrid />
       <DarkTransitionGroup />
       <Services />
+      {/* Spacer — same height as the transition div, gives breathing room before About */}
+      <div data-section-theme="light" aria-hidden className="h-[42vh] bg-[#D5E3DE]" />
       <About />
+      <LightTransitionGroup />
       <Cta />
     </main>
   );
