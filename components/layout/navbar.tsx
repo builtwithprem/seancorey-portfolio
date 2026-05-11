@@ -19,6 +19,7 @@ const FADE_THRESHOLD = 0.6;
 const SAGE   = [213, 227, 222] as const; // #D5E3DE
 const FOREST = [ 37,  54,  49] as const; // #253631
 const WHITE  = [255, 255, 255] as const;
+const WARM   = [249, 247, 245] as const; // #F9F7F5 — CTA section bg
 
 function lerp(a: number, b: number, t: number) {
   return Math.round(a + (b - a) * t);
@@ -86,16 +87,22 @@ export function Navbar() {
       // Binary section detection for sections below the hero
       const sections = document.querySelectorAll<HTMLElement>("[data-section-theme]");
       let isDark = true;
+      let matchedId = "";
       for (const el of sections) {
         const top    = el.offsetTop;
         const bottom = top + el.offsetHeight;
         if (y + NAV_HEIGHT >= top && y + NAV_HEIGHT < bottom) {
-          isDark = el.dataset.sectionTheme === "dark";
+          isDark    = el.dataset.sectionTheme === "dark";
+          matchedId = el.id;
           break;
         }
       }
-      navBg.set(isDark    ? rgb(FOREST) : rgb(SAGE));
-      navColor.set(isDark ? rgb(WHITE)  : rgb(FOREST));
+      // CTA section (#contact) has its own warm off-white bg — match it exactly
+      const bgColor = isDark           ? rgb(FOREST)
+                    : matchedId === "contact" ? rgb(WARM)
+                    : rgb(SAGE);
+      navBg.set(bgColor);
+      navColor.set(isDark ? rgb(WHITE) : rgb(FOREST));
       setNavIsDark(isDark);
     }
   });

@@ -7,91 +7,70 @@ function scrollTo(id: string) {
 }
 
 const socialLinks = [
-  { href: "https://linkedin.com/in/seancorey",   label: "LinkedIn"   },
-  { href: "https://twitter.com/seancorey",        label: "Twitter / X" },
-  { href: "https://github.com/builtwithprem",     label: "GitHub"     },
+  { href: "https://linkedin.com/in/seancorey",  label: "LinkedIn"    },
+  { href: "https://twitter.com/seancorey",       label: "Twitter / X" },
+  { href: "https://github.com/builtwithprem",    label: "GitHub"      },
 ];
 
 export function Footer() {
+  const year = new Date().getFullYear();
+
   return (
     <footer
       data-section-theme="dark"
-      className="bg-[#253631] border-t border-white/5"
+      className="bg-[#253631]"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          {/* Brand */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
+
+        {/* Main row */}
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8 mb-10">
+          {/* Left: name + tagline */}
           <div>
             <button
               onClick={() => scrollTo("hero")}
-              className="font-display font-bold text-xl text-white mb-4 block cursor-pointer hover:opacity-70 transition-opacity"
+              className="font-display font-bold text-xl text-white hover:opacity-70 transition-opacity block cursor-pointer mb-1"
             >
               Sean Corey
             </button>
-            <p className="text-sm text-white/50 leading-relaxed font-sans max-w-xs">
-              Senior web designer crafting considered digital experiences since 2005.
+            <p className="text-sm text-white/40 font-sans">
+              Web designer + AI strategist
             </p>
           </div>
 
-          {/* Nav */}
-          <div>
-            <h3 className="text-xs uppercase tracking-[0.15em] text-white/40 mb-5 font-sans">
-              Navigate
-            </h3>
-            <ul className="space-y-3">
-              {[
-                { id: "work",    label: "Work"    },
-                { id: "values",  label: "Values"  },
-                { id: "about",   label: "About"   },
-                { id: "contact", label: "Contact" },
-              ].map((link) => (
-                <li key={link.id}>
-                  <button
-                    onClick={() => scrollTo(link.id)}
-                    className="text-sm text-white/50 hover:text-white transition-colors duration-200 font-sans cursor-pointer"
-                  >
-                    {link.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact */}
-          <div>
-            <h3 className="text-xs uppercase tracking-[0.15em] text-white/40 mb-5 font-sans">
-              Get in touch
-            </h3>
+          {/* Right: email + social */}
+          <div className="flex flex-col md:items-end gap-3">
             <Link
               href="mailto:sean@seancorey.net"
-              className="text-sm text-white/50 hover:text-white transition-colors duration-200 font-sans block mb-6"
+              className="text-sm text-white/50 hover:text-white transition-colors duration-200 font-sans"
             >
               sean@seancorey.net
             </Link>
-            <div className="flex flex-col gap-2">
-              {socialLinks.map((social) => (
+            <div className="flex gap-5">
+              {socialLinks.map((s) => (
                 <Link
-                  key={social.href}
-                  href={social.href}
+                  key={s.href}
+                  href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-white/40 hover:text-white transition-colors duration-200 font-sans"
+                  className="text-sm text-white/30 hover:text-white transition-colors duration-200 font-sans"
                 >
-                  {social.label}
+                  {s.label}
                 </Link>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-white/35 font-sans">
-            © 2026 Sean Corey. All rights reserved.
+        {/* Copyright — no border */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-2">
+          <p className="text-xs text-white/25 font-sans">
+            © {year} Sean Corey. All rights reserved.
           </p>
           <p className="text-xs text-white/25 font-sans">
-            Designed & built with care.
+            Built with love by a human + AI.
           </p>
         </div>
+
       </div>
     </footer>
   );

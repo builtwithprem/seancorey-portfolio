@@ -115,16 +115,22 @@ export function WorkGrid() {
               className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm cursor-pointer"
             />
 
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-10 lg:p-14 pointer-events-none">
+            {/*
+              Wider modal with side-by-side layout on desktop.
+              Image takes ~60% width → more room for high-res screenshots.
+              Mobile: stacked (image top, details below).
+            */}
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-3 md:p-8 pointer-events-none">
               <motion.div
                 layoutId={`card-${selectedId}`}
-                className="relative w-full overflow-hidden rounded-2xl flex flex-col pointer-events-auto"
+                className="relative w-full overflow-hidden rounded-2xl flex flex-col lg:flex-row pointer-events-auto"
                 style={{
-                  maxWidth: "860px",
-                  maxHeight: "90vh",
+                  maxWidth: "1280px",
+                  maxHeight: "92vh",
                   backgroundColor: "#111c18",
                 }}
               >
+                {/* Close */}
                 <button
                   onClick={() => setSelectedId(null)}
                   className="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors duration-200"
@@ -133,18 +139,18 @@ export function WorkGrid() {
                   <X size={15} />
                 </button>
 
+                {/* Image — full width on mobile, 60% on desktop */}
                 <motion.div
                   layoutId={`card-image-${selectedId}`}
-                  className="relative w-full flex-shrink-0"
-                  style={{ aspectRatio: "16/7" }}
+                  className="relative w-full aspect-[16/9] flex-shrink-0 lg:aspect-auto lg:w-[60%] lg:self-stretch"
                 >
                   <div className="absolute inset-0" style={{ background: selected.gradient }} />
                 </motion.div>
 
-                <div className="overflow-y-auto flex-1 p-8 lg:p-10">
-                  {/* Title — shared layout animation */}
-                  <motion.div layoutId={`card-meta-${selectedId}`} className="mb-6">
-                    <h2 className="font-display font-bold text-[clamp(1.75rem,3vw,2.5rem)] text-white leading-tight">
+                {/* Details — below on mobile, right panel on desktop */}
+                <div className="overflow-y-auto flex-1 p-8 lg:p-10 flex flex-col justify-center">
+                  <motion.div layoutId={`card-meta-${selectedId}`} className="mb-5">
+                    <h2 className="font-display font-bold text-[clamp(1.5rem,2.5vw,2.25rem)] text-white leading-tight">
                       {selected.title}
                     </h2>
                   </motion.div>
@@ -154,24 +160,23 @@ export function WorkGrid() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.18, duration: 0.4 }}
                   >
-                    {/* Category + year fade in after layout settles */}
-                    <div className="flex items-center gap-6 mb-6">
+                    <div className="flex items-center gap-5 mb-5">
                       <span className="text-[10px] uppercase tracking-[0.18em] text-teal font-sans">
                         {selected.category}
                       </span>
-                      <span className="text-white/30 font-sans text-xs">{selected.year}</span>
+                      <span className="text-white/30 text-xs font-sans">{selected.year}</span>
                     </div>
 
-                    <p className="text-white/65 leading-relaxed font-sans mb-8">
+                    <p className="text-white/60 leading-relaxed font-sans text-sm mb-8">
                       {selected.description}
                     </p>
 
-                    <div className="border-t border-white/10 pt-8">
-                      <p className="text-[10px] uppercase tracking-[0.15em] text-white/25 font-sans mb-4">
+                    <div className="border-t border-white/10 pt-6">
+                      <p className="text-[10px] uppercase tracking-[0.15em] text-white/25 font-sans mb-3">
                         Case Study
                       </p>
-                      <p className="text-white/35 font-sans text-sm leading-relaxed">
-                        Full case study coming soon. Get in touch to hear about this project in detail.
+                      <p className="text-white/30 font-sans text-sm leading-relaxed">
+                        Full case study coming soon. Get in touch to hear about this project.
                       </p>
                     </div>
                   </motion.div>
