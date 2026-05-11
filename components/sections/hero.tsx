@@ -3,8 +3,13 @@
 import { motion } from "motion/react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { ArrowDown } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+function scrollToWork(e: React.MouseEvent) {
+  e.preventDefault();
+  document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
+}
 
 export function Hero() {
   return (
@@ -13,16 +18,6 @@ export function Hero() {
       data-section-theme="light"
       className="relative min-h-screen overflow-hidden bg-[#D5E3DE]"
     >
-      {/* Subtle teal radial — top right */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse 60% 60% at 90% 5%, oklch(0.61 0.062 198 / 7%), transparent)",
-        }}
-      />
-
       {/* 150px top padding keeps content clear of the 72px fixed navbar */}
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 flex flex-col pt-[9.375rem]">
         <div className="w-full max-w-[800px] pb-24">
@@ -66,15 +61,17 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.72, ease: "easeOut" }}
             className="flex flex-wrap items-center gap-4"
           >
-            <Link
+            {/* Down arrow + smooth scroll — works reliably on repeat clicks */}
+            <a
               href="/#work"
+              onClick={scrollToWork}
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "bg-[#253631] hover:bg-[#253631]/85 text-white rounded-full px-8 gap-2 transition-colors duration-300 shadow-none"
+                "bg-[#253631] hover:bg-[#253631]/85 text-white rounded-full px-8 gap-2 transition-colors duration-300 shadow-none cursor-pointer"
               )}
             >
-              View my work <ArrowRight size={16} />
-            </Link>
+              View my work <ArrowDown size={16} />
+            </a>
             <Link
               href="mailto:sean@seancorey.net"
               className={cn(

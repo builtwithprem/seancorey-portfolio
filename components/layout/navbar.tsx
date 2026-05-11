@@ -37,6 +37,7 @@ export function Navbar() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted]     = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [navIsDark, setNavIsDark]   = useState(false); // drives "Work with me" button style
   const { scrollY } = useScroll();
 
   /*
@@ -72,6 +73,7 @@ export function Navbar() {
 
       navBg.set(`rgb(${lerp(SAGE[0], FOREST[0], t)},${lerp(SAGE[1], FOREST[1], t)},${lerp(SAGE[2], FOREST[2], t)})`);
       navColor.set(`rgb(${lerp(FOREST[0], WHITE[0], t)},${lerp(FOREST[1], WHITE[1], t)},${lerp(FOREST[2], WHITE[2], t)})`);
+      setNavIsDark(t > 0.5);
     } else {
       // Binary section detection for sections below the hero
       const sections = document.querySelectorAll<HTMLElement>("[data-section-theme]");
@@ -86,6 +88,7 @@ export function Navbar() {
       }
       navBg.set(isDark    ? rgb(FOREST) : rgb(SAGE));
       navColor.set(isDark ? rgb(WHITE)  : rgb(FOREST));
+      setNavIsDark(isDark);
     }
   });
 
@@ -135,12 +138,18 @@ export function Navbar() {
                 {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
               </button>
             )}
-            {/* Teal button — explicit colours, visible on both sage and forest bg */}
+            {/*
+              Light nav: solid dark button — matches "View my work" in hero.
+              Dark nav: outline button — matches "Get in touch" style.
+            */}
             <Link
               href="mailto:sean@seancorey.net"
               className={cn(
                 buttonVariants({ size: "sm" }),
-                "bg-teal hover:bg-teal-dark text-white rounded-full px-5 text-sm transition-colors duration-300 shadow-none"
+                "rounded-full px-5 text-sm transition-all duration-300 shadow-none",
+                navIsDark
+                  ? "border border-white/30 bg-transparent text-white hover:bg-white/10"
+                  : "bg-[#253631] hover:bg-[#253631]/85 text-white"
               )}
             >
               Work with me
