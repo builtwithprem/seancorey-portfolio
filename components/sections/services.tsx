@@ -35,24 +35,14 @@ export function Services() {
 
           {/* Left — sticky while right column scrolls */}
           <div className="lg:sticky lg:top-[88px]">
-            <motion.span
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5 }}
-              className="text-[10px] uppercase tracking-[0.22em] text-white/40 font-sans block mb-5"
-            >
-              How I work
-            </motion.span>
-
             <motion.h2
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-bold text-[clamp(1.75rem,3.5vw,3rem)] text-white leading-tight mb-8"
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="font-display font-bold text-[clamp(2rem,4vw,3.5rem)] text-white leading-tight mb-8"
             >
-              Every Project Backed by Values
+              My Values
             </motion.h2>
 
             <motion.p
