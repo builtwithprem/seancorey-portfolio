@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 
@@ -17,7 +16,7 @@ export function Logo({ sectionDark }: LogoProps) {
       {/* Circular headshot */}
       <div
         className={cn(
-          "relative w-8 h-8 rounded-full overflow-hidden flex-shrink-0 ring-1 transition-all duration-300",
+          "w-8 h-8 rounded-full overflow-hidden flex-shrink-0 ring-1 transition-all duration-300",
           sectionDark
             ? "ring-white/20 group-hover:ring-white/40"
             : "ring-zinc-200 dark:ring-zinc-700 group-hover:ring-teal/40"
@@ -30,14 +29,12 @@ export function Logo({ sectionDark }: LogoProps) {
             </span>
           </div>
         ) : (
-          <Image
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
             src="/headshot.jpg"
             alt="Sean Corey"
-            fill
-            className="object-cover object-top"
-            sizes="32px"
+            className="w-full h-full object-cover object-[center_15%]"
             onError={() => setImgError(true)}
-            priority
           />
         )}
       </div>
