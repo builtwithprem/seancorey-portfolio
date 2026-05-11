@@ -6,12 +6,6 @@ import { buttonVariants } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const stats = [
-  { number: "20+", label: "Years designing" },
-  { number: "150+", label: "Projects delivered" },
-  { number: "60+", label: "Satisfied clients" },
-];
-
 export function Hero() {
   return (
     <section
@@ -30,15 +24,12 @@ export function Hero() {
       />
 
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-36 pb-24">
-        {/*
-          Hard left column — this is what creates true left-alignment.
-          Everything lives inside this container, not spread across max-w-7xl.
-        */}
+
+        {/* Width-constraining container — all content inherits this */}
         <div className="max-w-[660px]">
 
           {/* Heading */}
           <h1 className="font-display font-bold tracking-tight mb-8">
-            {/* "Hi, I'm Sean," — teal accent, same size as heading */}
             <motion.span
               className="block text-[clamp(2.25rem,5vw,4.5rem)] text-teal leading-[1.1] mb-1"
               initial={{ opacity: 0, y: 18 }}
@@ -47,8 +38,6 @@ export function Hero() {
             >
               Hi, I&apos;m Sean,
             </motion.span>
-
-            {/* Main statement — dark */}
             <motion.span
               className="block text-[clamp(2.25rem,5vw,4.5rem)] text-zinc-900 dark:text-zinc-50 leading-[1.1]"
               initial={{ opacity: 0, y: 18 }}
@@ -59,7 +48,7 @@ export function Hero() {
             </motion.span>
           </h1>
 
-          {/* Body copy — two paragraphs, second reads as closing punch */}
+          {/* Body copy */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -82,7 +71,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.72, ease: "easeOut" }}
-            className="flex flex-wrap items-center gap-4 mb-20"
+            className="flex flex-wrap items-center gap-4"
           >
             <Link
               href="/#work"
@@ -104,44 +93,8 @@ export function Hero() {
             </Link>
           </motion.div>
 
-          {/* Stats */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 0.95, ease: "easeOut" }}
-            className="pt-8 border-t border-zinc-200 dark:border-zinc-800 flex flex-wrap gap-12"
-          >
-            {stats.map((stat) => (
-              <div key={stat.label}>
-                <div className="font-display font-bold text-3xl text-zinc-900 dark:text-zinc-50">
-                  {stat.number}
-                </div>
-                <div className="text-sm text-zinc-500 dark:text-zinc-400 mt-1 font-sans">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </motion.div>
-
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.3 }}
-        className="absolute bottom-8 left-8 lg:left-16 flex flex-col items-start gap-2"
-      >
-        <span className="text-[10px] uppercase tracking-[0.2em] text-zinc-400">
-          Scroll
-        </span>
-        <motion.div
-          animate={{ scaleY: [1, 0.3, 1] }}
-          transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-          className="origin-top w-px h-10 bg-gradient-to-b from-zinc-400 to-transparent"
-        />
-      </motion.div>
     </section>
   );
 }
