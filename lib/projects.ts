@@ -3,17 +3,19 @@ export type Project = {
   title: string;
   category: string;
   description: string;
-  gradient: string;
+  gradient: string; // fallback when no image
+  image?: string;   // optional: path relative to /public
   year: string;
 };
 
 export const projects: Project[] = [
   {
-    id: "meridian",
-    title: "Meridian",
+    id: "moka-origins",
+    title: "Moka Origins",
     category: "Brand Identity",
-    description: "Visual identity and digital presence for a premium financial advisory firm.",
+    description: "Visual identity and digital presence for a premium specialty coffee brand rooted in Ethiopian origin stories.",
     gradient: "linear-gradient(135deg, #48949e 0%, #2a5a62 100%)",
+    image: "/moka-project.jpg",
     year: "2025",
   },
   {

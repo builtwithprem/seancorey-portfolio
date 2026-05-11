@@ -76,10 +76,19 @@ export function WorkGrid() {
                   layoutId={`card-image-${project.id}`}
                   className="relative aspect-[4/3] rounded-xl overflow-hidden mb-5"
                 >
-                  <div
-                    className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                    style={{ background: project.gradient }}
-                  />
+                  {project.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    />
+                  ) : (
+                    <div
+                      className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                      style={{ background: project.gradient }}
+                    />
+                  )}
                   <div className="absolute bottom-4 right-4">
                     <span className="text-xs text-white/40 font-sans">{project.year}</span>
                   </div>
@@ -144,7 +153,16 @@ export function WorkGrid() {
                   layoutId={`card-image-${selectedId}`}
                   className="relative w-full aspect-[16/9] flex-shrink-0 lg:aspect-auto lg:w-[60%] lg:self-stretch"
                 >
-                  <div className="absolute inset-0" style={{ background: selected.gradient }} />
+                  {selected.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={selected.image}
+                      alt={selected.title}
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="absolute inset-0" style={{ background: selected.gradient }} />
+                  )}
                 </motion.div>
 
                 {/* Details — below on mobile, right panel on desktop */}
