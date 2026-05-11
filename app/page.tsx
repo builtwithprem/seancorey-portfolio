@@ -17,6 +17,14 @@ export default function Home() {
       */}
       <HeroGroup />
       <WorkGrid />
+
+      {/* Dark breathing space — mirrors the spacer after the hero */}
+      <div
+        data-section-theme="dark"
+        aria-hidden
+        className="h-[25vh] bg-[#253631]"
+      />
+
       <Services />
       <About />
       <Cta />
