@@ -27,10 +27,12 @@ function rgb(c: readonly [number, number, number]) {
   return `rgb(${c[0]},${c[1]},${c[2]})`;
 }
 
-// One-page site: scroll to section instead of navigating
 const navLinks = [
-  { id: "work",     label: "Work"     },
-  { id: "services", label: "Services" },
+  { id: "hero",    label: "Home"    },
+  { id: "work",    label: "Work"    },
+  { id: "values",  label: "Values"  },
+  { id: "about",   label: "About"   },
+  { id: "contact", label: "Contact" },
 ];
 
 function scrollTo(id: string) {
@@ -148,18 +150,18 @@ export function Navbar() {
               Light nav: solid dark button — matches "View my work" in hero.
               Dark nav: outline button — matches "Get in touch" style.
             */}
-            <Link
-              href="mailto:sean@seancorey.net"
+            <button
+              onClick={() => scrollTo("contact")}
               className={cn(
                 buttonVariants({ size: "sm" }),
-                "rounded-full px-5 text-sm transition-all duration-300 shadow-none",
+                "rounded-full px-5 text-sm transition-all duration-300 shadow-none cursor-pointer",
                 navIsDark
                   ? "border border-white/30 bg-transparent text-white hover:bg-white/10"
                   : "bg-[#253631] hover:bg-[#253631]/85 text-white"
               )}
             >
               Work with me
-            </Link>
+            </button>
           </div>
 
           {/* Mobile */}

@@ -26,7 +26,7 @@ const principles = [
 export function Services() {
   return (
     <section
-      id="services"
+      id="values"
       data-section-theme="dark"
       className="bg-[#253631] py-24 lg:py-36"
     >

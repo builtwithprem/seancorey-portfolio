@@ -40,9 +40,10 @@ export function Footer() {
             </h3>
             <ul className="space-y-3">
               {[
-                { id: "work",     label: "Work"     },
-                { id: "services", label: "Services" },
-                { id: "contact",  label: "Contact"  },
+                { id: "work",    label: "Work"    },
+                { id: "values",  label: "Values"  },
+                { id: "about",   label: "About"   },
+                { id: "contact", label: "Contact" },
               ].map((link) => (
                 <li key={link.id}>
                   <button

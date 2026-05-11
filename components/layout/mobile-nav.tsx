@@ -6,9 +6,11 @@ import { cn } from "@/lib/utils";
 
 // One-page site: section IDs, no external routes
 const navLinks = [
-  { id: "work",     label: "Work"     },
-  { id: "services", label: "Services" },
-  { id: "contact",  label: "Contact"  },
+  { id: "hero",    label: "Home"    },
+  { id: "work",    label: "Work"    },
+  { id: "values",  label: "Values"  },
+  { id: "about",   label: "About"   },
+  { id: "contact", label: "Contact" },
 ];
 
 function scrollTo(id: string) {

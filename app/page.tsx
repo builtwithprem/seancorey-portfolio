@@ -1,6 +1,7 @@
 import { HeroGroup } from "@/components/sections/hero-group";
 import { WorkGrid } from "@/components/sections/work-grid";
 import { Services } from "@/components/sections/services";
+import { About } from "@/components/sections/about";
 import { Cta } from "@/components/sections/cta";
 
 export default function Home() {
@@ -17,6 +18,7 @@ export default function Home() {
       <HeroGroup />
       <WorkGrid />
       <Services />
+      <About />
       <Cta />
     </main>
   );

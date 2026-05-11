@@ -6,9 +6,9 @@ import { buttonVariants } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-function scrollToWork(e: React.MouseEvent) {
-  e.preventDefault();
-  document.getElementById("work")?.scrollIntoView({ behavior: "smooth" });
+function scrollToSection(id: string, e?: React.MouseEvent) {
+  e?.preventDefault();
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 }
 
 export function Hero() {
@@ -64,7 +64,7 @@ export function Hero() {
             {/* Down arrow + smooth scroll — works reliably on repeat clicks */}
             <a
               href="/#work"
-              onClick={scrollToWork}
+              onClick={(e) => scrollToSection("work", e)}
               className={cn(
                 buttonVariants({ size: "lg" }),
                 "bg-[#253631] hover:bg-[#253631]/85 text-white dark:bg-white dark:text-[#253631] dark:hover:bg-white/90 rounded-full px-8 gap-2 transition-colors duration-300 shadow-none cursor-pointer"
@@ -72,15 +72,15 @@ export function Hero() {
             >
               View my work <ArrowDown size={16} />
             </a>
-            <Link
-              href="mailto:sean@seancorey.net"
+            <button
+              onClick={() => scrollToSection("contact")}
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
-                "rounded-full px-8 border-[#253631]/30 text-[#253631] dark:text-white hover:bg-[#253631]/8 dark:border-white/30 dark:hover:bg-white/10 shadow-none transition-colors duration-300"
+                "rounded-full px-8 border-[#253631]/30 text-[#253631] dark:text-white hover:bg-[#253631]/8 dark:border-white/30 dark:hover:bg-white/10 shadow-none transition-colors duration-300 cursor-pointer"
               )}
             >
               Get in touch
-            </Link>
+            </button>
           </motion.div>
 
         </div>
