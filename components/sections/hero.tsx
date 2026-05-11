@@ -11,7 +11,7 @@ export function Hero() {
     <section
       id="hero"
       data-section-theme="light"
-      className="relative min-h-screen bg-stone-50 dark:bg-zinc-900 flex flex-col justify-center overflow-hidden"
+      className="relative overflow-hidden bg-stone-50 dark:bg-zinc-900"
     >
       {/* Subtle teal radial — top right */}
       <div
@@ -23,10 +23,15 @@ export function Hero() {
         }}
       />
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 pt-36 pb-24">
+      {/*
+        The site container — same class as the navbar nav element.
+        flex + justify-center lives HERE so mx-auto works as a normal block,
+        not as a flex-child auto-margin (which shifts position).
+      */}
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 min-h-screen flex flex-col justify-center">
 
-        {/* Width-constraining container — all content inherits this */}
-        <div className="max-w-[660px]">
+        {/* 800px content column — left-flush to parent, no mx-auto */}
+        <div className="w-full max-w-[800px] py-24">
 
           {/* Heading */}
           <h1 className="font-display font-bold tracking-tight mb-8">
