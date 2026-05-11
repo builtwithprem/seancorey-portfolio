@@ -44,8 +44,10 @@ export function Navbar() {
     Two MotionValues drive the nav's background + text colour directly
     on the DOM element — no React re-renders on scroll, 60fps smooth.
   */
-  const navBg    = useMotionValue(rgb(SAGE));   // starts sage = same as hero bg
-  const navColor = useMotionValue(rgb(FOREST)); // starts dark text
+  // In dark mode the hero starts as forest green, so the nav starts dark too
+  const { resolvedTheme } = useTheme();
+  const navBg    = useMotionValue(resolvedTheme === "dark" ? rgb(FOREST) : rgb(SAGE));
+  const navColor = useMotionValue(resolvedTheme === "dark" ? rgb(WHITE)  : rgb(FOREST));
 
   useEffect(() => { setMounted(true); }, []);
 
