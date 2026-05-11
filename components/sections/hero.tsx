@@ -50,11 +50,12 @@ export function Hero() {
         </motion.div>
 
         {/* Headline — line-by-line clip reveal */}
-        <h1 className="font-display font-bold leading-[1.02] tracking-tight mb-10 max-w-5xl">
+        {/* V1 (original, larger): clamp(2.75rem,6.5vw,6.5rem), max-w-5xl */}
+        <h1 className="font-display font-bold leading-[1.05] tracking-tight mb-10 max-w-2xl">
           {headlineLines.map((line, i) => (
             <span key={i} className="block overflow-hidden">
               <motion.span
-                className={`block text-[clamp(2.75rem,6.5vw,6.5rem)] ${
+                className={`block text-[clamp(2rem,4.2vw,4.2rem)] ${
                   line.accent
                     ? "text-teal"
                     : "text-zinc-900 dark:text-zinc-50"
