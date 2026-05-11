@@ -79,32 +79,54 @@ export function Navbar() {
         exactly when the hero is fully transparent.
       */
       const t = Math.min(1, Math.max(0, y / (vh * FADE_THRESHOLD)));
-
       navBg.set(`rgb(${lerp(SAGE[0], FOREST[0], t)},${lerp(SAGE[1], FOREST[1], t)},${lerp(SAGE[2], FOREST[2], t)})`);
       navColor.set(`rgb(${lerp(FOREST[0], WHITE[0], t)},${lerp(FOREST[1], WHITE[1], t)},${lerp(FOREST[2], WHITE[2], t)})`);
       setNavIsDark(t > 0.5);
-    } else {
-      // Binary section detection for sections below the hero
-      const sections = document.querySelectorAll<HTMLElement>("[data-section-theme]");
-      let isDark = true;
-      let matchedId = "";
-      for (const el of sections) {
-        const top    = el.offsetTop;
-        const bottom = top + el.offsetHeight;
-        if (y + NAV_HEIGHT >= top && y + NAV_HEIGHT < bottom) {
-          isDark    = el.dataset.sectionTheme === "dark";
-          matchedId = el.id;
-          break;
-        }
-      }
-      // CTA section (#contact) has its own warm off-white bg — match it exactly
-      const bgColor = isDark           ? rgb(FOREST)
-                    : matchedId === "contact" ? rgb(WARM)
-                    : rgb(SAGE);
-      navBg.set(bgColor);
-      navColor.set(isDark ? rgb(WHITE) : rgb(FOREST));
-      setNavIsDark(isDark);
+      return;
     }
+
+    /*
+      Values transition: progressive reverse — FOREST → SAGE, WHITE → FOREST.
+      Anchored to "values-transition" (the DarkTransitionGroup wrapper) so the
+      navbar fade starts at the exact same moment as the dark overlay fade.
+      Upper bound uses "values" section top so binary detection takes over cleanly.
+    */
+    const transitionEl = document.getElementById("values-transition");
+    const valuesEl     = document.getElementById("values");
+    if (transitionEl && valuesEl) {
+      const groupTop  = transitionEl.getBoundingClientRect().top + y;
+      const valuesTop = valuesEl.getBoundingClientRect().top + y;
+      const fadeRange = vh * FADE_THRESHOLD;
+      const fadeStart = groupTop - fadeRange; // complete when WorkGrid bottom exits viewport
+      if (y >= fadeStart && y < valuesTop) {
+        const t = Math.min(1, Math.max(0, (y - fadeStart) / fadeRange));
+        navBg.set(`rgb(${lerp(FOREST[0], SAGE[0], t)},${lerp(FOREST[1], SAGE[1], t)},${lerp(FOREST[2], SAGE[2], t)})`);
+        navColor.set(`rgb(${lerp(WHITE[0], FOREST[0], t)},${lerp(WHITE[1], FOREST[1], t)},${lerp(WHITE[2], FOREST[2], t)})`);
+        setNavIsDark(t < 0.5);
+        return;
+      }
+    }
+
+    // Binary section detection for all other sections below the hero
+    const sections = document.querySelectorAll<HTMLElement>("[data-section-theme]");
+    let isDark = true;
+    let matchedId = "";
+    for (const el of sections) {
+      const top    = el.offsetTop;
+      const bottom = top + el.offsetHeight;
+      if (y + NAV_HEIGHT >= top && y + NAV_HEIGHT < bottom) {
+        isDark    = el.dataset.sectionTheme === "dark";
+        matchedId = el.id;
+        break;
+      }
+    }
+    // CTA section (#contact) has its own warm off-white bg — match it exactly
+    const bgColor = isDark                    ? rgb(FOREST)
+                  : matchedId === "contact"   ? rgb(WARM)
+                  : rgb(SAGE);
+    navBg.set(bgColor);
+    navColor.set(isDark ? rgb(WHITE) : rgb(FOREST));
+    setNavIsDark(isDark);
   });
 
   return (

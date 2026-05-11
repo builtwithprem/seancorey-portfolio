@@ -1,5 +1,6 @@
 import { HeroGroup } from "@/components/sections/hero-group";
 import { WorkGrid } from "@/components/sections/work-grid";
+import { DarkTransitionGroup } from "@/components/sections/values-group";
 import { Services } from "@/components/sections/services";
 import { About } from "@/components/sections/about";
 import { Cta } from "@/components/sections/cta";
@@ -17,14 +18,7 @@ export default function Home() {
       */}
       <HeroGroup />
       <WorkGrid />
-
-      {/* Dark breathing space — mirrors the spacer after the hero */}
-      <div
-        data-section-theme="dark"
-        aria-hidden
-        className="h-[25vh] bg-[#253631]"
-      />
-
+      <DarkTransitionGroup />
       <Services />
       <About />
       <Cta />

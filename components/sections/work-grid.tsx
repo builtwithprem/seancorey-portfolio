@@ -6,19 +6,94 @@ import { X, ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import { WorkCursor } from "@/components/ui/work-cursor";
 import { projects } from "@/lib/projects";
 
+// ── Per-card component ────────────────────────────────────────────────────────
+function WorkCard({
+  project,
+  idx,
+  selectedId,
+  onSelect,
+  onHoverStart,
+  onHoverEnd,
+}: {
+  project: (typeof projects)[0];
+  idx: number;
+  selectedId: string | null;
+  onSelect: () => void;
+  onHoverStart: () => void;
+  onHoverEnd: () => void;
+}) {
+  const thumbnail = project.images?.[0] ?? null;
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 56 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.75, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <motion.div
+        layoutId={`card-${project.id}`}
+        onClick={onSelect}
+        onMouseEnter={onHoverStart}
+        onMouseLeave={onHoverEnd}
+        className="group cursor-none"
+        style={{
+          opacity: selectedId === project.id ? 0 : 1,
+          pointerEvents: selectedId === project.id ? "none" : "auto",
+          transition: "opacity 0.15s ease",
+        }}
+      >
+        {/*
+          Image expands ~7% beyond its container as it enters view.
+          scale() keeps the rounded corners intact and avoids any layout shift —
+          the transform happens outside the normal flow.
+        */}
+        <motion.div
+          layoutId={`card-image-${project.id}`}
+          className="relative aspect-[2/1] rounded-xl overflow-hidden mb-14"
+          initial={{ scale: 1 }}
+          whileInView={{ scale: 1.07 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {thumbnail ? (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={thumbnail}
+              alt={project.title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          ) : (
+            <div className="absolute inset-0" style={{ background: project.gradient }} />
+          )}
+          <div className="absolute bottom-4 right-4">
+            <span className="text-xs text-white/40 font-sans">{project.year}</span>
+          </div>
+        </motion.div>
+
+        <motion.div layoutId={`card-meta-${project.id}`}>
+          <p className="font-sans text-[1.15rem] leading-relaxed">
+            <span className="font-bold text-white">{project.title}</span>
+            <span className="text-white/50 font-normal"> — {project.description}</span>
+          </p>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+// ── Main grid ────────────────────────────────────────────────────────────────
 export function WorkGrid() {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [imgIdx, setImgIdx]         = useState(0);
   const [isHovering, setIsHovering] = useState(false);
 
-  const selected = projects.find((p) => p.id === selectedId) ?? null;
-  const images   = selected?.images ?? [];
+  const selected    = projects.find((p) => p.id === selectedId) ?? null;
+  const images      = selected?.images ?? [];
   const hasMultiple = images.length > 1;
 
-  // Reset image index when project changes
   useEffect(() => { setImgIdx(0); }, [selectedId]);
 
-  // Keyboard: Escape closes, ← → navigates images
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") { setSelectedId(null); return; }
@@ -30,14 +105,11 @@ export function WorkGrid() {
     return () => window.removeEventListener("keydown", onKey);
   }, [selectedId, images.length]);
 
-  // Lock body scroll while modal is open
   useEffect(() => {
     document.body.style.overflow = selectedId ? "hidden" : "";
-    if (selectedId) setIsHovering(false); // hide cursor when modal opens
+    if (selectedId) setIsHovering(false);
     return () => { document.body.style.overflow = ""; };
   }, [selectedId]);
-
-  const thumbnail = (p: typeof projects[0]) => p.images?.[0] ?? null;
 
   return (
     <section
@@ -46,7 +118,6 @@ export function WorkGrid() {
       className="bg-[#253631] py-24 lg:py-32"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -67,75 +138,27 @@ export function WorkGrid() {
           A selection of projects spanning e-commerce, education, wellness, and mission-driven brands.
         </motion.p>
 
-        {/* 2-col grid — change md:grid-cols-2 → lg:grid-cols-3 to revert to 3 */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-16 lg:gap-y-20">
+        <div className="grid grid-cols-1 gap-y-24 lg:gap-y-32">
           {projects.map((project, idx) => (
-            <motion.div
+            <WorkCard
               key={project.id}
-              initial={{ opacity: 0, y: 56 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.75, delay: idx * 0.12, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <motion.div
-                layoutId={`card-${project.id}`}
-                onClick={() => setSelectedId(project.id)}
-                onMouseEnter={() => setIsHovering(true)}
-                onMouseLeave={() => setIsHovering(false)}
-                className="group cursor-none"
-                style={{
-                  opacity: selectedId === project.id ? 0 : 1,
-                  pointerEvents: selectedId === project.id ? "none" : "auto",
-                  transition: "opacity 0.15s ease",
-                }}
-              >
-                {/* Thumbnail */}
-                <motion.div
-                  layoutId={`card-image-${project.id}`}
-                  className="relative aspect-[4/3] rounded-xl overflow-hidden mb-5"
-                >
-                  {thumbnail(project) ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      src={thumbnail(project)!}
-                      alt={project.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                    />
-                  ) : (
-                    <div
-                      className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                      style={{ background: project.gradient }}
-                    />
-                  )}
-                  <div className="absolute bottom-4 right-4">
-                    <span className="text-xs text-white/40 font-sans">{project.year}</span>
-                  </div>
-                </motion.div>
-
-                {/* Title */}
-                <motion.div layoutId={`card-meta-${project.id}`}>
-                  <h3 className="font-display font-semibold text-[2.2rem] leading-tight text-white group-hover:text-teal transition-colors duration-300">
-                    {project.title}
-                  </h3>
-                </motion.div>
-
-                <p className="text-[1.15rem] text-white/50 leading-relaxed font-sans mt-3">
-                  {project.description}
-                </p>
-              </motion.div>
-            </motion.div>
+              project={project}
+              idx={idx}
+              selectedId={selectedId}
+              onSelect={() => setSelectedId(project.id)}
+              onHoverStart={() => setIsHovering(true)}
+              onHoverEnd={() => setIsHovering(false)}
+            />
           ))}
         </div>
       </div>
 
-      {/* Custom cursor — shown on card hover, hidden while modal is open */}
       <WorkCursor isHovering={isHovering && !selectedId} />
 
-      {/* ─── Expanded modal ──────────────────────────────────────────────── */}
+      {/* ─── Modal ──────────────────────────────────────────────────────── */}
       <AnimatePresence>
         {selectedId && selected && (
           <>
-            {/* Backdrop */}
             <motion.div
               key="backdrop"
               initial={{ opacity: 0 }}
@@ -152,7 +175,6 @@ export function WorkGrid() {
                 className="relative w-full overflow-hidden rounded-2xl flex flex-col lg:flex-row pointer-events-auto"
                 style={{ maxWidth: "1320px", height: "90vh", backgroundColor: "#111c18" }}
               >
-                {/* Close — white on both dark image and light details */}
                 <button
                   onClick={() => setSelectedId(null)}
                   className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white text-[#253631] hover:bg-white/90 flex items-center justify-center shadow-sm transition-colors duration-200"
@@ -161,7 +183,6 @@ export function WorkGrid() {
                   <X size={15} />
                 </button>
 
-                {/* ── Image panel — unified carousel on all screen sizes ── */}
                 <motion.div
                   layoutId={`card-image-${selectedId}`}
                   className="relative flex-shrink-0 w-full aspect-[16/9] lg:aspect-auto lg:w-[65%] lg:self-stretch"
@@ -182,7 +203,6 @@ export function WorkGrid() {
                           />
                         </AnimatePresence>
 
-                        {/* Prev — always visible on mobile, hover on desktop */}
                         {imgIdx > 0 && (
                           <button
                             onClick={() => setImgIdx(i => i - 1)}
@@ -193,7 +213,6 @@ export function WorkGrid() {
                           </button>
                         )}
 
-                        {/* Next */}
                         {imgIdx < images.length - 1 && (
                           <button
                             onClick={() => setImgIdx(i => i + 1)}
@@ -204,7 +223,6 @@ export function WorkGrid() {
                           </button>
                         )}
 
-                        {/* Counter */}
                         {hasMultiple && (
                           <div className="absolute top-4 left-4 z-10 bg-black/30 backdrop-blur-sm rounded-full px-3 py-1">
                             <span className="text-white/75 text-xs font-sans">
@@ -213,7 +231,6 @@ export function WorkGrid() {
                           </div>
                         )}
 
-                        {/* Dot / pill indicators */}
                         {hasMultiple && (
                           <div className="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-10">
                             {images.map((_, i) => (
@@ -237,12 +254,10 @@ export function WorkGrid() {
                   </div>
                 </motion.div>
 
-                {/* ── Details panel — light theme matching hero bg ─────── */}
                 <div
                   className="overflow-y-auto flex-1 p-7 lg:p-10 flex flex-col justify-start lg:justify-center"
                   style={{ backgroundColor: "#D5E3DE" }}
                 >
-                  {/* Title — shared layout animation */}
                   <motion.div layoutId={`card-meta-${selectedId}`} className="mb-5">
                     <h2 className="font-display font-bold text-[clamp(1.5rem,2.5vw,2.25rem)] text-[#253631] leading-tight">
                       {selected.title}
@@ -265,7 +280,6 @@ export function WorkGrid() {
                       {selected.description}
                     </p>
 
-                    {/* CTA — only shown when the project has a url */}
                     {selected.url && (
                       <div className="mb-8">
                         <a
