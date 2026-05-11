@@ -5,53 +5,89 @@ import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Moon, Sun } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
-import { motion } from "motion/react";
+import { motion, useScroll, useMotionValue, useMotionValueEvent } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/layout/logo";
 import { Hamburger, MobileNav } from "@/components/layout/mobile-nav";
 
+const NAV_HEIGHT = 72;
+
+// Hero transition: complete at 60% of vh — matches hero-group.tsx threshold
+const FADE_THRESHOLD = 0.6;
+
+// RGB colour stops
+const SAGE   = [213, 227, 222] as const; // #D5E3DE
+const FOREST = [ 37,  54,  49] as const; // #253631
+const WHITE  = [255, 255, 255] as const;
+
+function lerp(a: number, b: number, t: number) {
+  return Math.round(a + (b - a) * t);
+}
+function rgb(c: readonly [number, number, number]) {
+  return `rgb(${c[0]},${c[1]},${c[2]})`;
+}
+
 const navLinks = [
-  { href: "/#work", label: "Work" },
+  { href: "/#work",     label: "Work"     },
   { href: "/#services", label: "Services" },
-  { href: "/about", label: "About" },
+  { href: "/about",     label: "About"    },
 ];
 
 export function Navbar() {
   const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const [sectionDark, setSectionDark] = useState(false);
+  const [mounted, setMounted]     = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { scrollY } = useScroll();
 
+  /*
+    Two MotionValues drive the nav's background + text colour directly
+    on the DOM element — no React re-renders on scroll, 60fps smooth.
+  */
+  const navBg    = useMotionValue(rgb(SAGE));   // starts sage = same as hero bg
+  const navColor = useMotionValue(rgb(FOREST)); // starts dark text
+
+  useEffect(() => { setMounted(true); }, []);
+
+  // Force white text + transparent bg when mobile nav is open
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    if (mobileOpen) {
+      navColor.set(rgb(WHITE));
+      navBg.set("transparent");
+    }
+  }, [mobileOpen, navBg, navColor]);
 
-  useEffect(() => {
-    const NAV_HEIGHT = 72;
+  useMotionValueEvent(scrollY, "change", (y) => {
+    if (mobileOpen) return; // locked while overlay is open
 
-    const update = () => {
-      const scrollY = window.scrollY;
-      setScrolled(scrollY > 20);
+    const vh = window.innerHeight;
 
+    if (y <= vh) {
+      /*
+        Progressive hero transition.
+        t = 0 at top, t = 1 when fade is complete (at FADE_THRESHOLD × vh).
+        Both bg and text colour reach their final dark/light state at t=1,
+        exactly when the hero is fully transparent.
+      */
+      const t = Math.min(1, Math.max(0, y / (vh * FADE_THRESHOLD)));
+
+      navBg.set(`rgb(${lerp(SAGE[0], FOREST[0], t)},${lerp(SAGE[1], FOREST[1], t)},${lerp(SAGE[2], FOREST[2], t)})`);
+      navColor.set(`rgb(${lerp(FOREST[0], WHITE[0], t)},${lerp(FOREST[1], WHITE[1], t)},${lerp(FOREST[2], WHITE[2], t)})`);
+    } else {
+      // Binary section detection for sections below the hero
       const sections = document.querySelectorAll<HTMLElement>("[data-section-theme]");
+      let isDark = true;
       for (const el of sections) {
-        const top = el.offsetTop;
+        const top    = el.offsetTop;
         const bottom = top + el.offsetHeight;
-        if (scrollY + NAV_HEIGHT >= top && scrollY + NAV_HEIGHT < bottom) {
-          setSectionDark(el.dataset.sectionTheme === "dark");
+        if (y + NAV_HEIGHT >= top && y + NAV_HEIGHT < bottom) {
+          isDark = el.dataset.sectionTheme === "dark";
           break;
         }
       }
-    };
-
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    return () => window.removeEventListener("scroll", update);
-  }, []);
-
-  // Force dark nav text when mobile menu is open
-  const effectiveDark = mobileOpen ? true : sectionDark;
+      navBg.set(isDark    ? rgb(FOREST) : rgb(SAGE));
+      navColor.set(isDark ? rgb(WHITE)  : rgb(FOREST));
+    }
+  });
 
   return (
     <>
@@ -59,33 +95,28 @@ export function Navbar() {
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-        className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          mobileOpen
-            ? "bg-transparent"
-            : scrolled
-            ? sectionDark
-              ? "bg-zinc-950/90 backdrop-blur-md border-b border-white/5"
-              : "bg-white/90 backdrop-blur-md border-b border-black/5 dark:bg-zinc-900/90 dark:border-white/5"
-            : "bg-transparent"
-        )}
+        style={{ backgroundColor: mobileOpen ? "transparent" : navBg }}
+        className="fixed top-0 left-0 right-0 z-50"
       >
-        <nav className="max-w-7xl mx-auto px-6 lg:px-8 h-[72px] flex items-center justify-between">
-          {/* Logo */}
-          <Logo sectionDark={effectiveDark} />
+        {/*
+          color on motion.nav cascades to all children via CSS inheritance.
+          Tailwind preflight makes <a> tags inherit colour, so nav links
+          pick up the interpolated value automatically without explicit classes.
+        */}
+        <motion.nav
+          style={{ color: navColor }}
+          className="max-w-7xl mx-auto px-6 lg:px-8 h-[72px] flex items-center justify-between"
+        >
+          {/* Logo — inherits color from motion.nav */}
+          <Logo />
 
-          {/* Desktop nav links */}
+          {/* Desktop links — no explicit color class, inherits */}
           <ul className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className={cn(
-                    "text-sm tracking-wide transition-colors duration-500 hover:opacity-60",
-                    sectionDark
-                      ? "text-zinc-300"
-                      : "text-zinc-600 dark:text-zinc-400"
-                  )}
+                  className="text-sm tracking-wide hover:opacity-60 transition-opacity duration-300"
                 >
                   {link.label}
                 </Link>
@@ -98,17 +129,13 @@ export function Navbar() {
             {mounted && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className={cn(
-                  "p-2 rounded-full transition-all duration-300 hover:opacity-60",
-                  sectionDark
-                    ? "text-zinc-300"
-                    : "text-zinc-600 dark:text-zinc-400"
-                )}
+                className="p-2 rounded-full hover:opacity-60 transition-opacity duration-300"
                 aria-label="Toggle colour mode"
               >
                 {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
               </button>
             )}
+            {/* Teal button — explicit colours, visible on both sage and forest bg */}
             <Link
               href="mailto:sean@seancorey.net"
               className={cn(
@@ -120,17 +147,12 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile: theme toggle + hamburger */}
+          {/* Mobile */}
           <div className="flex md:hidden items-center gap-2">
             {mounted && !mobileOpen && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className={cn(
-                  "p-2 rounded-full transition-all duration-300",
-                  sectionDark
-                    ? "text-zinc-300"
-                    : "text-zinc-600 dark:text-zinc-400"
-                )}
+                className="p-2 rounded-full hover:opacity-60 transition-opacity duration-300"
                 aria-label="Toggle colour mode"
               >
                 {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
@@ -139,13 +161,11 @@ export function Navbar() {
             <Hamburger
               open={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}
-              sectionDark={effectiveDark}
             />
           </div>
-        </nav>
+        </motion.nav>
       </motion.header>
 
-      {/* Full-screen mobile overlay */}
       <MobileNav open={mobileOpen} onClose={() => setMobileOpen(false)} />
     </>
   );

@@ -47,7 +47,7 @@ export function Services() {
     <section
       id="services"
       data-section-theme="light"
-      className="bg-stone-50 dark:bg-zinc-900 py-24 lg:py-32"
+      className="bg-[#D5E3DE] py-24 lg:py-32" /* V1: bg-stone-50 dark:bg-zinc-900 */
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
@@ -58,7 +58,7 @@ export function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="text-[10px] uppercase tracking-[0.22em] text-zinc-400 dark:text-zinc-600 font-sans block mb-5"
+              className="text-[10px] uppercase tracking-[0.22em] text-[#253631] font-sans block mb-5" /* V1: text-zinc-400 dark:text-zinc-600 */
             >
               What I do
             </motion.span>
@@ -68,7 +68,7 @@ export function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-bold text-[clamp(1.75rem,3.5vw,3rem)] text-zinc-900 dark:text-zinc-50 leading-tight mb-10"
+              className="font-display font-bold text-[clamp(1.75rem,3.5vw,3rem)] text-[#253631] leading-tight mb-10" /* V1: text-zinc-900 dark:text-zinc-50 */
             >
               Design that works as well as it looks.
             </motion.h2>
@@ -81,7 +81,7 @@ export function Services() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.15 + idx * 0.08 }}
-                  className="flex items-start gap-3 text-zinc-600 dark:text-zinc-400 font-sans"
+                  className="flex items-start gap-3 text-[#253631] font-sans" /* V1: text-zinc-600 dark:text-zinc-400 */
                 >
                   <span className="text-terra font-bold text-lg leading-none mt-0.5 flex-shrink-0">
                     +
@@ -110,22 +110,22 @@ export function Services() {
                 >
                   <Link
                     href={`/services#${service.slug}`}
-                    className="group flex items-start gap-5 p-5 rounded-xl hover:bg-white dark:hover:bg-zinc-800 border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700 transition-all duration-300"
+                    className="group flex items-start gap-5 p-5 rounded-xl hover:bg-[#BAD3CD]/40 border border-transparent hover:border-[#253631]/15 transition-all duration-300" /* V1: hover:bg-white hover:border-zinc-200 */
                   >
-                    <div className="w-10 h-10 rounded-lg bg-teal/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-teal/15 transition-colors duration-300">
+                    <div className="w-10 h-10 rounded-lg bg-teal/10 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-teal/20 transition-colors duration-300">
                       <Icon className="text-teal" size={18} />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between mb-1.5">
-                        <h3 className="font-display font-semibold text-zinc-900 dark:text-zinc-50 group-hover:text-teal transition-colors duration-300">
+                        <h3 className="font-display font-semibold text-[#253631] group-hover:text-teal transition-colors duration-300"> {/* V1: text-zinc-900 dark:text-zinc-50 */}
                           {service.title}
                         </h3>
                         <ArrowUpRight
                           size={14}
-                          className="text-zinc-400 group-hover:text-teal group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300 flex-shrink-0 ml-2"
+                          className="text-[#253631] group-hover:text-teal group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all duration-300 flex-shrink-0 ml-2" /* V1: text-zinc-400 */
                         />
                       </div>
-                      <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed font-sans">
+                      <p className="text-sm text-[#253631] leading-relaxed font-sans"> {/* V1: text-zinc-500 dark:text-zinc-400 */}
                         {service.description}
                       </p>
                     </div>

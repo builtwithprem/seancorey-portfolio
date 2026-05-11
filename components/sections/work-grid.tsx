@@ -10,7 +10,7 @@ export function WorkGrid() {
     <section
       id="work"
       data-section-theme="dark"
-      className="bg-zinc-950 py-24 lg:py-32"
+      className="bg-[#253631] py-24 lg:py-32" /* V1: bg-zinc-950 */
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header */}
@@ -32,7 +32,7 @@ export function WorkGrid() {
           >
             <Link
               href="/work"
-              className="hidden md:flex items-center gap-1.5 text-sm text-zinc-500 hover:text-white transition-colors duration-300"
+              className="hidden md:flex items-center gap-1.5 text-sm text-white/40 hover:text-white transition-colors duration-300" /* V1: text-zinc-500 */
             >
               View all projects <ArrowUpRight size={14} />
             </Link>
@@ -60,7 +60,7 @@ export function WorkGrid() {
                     className="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-[1.04]"
                     style={{ background: project.gradient }}
                   />
-                  <div className="absolute inset-0 bg-zinc-950/0 group-hover:bg-zinc-950/10 transition-colors duration-500" />
+                  <div className="absolute inset-0 bg-[#253631]/0 group-hover:bg-[#253631]/10 transition-colors duration-500" /> {/* V1: bg-zinc-950/0 */}
                   <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                     <div className="w-8 h-8 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center">
                       <ArrowUpRight size={14} className="text-white" />
@@ -81,7 +81,7 @@ export function WorkGrid() {
                   <h3 className="font-display font-semibold text-xl text-white group-hover:text-teal transition-colors duration-300">
                     {project.title}
                   </h3>
-                  <p className="text-sm text-zinc-500 leading-relaxed font-sans">
+                  <p className="text-sm text-white/50 leading-relaxed font-sans"> {/* V1: text-zinc-500 */}
                     {project.description}
                   </p>
                 </div>
@@ -98,18 +98,18 @@ export function WorkGrid() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-14 flex items-center justify-between"
         >
-          <span className="text-sm text-zinc-700 font-sans">
+          <span className="text-sm text-white/30 font-sans"> {/* V1: text-zinc-700 */}
             Showing {projects.length} of {projects.length}
           </span>
           <Link
             href="/work"
-            className="flex md:hidden items-center gap-1.5 text-sm text-zinc-500 hover:text-white transition-colors duration-300"
+            className="flex md:hidden items-center gap-1.5 text-sm text-white/40 hover:text-white transition-colors duration-300" /* V1: text-zinc-500 */
           >
             View all <ArrowUpRight size={14} />
           </Link>
           <Link
             href="/work"
-            className="hidden md:flex items-center gap-1.5 text-sm text-zinc-500 hover:text-white transition-colors duration-300"
+            className="hidden md:flex items-center gap-1.5 text-sm text-white/40 hover:text-white transition-colors duration-300" /* V1: text-zinc-500 */
           >
             Let&apos;s work together <ArrowUpRight size={14} />
           </Link>

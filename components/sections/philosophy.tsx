@@ -28,7 +28,7 @@ export function Philosophy() {
     <section
       id="philosophy"
       data-section-theme="light"
-      className="bg-white dark:bg-zinc-950 py-24 lg:py-32 border-t border-zinc-100 dark:border-zinc-800"
+      className="bg-[#D5E3DE] py-24 lg:py-32 border-t border-[#253631]/12" /* V1: bg-white dark:bg-zinc-950 border-zinc-100 dark:border-zinc-800 */
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Heading */}
@@ -37,7 +37,7 @@ export function Philosophy() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display font-bold text-[clamp(1.75rem,3vw,2.75rem)] text-zinc-900 dark:text-zinc-50 mb-16"
+          className="font-display font-bold text-[clamp(1.75rem,3vw,2.75rem)] text-[#253631] mb-16" /* V1: text-zinc-900 dark:text-zinc-50 */
         >
           How I work
         </motion.h2>
@@ -56,28 +56,21 @@ export function Philosophy() {
                 ease: [0.22, 1, 0.36, 1],
               }}
             >
-              {/* Numbered badge */}
-              <div
-                className="w-9 h-9 rounded-full flex items-center justify-center mb-5"
-                style={{
-                  backgroundColor: "oklch(0.49 0.13 44 / 10%)",
-                }}
-              >
-                <span
-                  className="font-display font-semibold text-sm"
-                  style={{ color: "oklch(0.49 0.13 44)" }}
-                >
+              {/* Numbered badge — teal, matching Services section icons */}
+              {/* V1: style={{ backgroundColor: "oklch(0.49 0.13 44 / 10%)" }} (terra) */}
+              <div className="w-9 h-9 rounded-full bg-teal/10 flex items-center justify-center mb-5">
+                <span className="font-display font-semibold text-sm text-teal">
                   {p.number}
                 </span>
               </div>
 
               {/* Title */}
-              <h3 className="font-display font-semibold text-lg text-zinc-900 dark:text-zinc-50 mb-3">
+              <h3 className="font-display font-semibold text-lg text-[#253631] mb-3"> {/* V1: text-zinc-900 dark:text-zinc-50 */}
                 {p.title}
               </h3>
 
               {/* Description */}
-              <p className="text-base text-zinc-500 dark:text-zinc-400 leading-relaxed font-sans">
+              <p className="text-base text-[#253631] leading-relaxed font-sans"> {/* V1: text-zinc-500 dark:text-zinc-400 */}
                 {p.description}
               </p>
             </motion.div>

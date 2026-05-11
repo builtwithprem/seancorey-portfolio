@@ -11,7 +11,7 @@ export function Hero() {
     <section
       id="hero"
       data-section-theme="light"
-      className="relative overflow-hidden bg-stone-50 dark:bg-zinc-900"
+      className="relative min-h-screen overflow-hidden bg-[#D5E3DE]"
     >
       {/* Subtle teal radial — top right */}
       <div
@@ -19,24 +19,17 @@ export function Hero() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 60% 60% at 90% 5%, oklch(0.61 0.062 198 / 5%), transparent)",
+            "radial-gradient(ellipse 60% 60% at 90% 5%, oklch(0.61 0.062 198 / 7%), transparent)",
         }}
       />
 
-      {/*
-        The site container — same class as the navbar nav element.
-        flex + justify-center lives HERE so mx-auto works as a normal block,
-        not as a flex-child auto-margin (which shifts position).
-      */}
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 min-h-screen flex flex-col justify-center">
+      {/* 150px top padding keeps content clear of the 72px fixed navbar */}
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 flex flex-col pt-[9.375rem]">
+        <div className="w-full max-w-[800px] pb-24">
 
-        {/* 800px content column — left-flush to parent, no mx-auto */}
-        <div className="w-full max-w-[800px] py-24">
-
-          {/* Heading */}
           <h1 className="font-display font-bold tracking-tight mb-8">
             <motion.span
-              className="block text-[clamp(2.25rem,5vw,4.5rem)] text-teal leading-[1.1] mb-1"
+              className="block text-[clamp(2.25rem,5vw,4.5rem)] text-[#253631] leading-[1.1] mb-3"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
@@ -44,7 +37,7 @@ export function Hero() {
               Hi, I&apos;m Sean,
             </motion.span>
             <motion.span
-              className="block text-[clamp(2.25rem,5vw,4.5rem)] text-zinc-900 dark:text-zinc-50 leading-[1.1]"
+              className="block text-[clamp(2.25rem,5vw,4.5rem)] text-[#253631] leading-[1.1]"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -53,25 +46,20 @@ export function Hero() {
             </motion.span>
           </h1>
 
-          {/* Body copy */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.55, ease: "easeOut" }}
-            className="space-y-4 mb-10"
+            className="mb-10"
           >
-            <p className="text-lg text-zinc-500 dark:text-zinc-400 leading-relaxed font-sans">
-              As your web designer and creative director, I bring 20 years of
-              craft and judgment to every project, combining human insight with
-              an AI-powered workflow to deliver something that&apos;s fast,
-              thoughtful, and distinctly yours.
-            </p>
-            <p className="text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed font-sans font-medium">
-              Together, we build a web presence worth having.
+            <p className="text-[1.5rem] text-[#253631] leading-relaxed font-sans">
+              I bring 20 years of craft and judgment to every project, combining{" "}
+              <strong className="font-semibold">human insight</strong> with an{" "}
+              <strong className="font-semibold">AI-powered workflow</strong>{" "}
+              to deliver something that&apos;s fast, thoughtful, and distinctly yours.
             </p>
           </motion.div>
 
-          {/* CTAs */}
           <motion.div
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
@@ -82,7 +70,7 @@ export function Hero() {
               href="/#work"
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "bg-teal hover:bg-teal-dark text-white rounded-full px-8 gap-2 transition-colors duration-300 shadow-none"
+                "bg-[#253631] hover:bg-[#253631]/85 text-white rounded-full px-8 gap-2 transition-colors duration-300 shadow-none"
               )}
             >
               View my work <ArrowRight size={16} />
@@ -91,7 +79,7 @@ export function Hero() {
               href="mailto:sean@seancorey.net"
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
-                "rounded-full px-8 border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-100 dark:hover:bg-zinc-800 shadow-none transition-colors duration-300"
+                "rounded-full px-8 border-[#253631]/30 text-[#253631] hover:bg-[#253631]/8 shadow-none transition-colors duration-300"
               )}
             >
               Get in touch

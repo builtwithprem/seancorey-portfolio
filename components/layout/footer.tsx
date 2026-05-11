@@ -17,7 +17,7 @@ export function Footer() {
   return (
     <footer
       data-section-theme="dark"
-      className="bg-zinc-950 border-t border-white/5"
+      className="bg-[#253631] border-t border-white/5" /* V1: bg-zinc-950 */
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
@@ -29,14 +29,14 @@ export function Footer() {
             >
               Sean Corey
             </Link>
-            <p className="text-sm text-zinc-500 leading-relaxed font-sans max-w-xs">
+            <p className="text-sm text-white/50 leading-relaxed font-sans max-w-xs"> {/* V1: text-zinc-500 */}
               Senior web designer crafting considered digital experiences since 2005.
             </p>
           </div>
 
           {/* Nav */}
           <div>
-            <h3 className="text-xs uppercase tracking-[0.15em] text-zinc-600 mb-5 font-sans">
+            <h3 className="text-xs uppercase tracking-[0.15em] text-white/40 mb-5 font-sans"> {/* V1: text-zinc-600 */}
               Navigation
             </h3>
             <ul className="space-y-3">
@@ -44,7 +44,7 @@ export function Footer() {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="text-sm text-zinc-400 hover:text-white transition-colors duration-200 font-sans"
+                    className="text-sm text-white/50 hover:text-white transition-colors duration-200 font-sans" /* V1: text-zinc-400 */
                   >
                     {link.label}
                   </Link>
@@ -55,12 +55,12 @@ export function Footer() {
 
           {/* Contact */}
           <div>
-            <h3 className="text-xs uppercase tracking-[0.15em] text-zinc-600 mb-5 font-sans">
+            <h3 className="text-xs uppercase tracking-[0.15em] text-white/40 mb-5 font-sans"> {/* V1: text-zinc-600 */}
               Get in touch
             </h3>
             <Link
               href="mailto:sean@seancorey.net"
-              className="text-sm text-zinc-400 hover:text-white transition-colors duration-200 font-sans block mb-6"
+              className="text-sm text-white/50 hover:text-white transition-colors duration-200 font-sans block mb-6" /* V1: text-zinc-400 */
             >
               sean@seancorey.net
             </Link>
@@ -71,7 +71,7 @@ export function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-zinc-500 hover:text-white transition-colors duration-200 font-sans"
+                  className="text-sm text-white/40 hover:text-white transition-colors duration-200 font-sans" /* V1: text-zinc-500 */
                 >
                   {social.label}
                 </Link>
@@ -81,10 +81,10 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/5 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-zinc-600 font-sans">
+          <p className="text-xs text-white/35 font-sans"> {/* V1: text-zinc-600 */}
             © 2026 Sean Corey. All rights reserved.
           </p>
-          <p className="text-xs text-zinc-700 font-sans">
+          <p className="text-xs text-white/25 font-sans"> {/* V1: text-zinc-700 */}
             Designed & built with care.
           </p>
         </div>

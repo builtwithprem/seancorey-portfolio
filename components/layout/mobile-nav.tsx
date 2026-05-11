@@ -38,7 +38,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="fixed inset-0 z-40 bg-zinc-950 flex flex-col"
+          className="fixed inset-0 z-40 bg-[#253631] flex flex-col" /* V1: bg-zinc-950 */
         >
           {/* Inner content */}
           <div className="flex flex-col justify-between h-full px-6 pt-28 pb-12">
@@ -102,10 +102,10 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
 interface HamburgerProps {
   open: boolean;
   onClick: () => void;
-  sectionDark: boolean;
 }
 
-export function Hamburger({ open, onClick, sectionDark }: HamburgerProps) {
+// No sectionDark prop — bars use bg-current and inherit color from parent motion.nav
+export function Hamburger({ open, onClick }: HamburgerProps) {
   return (
     <button
       onClick={onClick}
@@ -113,7 +113,7 @@ export function Hamburger({ open, onClick, sectionDark }: HamburgerProps) {
       aria-expanded={open}
       className={cn(
         "relative w-8 h-8 flex flex-col items-center justify-center gap-0 md:hidden focus-visible:outline-none",
-        open ? "text-white" : sectionDark ? "text-white" : "text-zinc-900 dark:text-white"
+        open && "text-white" // force white when overlay is open
       )}
     >
       <motion.span
