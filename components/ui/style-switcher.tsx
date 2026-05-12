@@ -97,10 +97,11 @@ export function StyleSwitcher() {
                 boxShadow:           "0 8px 32px rgba(0,0,0,0.12)",
               }}
             >
+              <Tooltip.Provider delay={0} closeDelay={0}>
               {SCHEMES.map((scheme, i) => {
                 const isActive = scheme.id === activeId;
                 return (
-                  <Tooltip.Root key={scheme.id} delay={300} closeDelay={0}>
+                  <Tooltip.Root key={scheme.id}>
                     <Tooltip.Trigger
                       render={
                         <motion.button
@@ -143,6 +144,7 @@ export function StyleSwitcher() {
                   </Tooltip.Root>
                 );
               })}
+              </Tooltip.Provider>
             </motion.div>
           </div>
         )}

@@ -11,7 +11,7 @@ export type Scheme = {
 export const SCHEMES = [
   { id: "forest", label: "Forest", light: "#D5E3DE", dark: "#253631", modalBg: "#111c18" },
   { id: "ocean",  label: "Ocean",  light: "#CFDEF0", dark: "#182938", modalBg: "#0c1d2b" },
-  { id: "dusk",   label: "Dusk",   light: "#DCD3EB", dark: "#2E3249", modalBg: "#1a1c2e" },
+  { id: "dusk",   label: "Moon",   light: "#DCD3EB", dark: "#2E3249", modalBg: "#1a1c2e" },
   { id: "terra",  label: "Terra",  light: "#F3E7D0", dark: "#764E34", modalBg: "#3a2118" },
   { id: "mono",   label: "Mono",   light: "#FFFFFF", dark: "#000000", modalBg: "#111111" },
 ] as const satisfies readonly Scheme[];
