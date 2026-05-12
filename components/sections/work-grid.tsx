@@ -61,7 +61,7 @@ function WorkCard({
             <img
               src={thumbnail}
               alt={project.title}
-              className="absolute inset-0 w-full h-full object-cover"
+              className="absolute inset-0 w-full h-full object-cover object-left sm:object-center"
             />
           ) : (
             <div className="absolute inset-0" style={{ background: project.gradient }} />
