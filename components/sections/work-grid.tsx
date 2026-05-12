@@ -177,7 +177,7 @@ export function WorkGrid() {
               >
                 <button
                   onClick={() => setSelectedId(null)}
-                  className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white text-[#253631] hover:bg-white/90 flex items-center justify-center shadow-sm transition-colors duration-200"
+                  className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white text-[#253631] hover:bg-white/90 flex items-center justify-center shadow-sm transition-colors duration-200 cursor-pointer"
                   aria-label="Close"
                 >
                   <X size={15} />
@@ -206,7 +206,7 @@ export function WorkGrid() {
                         {imgIdx > 0 && (
                           <button
                             onClick={() => setImgIdx(i => i - 1)}
-                            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/35 backdrop-blur-sm flex items-center justify-center text-white transition-opacity duration-200 hover:bg-black/55 opacity-100 lg:opacity-0 lg:group-hover:opacity-100"
+                            className="absolute left-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/35 backdrop-blur-sm flex items-center justify-center text-white transition-opacity duration-200 hover:bg-black/55 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 cursor-pointer"
                             aria-label="Previous image"
                           >
                             <ChevronLeft size={18} />
@@ -216,7 +216,7 @@ export function WorkGrid() {
                         {imgIdx < images.length - 1 && (
                           <button
                             onClick={() => setImgIdx(i => i + 1)}
-                            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/35 backdrop-blur-sm flex items-center justify-center text-white transition-opacity duration-200 hover:bg-black/55 opacity-100 lg:opacity-0 lg:group-hover:opacity-100"
+                            className="absolute right-3 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/35 backdrop-blur-sm flex items-center justify-center text-white transition-opacity duration-200 hover:bg-black/55 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 cursor-pointer"
                             aria-label="Next image"
                           >
                             <ChevronRight size={18} />
@@ -238,7 +238,7 @@ export function WorkGrid() {
                                 key={i}
                                 onClick={() => setImgIdx(i)}
                                 aria-label={`Image ${i + 1}`}
-                                className={`rounded-full transition-all duration-250 ${
+                                className={`rounded-full transition-all duration-250 cursor-pointer ${
                                   i === imgIdx
                                     ? "w-5 h-1.5 bg-white"
                                     : "w-1.5 h-1.5 bg-white/40 hover:bg-white/70"

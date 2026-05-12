@@ -40,7 +40,7 @@ export function Services() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
           {/* Left — sticky while right column scrolls */}
-          <div className="lg:sticky lg:top-[88px]">
+          <div className="lg:sticky lg:top-[220px]">
             <motion.h2
               initial={{ opacity: 0, y: 18 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -65,7 +65,7 @@ export function Services() {
           </div>
 
           {/* Right — scrolls past the sticky left column */}
-          <div className="space-y-12">
+          <div className="space-y-12 lg:pt-24">
             {principles.map((p, idx) => (
               <motion.div
                 key={p.number}

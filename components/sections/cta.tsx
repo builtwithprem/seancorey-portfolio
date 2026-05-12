@@ -13,7 +13,7 @@ export function Cta() {
       <section
         id="contact"
         data-section-theme="dark"
-        className="bg-[#253631] py-28 lg:py-40"
+        className="bg-[#253631] pt-[220px] pb-28 lg:pb-40"
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <motion.h2
@@ -46,7 +46,7 @@ export function Cta() {
           >
             <button
               onClick={() => setModalOpen(true)}
-              className="inline-flex items-center gap-2 bg-[#D5E3DE] hover:bg-[#D5E3DE]/85 text-[#253631] rounded-full px-10 h-12 text-base font-sans shadow-none transition-colors duration-300"
+              className="inline-flex items-center gap-2 bg-[#D5E3DE] hover:bg-[#D5E3DE]/85 text-[#253631] rounded-full px-10 h-12 text-base font-sans shadow-none transition-colors duration-300 cursor-pointer"
             >
               Let&apos;s work together <ArrowRight size={16} />
             </button>

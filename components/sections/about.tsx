@@ -6,13 +6,13 @@ const eras = [
   {
     label: "Origin",
     body: [
-      "I’ve spent 20 years building on the internet. In my twenties and thirties, I founded TrueThemes, a WordPress theme business that reached seven figures and became the #1 seller on ThemeForest before I sold it in 2017.",
+      "I've spent 20 years building on the internet. In my twenties and thirties, I founded TrueThemes, a WordPress theme business that reached seven figures and became the #1 seller on ThemeForest before I sold it in 2017.",
     ],
   },
   {
     label: "Shift",
     body: [
-      "Then life changed. I spent five years as the full-time web designer at the Himalayan Institute, one of North America’s most respected yoga and meditation centers. That period reshaped how I see technology and work.",
+      "Then life changed. I spent five years as the full-time web designer at the Himalayan Institute, one of North America's most respected yoga and meditation centers. That period reshaped how I see technology and work.",
     ],
   },
   {
@@ -33,7 +33,7 @@ export function About() {
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
-        {/* Display headline */}
+        {/* Heading */}
         <motion.h2
           initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -41,10 +41,10 @@ export function About() {
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="font-display font-bold text-[#253631] leading-[1.05] text-[clamp(2.4rem,5vw,5rem)] mb-20 lg:mb-28 max-w-4xl"
         >
-          Nice to meet you.
+          A little about me.
         </motion.h2>
 
-        {/* Two-column body */}
+        {/* Two-column body — photo left, eras right */}
         <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-16 lg:gap-24 items-start">
 
           {/* Left — photo */}
@@ -64,7 +64,7 @@ export function About() {
             </div>
           </motion.div>
 
-          {/* Right — narrative paragraphs, each era animates individually */}
+          {/* Right — eras */}
           <div className="space-y-12">
             {eras.map((era, idx) => (
               <motion.div
@@ -90,8 +90,6 @@ export function About() {
           </div>
 
         </div>
-
-
       </div>
     </section>
   );

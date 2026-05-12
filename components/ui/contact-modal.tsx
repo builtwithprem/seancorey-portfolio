@@ -4,7 +4,17 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ArrowRight } from "lucide-react";
 
-type Fields = { name: string; email: string; message: string; honeypot: string };
+const LABEL_CLASS = "block text-[13px] uppercase tracking-[0.2em] text-[#253631] font-sans mb-3";
+
+const projectTypes = [
+  "New website",
+  "Website redesign",
+  "E-commerce",
+  "AI implementation",
+  "Other / Not sure",
+];
+
+type Fields = { name: string; email: string; projectType: string; message: string; honeypot: string };
 type FieldErrors = Partial<Record<"name" | "email" | "message", string>>;
 
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -32,7 +42,7 @@ export function ContactModal({
   isOpen: boolean;
   onClose: () => void;
 }) {
-  const [form, setForm]         = useState<Fields>({ name: "", email: "", message: "", honeypot: "" });
+  const [form, setForm]         = useState<Fields>({ name: "", email: "", projectType: "", message: "", honeypot: "" });
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [submitError, setSubmitError] = useState("");
   const [sending, setSending]   = useState(false);
@@ -45,7 +55,7 @@ export function ContactModal({
     if (isOpen) loadTime.current = Date.now();
     if (!isOpen) {
       const t = setTimeout(() => {
-        setForm({ name: "", email: "", message: "", honeypot: "" });
+        setForm({ name: "", email: "", projectType: "", message: "", honeypot: "" });
         setFieldErrors({});
         setSubmitError("");
         setSent(false);
@@ -82,11 +92,12 @@ export function ContactModal({
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name:      form.name.trim(),
-          email:     form.email.trim(),
-          message:   form.message.trim(),
-          honeypot:  form.honeypot,
-          loadTime:  loadTime.current,
+          name:        form.name.trim(),
+          email:       form.email.trim(),
+          projectType: form.projectType,
+          message:     form.message.trim(),
+          honeypot:    form.honeypot,
+          loadTime:    loadTime.current,
         }),
       });
       if (!res.ok) throw new Error();
@@ -112,7 +123,7 @@ export function ContactModal({
           {/* Close */}
           <button
             onClick={onClose}
-            className="absolute top-6 right-6 w-10 h-10 rounded-full bg-[#253631]/8 hover:bg-[#253631]/15 flex items-center justify-center text-[#253631] transition-colors duration-200"
+            className="absolute top-6 right-6 w-10 h-10 rounded-full bg-[#253631]/8 hover:bg-[#253631]/15 flex items-center justify-center text-[#253631] transition-colors duration-200 cursor-pointer"
             aria-label="Close"
           >
             <X size={18} />
@@ -167,9 +178,9 @@ export function ContactModal({
                     >
                       <label
                         htmlFor="cf-name"
-                        className="block text-[10px] uppercase tracking-[0.2em] text-[#253631]/50 font-sans mb-3"
+                        className={LABEL_CLASS}
                       >
-                        Your Name
+                        Your Name <span className="text-teal">*</span>
                       </label>
                       <input
                         id="cf-name"
@@ -192,9 +203,9 @@ export function ContactModal({
                     >
                       <label
                         htmlFor="cf-email"
-                        className="block text-[10px] uppercase tracking-[0.2em] text-[#253631]/50 font-sans mb-3"
+                        className={LABEL_CLASS}
                       >
-                        Email Address
+                        Email Address <span className="text-teal">*</span>
                       </label>
                       <input
                         id="cf-email"
@@ -209,17 +220,51 @@ export function ContactModal({
                       )}
                     </motion.div>
 
-                    {/* Message */}
+                    {/* What's this for? — optional dropdown */}
                     <motion.div
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ duration: 0.55, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
                     >
                       <label
-                        htmlFor="cf-message"
-                        className="block text-[10px] uppercase tracking-[0.2em] text-[#253631]/50 font-sans mb-3"
+                        htmlFor="cf-project-type"
+                        className={LABEL_CLASS}
                       >
-                        Tell me about your project
+                        What&apos;s this for?
+                        <span className="ml-2 normal-case tracking-normal text-[#253631]/30">optional</span>
+                      </label>
+                      <div className="relative">
+                        <select
+                          id="cf-project-type"
+                          value={form.projectType}
+                          onChange={set("projectType")}
+                          className="w-full bg-transparent border-b border-[#253631]/20 focus:border-[#253631]/60 outline-none font-sans text-[1.15rem] text-[#253631] pb-3 pr-8 transition-colors duration-200 cursor-pointer appearance-none"
+                        >
+                          <option value="" disabled className="text-[#253631]/40">Select one</option>
+                          {projectTypes.map(t => (
+                            <option key={t} value={t} className="bg-[#D5E3DE] text-[#253631]">{t}</option>
+                          ))}
+                        </select>
+                        {/* Custom dropdown arrow */}
+                        <div className="pointer-events-none absolute right-0 bottom-4 text-[#253631]/50">
+                          <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                            <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                          </svg>
+                        </div>
+                      </div>
+                    </motion.div>
+
+                    {/* Message */}
+                    <motion.div
+                      initial={{ opacity: 0, y: 16 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.55, delay: 0.52, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <label
+                        htmlFor="cf-message"
+                        className={LABEL_CLASS}
+                      >
+                        Tell me about your project <span className="text-teal">*</span>
                       </label>
                       <textarea
                         id="cf-message"
@@ -237,14 +282,14 @@ export function ContactModal({
                     <motion.div
                       initial={{ opacity: 0, y: 16 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.55, delay: 0.52, ease: [0.22, 1, 0.36, 1] }}
+                      transition={{ duration: 0.55, delay: 0.62, ease: [0.22, 1, 0.36, 1] }}
                       className="flex flex-col gap-4"
                     >
                       <div>
                         <button
                           type="submit"
                           disabled={sending}
-                          className="inline-flex items-center gap-2 bg-[#253631] hover:bg-[#253631]/85 disabled:opacity-50 text-white rounded-full px-8 h-12 text-sm font-sans transition-colors duration-300"
+                          className="inline-flex items-center gap-2 bg-[#253631] hover:bg-[#253631]/85 disabled:opacity-50 text-white rounded-full px-8 h-12 text-sm font-sans transition-colors duration-300 cursor-pointer"
                         >
                           {sending ? "Sending…" : "Send message"}
                           {!sending && <ArrowRight size={15} />}
@@ -271,7 +316,7 @@ export function ContactModal({
                   </p>
                   <button
                     onClick={onClose}
-                    className="inline-flex items-center gap-2 bg-[#253631] hover:bg-[#253631]/85 text-white rounded-full px-8 h-12 text-sm font-sans transition-colors duration-300"
+                    className="inline-flex items-center gap-2 bg-[#253631] hover:bg-[#253631]/85 text-white rounded-full px-8 h-12 text-sm font-sans transition-colors duration-300 cursor-pointer"
                   >
                     Back to site
                   </button>

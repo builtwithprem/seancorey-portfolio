@@ -172,7 +172,7 @@ export function Navbar() {
               <li key={link.id}>
                 <button
                   onClick={() => scrollTo(link.id)}
-                  className="text-sm tracking-wide hover:opacity-60 transition-opacity duration-300 cursor-pointer"
+                  className="text-base tracking-wide hover:opacity-60 transition-opacity duration-300 cursor-pointer"
                 >
                   {link.label}
                 </button>
@@ -185,7 +185,7 @@ export function Navbar() {
             {mounted && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-full hover:opacity-60 transition-opacity duration-300"
+                className="p-2 rounded-full hover:opacity-60 transition-opacity duration-300 cursor-pointer"
                 aria-label="Toggle colour mode"
               >
                 {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
@@ -214,7 +214,7 @@ export function Navbar() {
             {mounted && !mobileOpen && (
               <button
                 onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-full hover:opacity-60 transition-opacity duration-300"
+                className="p-2 rounded-full hover:opacity-60 transition-opacity duration-300 cursor-pointer"
                 aria-label="Toggle colour mode"
               >
                 {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}

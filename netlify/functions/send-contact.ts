@@ -19,7 +19,7 @@ export default async (req: Request, _context: Context) => {
   }
 
   const body = await req.json();
-  const { name, email, message, honeypot, loadTime } = body;
+  const { name, email, projectType, message, honeypot, loadTime } = body;
 
   // ── Honeypot — bots fill this; humans never see it ────────────────────────
   if (honeypot) {
@@ -65,6 +65,7 @@ export default async (req: Request, _context: Context) => {
       html: `
         <p><strong>Name:</strong> ${name.trim()}</p>
         <p><strong>Email:</strong> <a href="mailto:${email.trim()}">${email.trim()}</a></p>
+        ${projectType ? `<p><strong>Project type:</strong> ${projectType}</p>` : ""}
         <p><strong>Message:</strong></p>
         <p>${message.trim().replace(/\n/g, "<br>")}</p>
       `,

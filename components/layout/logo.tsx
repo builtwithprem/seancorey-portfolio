@@ -8,9 +8,9 @@ export function Logo() {
   const [imgError, setImgError] = useState(false);
 
   return (
-    <Link href="/" className="flex items-center gap-2.5 group">
+    <Link href="/" className="flex items-center gap-2.5 group cursor-pointer">
       {/* Circular headshot */}
-      <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0 flex-shrink-0">
+      <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
         {imgError ? (
           <div className="w-full h-full bg-teal flex items-center justify-center">
             <span className="text-white text-[10px] font-display font-bold tracking-tight">
@@ -29,7 +29,7 @@ export function Logo() {
       </div>
 
       {/* Name — no color class, inherits from parent */}
-      <span className="font-display font-semibold text-base tracking-tight">
+      <span className="font-display font-semibold text-[1.2rem] tracking-tight">
         Sean Corey
       </span>
     </Link>
