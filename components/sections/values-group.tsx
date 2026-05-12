@@ -2,7 +2,7 @@
 
 import { useRef, useEffect } from "react";
 import { useMotionValue, useMotionValueEvent, motion, useScroll } from "motion/react";
-import { getCssColorRgb, getCssColorHex, COLOR_VARS } from "@/lib/palette";
+import { getCssColorRgb, COLOR_VARS } from "@/lib/palette";
 
 function lerp(a: number, b: number, t: number) {
   return Math.round(a + (b - a) * t);
@@ -11,7 +11,7 @@ function lerp(a: number, b: number, t: number) {
 // ─── Dark → Light ─────────────────────────────────────────────────────────────
 export function DarkTransitionGroup() {
   const ref    = useRef<HTMLDivElement>(null);
-  const divBg  = useMotionValue(getCssColorHex(COLOR_VARS.forest));
+  const divBg  = useMotionValue("var(--color-forest)");
   const { scrollY } = useScroll();
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export function DarkTransitionGroup() {
 // ─── Light → Dark ─────────────────────────────────────────────────────────────
 export function LightTransitionGroup() {
   const ref   = useRef<HTMLDivElement>(null);
-  const divBg = useMotionValue(getCssColorHex(COLOR_VARS.sage));
+  const divBg = useMotionValue("var(--color-sage)");
   const { scrollY } = useScroll();
 
   useEffect(() => {

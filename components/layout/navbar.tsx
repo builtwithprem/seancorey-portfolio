@@ -51,17 +51,10 @@ export function Navbar() {
   */
   // In dark mode the hero starts as forest green, so the nav starts dark too
   const { resolvedTheme } = useTheme();
-  // Initial values use SSR-safe fallbacks from getCssColorRgb
-  const navBg    = useMotionValue(
-    resolvedTheme === "dark"
-      ? rgb(getCssColorRgb(COLOR_VARS.forest))
-      : rgb(getCssColorRgb(COLOR_VARS.sage))
-  );
-  const navColor = useMotionValue(
-    resolvedTheme === "dark"
-      ? rgb(WHITE)
-      : rgb(getCssColorRgb(COLOR_VARS.forest))
-  );
+  // Initial values are plain strings — no typeof window branch, no SSR mismatch.
+  // The scroll handler updates these from CSS variables on first interaction.
+  const navBg    = useMotionValue(resolvedTheme === "dark" ? "rgb(37,54,49)"   : "rgb(213,227,222)");
+  const navColor = useMotionValue(resolvedTheme === "dark" ? "rgb(255,255,255)" : "rgb(37,54,49)");
 
   useEffect(() => { setMounted(true); }, []);
 
