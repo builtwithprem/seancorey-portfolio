@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Sun } from "lucide-react";
+import { Tooltip } from "@base-ui/react/tooltip";
 import { SCHEMES, applyScheme, type Scheme } from "@/lib/schemes";
 
 const STORAGE_KEY = "palette-scheme";
@@ -68,9 +69,10 @@ export function StyleSwitcher() {
         <Sun size={18} />
       </button>
 
-      {/* Dropdown panel — plain div centres it, motion.div animates it */}
+      {/* Dropdown panel */}
       <AnimatePresence>
         {open && (
+          // Plain div owns the centering transform; motion.div handles animation only
           <div
             style={{
               position: "absolute",
@@ -98,27 +100,47 @@ export function StyleSwitcher() {
               {SCHEMES.map((scheme, i) => {
                 const isActive = scheme.id === activeId;
                 return (
-                  <motion.button
-                    key={scheme.id}
-                    initial={{ opacity: 0, scale: 0.7 }}
-                    animate={{ opacity: 1, scale: 1   }}
-                    transition={{ duration: 0.15, delay: i * 0.04 }}
-                    onClick={() => select(scheme)}
-                    aria-label={scheme.label}
-                    title={scheme.label}
-                    className="relative w-7 h-7 rounded-full cursor-pointer transition-transform duration-150 hover:scale-110 flex-shrink-0"
-                    style={{
-                      backgroundColor: scheme.light,
-                      boxShadow: isActive
-                        ? `0 0 0 2px ${scheme.light}, 0 0 0 3.5px ${scheme.dark}`
-                        : "0 1px 3px rgba(0,0,0,0.25)",
-                    }}
-                  >
-                    <span
-                      className="absolute inset-0 m-auto w-2 h-2 rounded-full pointer-events-none"
-                      style={{ backgroundColor: scheme.dark, opacity: isActive ? 1 : 0.4 }}
+                  <Tooltip.Root key={scheme.id} delay={300} closeDelay={0}>
+                    <Tooltip.Trigger
+                      render={
+                        <motion.button
+                          initial={{ opacity: 0, scale: 0.7 }}
+                          animate={{ opacity: 1, scale: 1   }}
+                          transition={{ duration: 0.15, delay: i * 0.04 }}
+                          whileHover={{ scale: 1.12 }}
+                          onClick={() => select(scheme)}
+                          aria-label={scheme.label}
+                          className="relative w-7 h-7 rounded-full cursor-pointer flex-shrink-0"
+                          style={{
+                            backgroundColor: scheme.light,
+                            boxShadow: isActive
+                              ? `0 0 0 2px ${scheme.light}, 0 0 0 3.5px ${scheme.dark}`
+                              : "0 1px 3px rgba(0,0,0,0.25)",
+                          }}
+                        >
+                          <span
+                            className="absolute inset-0 m-auto w-2 h-2 rounded-full pointer-events-none"
+                            style={{ backgroundColor: scheme.dark, opacity: isActive ? 1 : 0.4 }}
+                          />
+                        </motion.button>
+                      }
                     />
-                  </motion.button>
+                    <Tooltip.Portal>
+                      <Tooltip.Positioner side="right" sideOffset={10}>
+                        <Tooltip.Popup
+                          className="px-2.5 py-1 rounded-full text-[11px] font-sans font-medium tracking-wide"
+                          style={{
+                            backgroundColor: "color-mix(in srgb, var(--color-forest) 90%, transparent)",
+                            color:           "var(--color-sage)",
+                            backdropFilter:  "blur(8px)",
+                            border:          "1px solid color-mix(in srgb, var(--color-forest) 60%, transparent)",
+                          }}
+                        >
+                          {scheme.label}
+                        </Tooltip.Popup>
+                      </Tooltip.Positioner>
+                    </Tooltip.Portal>
+                  </Tooltip.Root>
                 );
               })}
             </motion.div>
