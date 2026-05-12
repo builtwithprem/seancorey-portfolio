@@ -73,7 +73,7 @@ export function ContactModal({
   }, [onClose]);
 
   const set = (field: keyof Fields) =>
-    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
       setForm(f => ({ ...f, [field]: e.target.value }));
       // Clear that field's error as the user types
       if (field !== "honeypot")
