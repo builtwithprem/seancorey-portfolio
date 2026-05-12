@@ -50,7 +50,7 @@ function WorkCard({
         */}
         <motion.div
           layoutId={`card-image-${project.id}`}
-          className="relative aspect-square sm:aspect-[2/1] rounded-xl overflow-hidden mb-8 sm:mb-12"
+          className="relative h-[75vh] sm:h-auto sm:aspect-[2/1] rounded-xl overflow-hidden mb-8 sm:mb-12"
           initial={{ scale: 1 }}
           whileInView={{ scale: 1.07 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -138,35 +138,7 @@ export function WorkGrid() {
           A selection of projects spanning e-commerce, education, wellness, and mission-driven brands.
         </motion.p>
 
-        {/* ── Mobile: horizontal snap carousel ───────────────────────── */}
-        <div className="md:hidden overflow-x-auto snap-x snap-mandatory -mx-6 px-6 pb-4 flex gap-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {projects.map((project) => {
-            const thumb = project.images?.[0] ?? null;
-            return (
-              <div
-                key={project.id}
-                className="flex-shrink-0 w-[78vw] snap-start cursor-pointer"
-                onClick={() => { setSelectedId(project.id); setIsHovering(false); }}
-              >
-                <div className="aspect-square rounded-xl overflow-hidden mb-5">
-                  {thumb ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={thumb} alt={project.title} className="w-full h-full object-cover" />
-                  ) : (
-                    <div className="w-full h-full" style={{ background: project.gradient }} />
-                  )}
-                </div>
-                <p className="font-sans text-[1rem] leading-snug">
-                  <span className="font-bold text-white">{project.title}</span>
-                  <span className="text-white/50 font-normal"> — {project.description}</span>
-                </p>
-              </div>
-            );
-          })}
-        </div>
-
-        {/* ── Desktop: vertical stack with shared-layout animation ─────── */}
-        <div className="hidden md:grid grid-cols-1 gap-y-24 lg:gap-y-32">
+        <div className="grid grid-cols-1 gap-y-20 sm:gap-y-24 lg:gap-y-32">
           {projects.map((project, idx) => (
             <WorkCard
               key={project.id}
