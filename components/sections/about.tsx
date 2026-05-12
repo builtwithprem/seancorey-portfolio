@@ -71,7 +71,7 @@ export function About() {
                 { label: "Work",       value: "Accepting clients worldwide"             },
               ].map(({ label, value }) => (
                 <div key={label} className="flex items-baseline gap-2 py-3.5">
-                  <span className="text-[0.7rem] uppercase tracking-[0.18em] text-forest/45 font-sans shrink-0 w-20">
+                  <span className="text-[0.7rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans shrink-0 w-20">
                     {label}
                   </span>
                   <span className="text-[0.95rem] text-forest/80 font-sans leading-snug">
