@@ -68,57 +68,61 @@ export function StyleSwitcher() {
         <Sun size={18} />
       </button>
 
-      {/* Dropdown panel */}
+      {/* Dropdown panel — plain div centres it, motion.div animates it */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ opacity: 0, y: -6, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0,  scale: 1   }}
-            exit={{    opacity: 0, y: -6, scale: 0.9 }}
-            transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute top-full mt-2 z-[301] flex flex-col items-center gap-2.5 px-2.5 py-3 rounded-full"
+          <div
             style={{
-              left:                "50%",
-              transform:           "translateX(-50%)",
-              // Frosted glass tinted with the active scheme's light colour
-              background:          "color-mix(in srgb, var(--color-sage) 45%, transparent)",
-              backdropFilter:      "blur(24px)",
-              WebkitBackdropFilter:"blur(24px)",
-              border:              "1px solid color-mix(in srgb, var(--color-forest) 12%, transparent)",
-              boxShadow:           "0 8px 32px rgba(0,0,0,0.12)",
+              position: "absolute",
+              top:       "100%",
+              left:      "50%",
+              transform: "translateX(-50%)",
+              marginTop: "8px",
+              zIndex:    301,
             }}
           >
-            {SCHEMES.map((scheme, i) => {
-              const isActive = scheme.id === activeId;
-              return (
-                <motion.button
-                  key={scheme.id}
-                  initial={{ opacity: 0, scale: 0.7 }}
-                  animate={{ opacity: 1, scale: 1   }}
-                  transition={{ duration: 0.15, delay: i * 0.04 }}
-                  onClick={() => select(scheme)}
-                  aria-label={scheme.label}
-                  title={scheme.label}
-                  className="relative w-7 h-7 rounded-full cursor-pointer transition-transform duration-150 hover:scale-110 flex-shrink-0"
-                  style={{
-                    backgroundColor: scheme.light,
-                    boxShadow: isActive
-                      ? `0 0 0 2px ${scheme.light}, 0 0 0 3.5px ${scheme.dark}`
-                      : "0 1px 3px rgba(0,0,0,0.25)",
-                  }}
-                >
-                  {/* Inner pip in the dark colour so each swatch is legible */}
-                  <span
-                    className="absolute inset-0 m-auto w-2 h-2 rounded-full pointer-events-none"
+            <motion.div
+              initial={{ opacity: 0, y: -6, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0,  scale: 1   }}
+              exit={{    opacity: 0, y: -6, scale: 0.9 }}
+              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              className="flex flex-col items-center gap-2.5 px-2.5 py-3 rounded-full"
+              style={{
+                background:          "color-mix(in srgb, var(--color-sage) 45%, transparent)",
+                backdropFilter:      "blur(24px)",
+                WebkitBackdropFilter:"blur(24px)",
+                border:              "1px solid color-mix(in srgb, var(--color-forest) 12%, transparent)",
+                boxShadow:           "0 8px 32px rgba(0,0,0,0.12)",
+              }}
+            >
+              {SCHEMES.map((scheme, i) => {
+                const isActive = scheme.id === activeId;
+                return (
+                  <motion.button
+                    key={scheme.id}
+                    initial={{ opacity: 0, scale: 0.7 }}
+                    animate={{ opacity: 1, scale: 1   }}
+                    transition={{ duration: 0.15, delay: i * 0.04 }}
+                    onClick={() => select(scheme)}
+                    aria-label={scheme.label}
+                    title={scheme.label}
+                    className="relative w-7 h-7 rounded-full cursor-pointer transition-transform duration-150 hover:scale-110 flex-shrink-0"
                     style={{
-                      backgroundColor: scheme.dark,
-                      opacity: isActive ? 1 : 0.4,
+                      backgroundColor: scheme.light,
+                      boxShadow: isActive
+                        ? `0 0 0 2px ${scheme.light}, 0 0 0 3.5px ${scheme.dark}`
+                        : "0 1px 3px rgba(0,0,0,0.25)",
                     }}
-                  />
-                </motion.button>
-              );
-            })}
-          </motion.div>
+                  >
+                    <span
+                      className="absolute inset-0 m-auto w-2 h-2 rounded-full pointer-events-none"
+                      style={{ backgroundColor: scheme.dark, opacity: isActive ? 1 : 0.4 }}
+                    />
+                  </motion.button>
+                );
+              })}
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </div>
