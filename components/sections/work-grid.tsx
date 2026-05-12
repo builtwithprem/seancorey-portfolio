@@ -115,7 +115,7 @@ export function WorkGrid() {
     <section
       id="work"
       data-section-theme="dark"
-      className="bg-[#253631] py-24 lg:py-32"
+      className="bg-forest py-24 lg:py-32"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.h2
@@ -173,11 +173,11 @@ export function WorkGrid() {
               <motion.div
                 layoutId={`card-${selectedId}`}
                 className="relative w-full overflow-hidden rounded-2xl flex flex-col lg:flex-row pointer-events-auto"
-                style={{ maxWidth: "1320px", height: "90vh", backgroundColor: "#111c18" }}
+                style={{ maxWidth: "1320px", height: "90vh", backgroundColor: "var(--color-modal-bg)" }}
               >
                 <button
                   onClick={() => setSelectedId(null)}
-                  className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white text-[#253631] hover:bg-white/90 flex items-center justify-center shadow-sm transition-colors duration-200 cursor-pointer"
+                  className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-white text-forest hover:bg-white/90 flex items-center justify-center shadow-sm transition-colors duration-200 cursor-pointer"
                   aria-label="Close"
                 >
                   <X size={15} />
@@ -256,10 +256,10 @@ export function WorkGrid() {
 
                 <div
                   className="overflow-y-auto flex-1 p-7 lg:p-10 flex flex-col justify-start lg:justify-center"
-                  style={{ backgroundColor: "#D5E3DE" }}
+                  style={{ backgroundColor: "var(--color-sage)" }}
                 >
                   <motion.div layoutId={`card-meta-${selectedId}`} className="mb-5">
-                    <h2 className="font-display font-bold text-[clamp(1.5rem,2.5vw,2.25rem)] text-[#253631] leading-tight">
+                    <h2 className="font-display font-bold text-[clamp(1.5rem,2.5vw,2.25rem)] text-forest leading-tight">
                       {selected.title}
                     </h2>
                   </motion.div>
@@ -273,10 +273,10 @@ export function WorkGrid() {
                       <span className="text-[10px] uppercase tracking-[0.18em] text-teal font-sans">
                         {selected.category}
                       </span>
-                      <span className="text-[#253631]/40 text-xs font-sans">{selected.year}</span>
+                      <span className="text-forest/40 text-xs font-sans">{selected.year}</span>
                     </div>
 
-                    <p className="text-[#253631]/70 leading-relaxed font-sans text-sm mb-8">
+                    <p className="text-forest/70 leading-relaxed font-sans text-sm mb-8">
                       {selected.description}
                     </p>
 
@@ -286,18 +286,18 @@ export function WorkGrid() {
                           href={selected.url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 bg-[#253631] hover:bg-[#253631]/85 text-white rounded-full px-7 h-11 text-sm font-sans transition-colors duration-300"
+                          className="inline-flex items-center gap-2 bg-forest hover:bg-forest/85 text-white rounded-full px-7 h-11 text-sm font-sans transition-colors duration-300"
                         >
                           Visit website <ArrowUpRight size={15} />
                         </a>
                       </div>
                     )}
 
-                    <div className="border-t border-[#253631]/15 pt-6">
-                      <p className="text-[10px] uppercase tracking-[0.15em] text-[#253631]/40 font-sans mb-3">
+                    <div className="border-t border-forest/15 pt-6">
+                      <p className="text-[10px] uppercase tracking-[0.15em] text-forest/40 font-sans mb-3">
                         Case Study
                       </p>
-                      <p className="text-[#253631]/55 font-sans text-sm leading-relaxed">
+                      <p className="text-forest/55 font-sans text-sm leading-relaxed">
                         Full case study coming soon. Get in touch to hear about this project.
                       </p>
                     </div>

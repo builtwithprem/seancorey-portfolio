@@ -1,24 +1,22 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { Moon, Sun } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { motion, useScroll, useMotionValue, useMotionValueEvent } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/layout/logo";
 import { Hamburger, MobileNav } from "@/components/layout/mobile-nav";
+import { getCssColorRgb, COLOR_VARS } from "@/lib/palette";
+import { StyleSwitcher } from "@/components/ui/style-switcher";
 
 const NAV_HEIGHT = 72;
 
 // Hero transition: complete at 60% of vh — matches hero-group.tsx threshold
 const FADE_THRESHOLD = 0.6;
 
-// RGB colour stops
-const SAGE   = [213, 227, 222] as const; // #D5E3DE
-const FOREST = [ 37,  54,  49] as const; // #253631
-const WHITE  = [255, 255, 255] as const;
+// Static white stop — unchanged by theme
+const WHITE = [255, 255, 255] as const;
 
 function lerp(a: number, b: number, t: number) {
   return Math.round(a + (b - a) * t);
@@ -40,20 +38,15 @@ function scrollTo(id: string) {
 }
 
 export function Navbar() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted]     = useState(false);
+  const [mounted, setMounted]       = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [navIsDark, setNavIsDark]   = useState(false); // drives "Work with me" button style
+  const [navIsDark, setNavIsDark]   = useState(false);
   const { scrollY } = useScroll();
 
-  /*
-    Two MotionValues drive the nav's background + text colour directly
-    on the DOM element — no React re-renders on scroll, 60fps smooth.
-  */
-  // In dark mode the hero starts as forest green, so the nav starts dark too
-  const { resolvedTheme } = useTheme();
-  const navBg    = useMotionValue(resolvedTheme === "dark" ? rgb(FOREST) : rgb(SAGE));
-  const navColor = useMotionValue(resolvedTheme === "dark" ? rgb(WHITE)  : rgb(FOREST));
+  // Initial values are plain strings — no typeof window branch, no SSR mismatch.
+  // The scroll handler updates these from CSS variables on first interaction.
+  const navBg    = useMotionValue("rgb(213,227,222)"); // sage default
+  const navColor = useMotionValue("rgb(37,54,49)");    // forest default
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -65,85 +58,76 @@ export function Navbar() {
     }
   }, [mobileOpen, navBg, navColor]);
 
-  useMotionValueEvent(scrollY, "change", (y) => {
-    if (mobileOpen) return; // locked while overlay is open
+  // Extracted into useCallback so 'palette-tick' events can trigger it too
+  const updateNavColors = useCallback((y: number) => {
+    if (mobileOpen) return;
 
-    const vh = window.innerHeight;
+    const vh     = window.innerHeight;
+    const FOREST = getCssColorRgb(COLOR_VARS.forest);
+    const SAGE   = getCssColorRgb(COLOR_VARS.sage);
 
     if (y <= vh) {
-      /*
-        Progressive hero transition.
-        t = 0 at top, t = 1 when fade is complete (at FADE_THRESHOLD × vh).
-        Both bg and text colour reach their final dark/light state at t=1,
-        exactly when the hero is fully transparent.
-      */
       const t = Math.min(1, Math.max(0, y / (vh * FADE_THRESHOLD)));
-      navBg.set(`rgb(${lerp(SAGE[0], FOREST[0], t)},${lerp(SAGE[1], FOREST[1], t)},${lerp(SAGE[2], FOREST[2], t)})`);
-      navColor.set(`rgb(${lerp(FOREST[0], WHITE[0], t)},${lerp(FOREST[1], WHITE[1], t)},${lerp(FOREST[2], WHITE[2], t)})`);
+      navBg.set(`rgb(${lerp(SAGE[0],FOREST[0],t)},${lerp(SAGE[1],FOREST[1],t)},${lerp(SAGE[2],FOREST[2],t)})`);
+      navColor.set(`rgb(${lerp(FOREST[0],WHITE[0],t)},${lerp(FOREST[1],WHITE[1],t)},${lerp(FOREST[2],WHITE[2],t)})`);
       setNavIsDark(t > 0.5);
       return;
     }
 
-    /*
-      Values transition: progressive reverse — FOREST → SAGE, WHITE → FOREST.
-      Anchored to "values-transition" (the DarkTransitionGroup wrapper) so the
-      navbar fade starts at the exact same moment as the dark overlay fade.
-      Upper bound uses "values" section top so binary detection takes over cleanly.
-    */
     const transitionEl = document.getElementById("values-transition");
     const valuesEl     = document.getElementById("values");
     if (transitionEl && valuesEl) {
       const groupTop  = transitionEl.getBoundingClientRect().top + y;
       const valuesTop = valuesEl.getBoundingClientRect().top + y;
       const fadeRange = vh * FADE_THRESHOLD;
-      const fadeStart = groupTop - fadeRange; // complete when WorkGrid bottom exits viewport
+      const fadeStart = groupTop - fadeRange;
       if (y >= fadeStart && y < valuesTop) {
         const t = Math.min(1, Math.max(0, (y - fadeStart) / fadeRange));
-        navBg.set(`rgb(${lerp(FOREST[0], SAGE[0], t)},${lerp(FOREST[1], SAGE[1], t)},${lerp(FOREST[2], SAGE[2], t)})`);
-        navColor.set(`rgb(${lerp(WHITE[0], FOREST[0], t)},${lerp(WHITE[1], FOREST[1], t)},${lerp(WHITE[2], FOREST[2], t)})`);
+        navBg.set(`rgb(${lerp(FOREST[0],SAGE[0],t)},${lerp(FOREST[1],SAGE[1],t)},${lerp(FOREST[2],SAGE[2],t)})`);
+        navColor.set(`rgb(${lerp(WHITE[0],FOREST[0],t)},${lerp(WHITE[1],FOREST[1],t)},${lerp(WHITE[2],FOREST[2],t)})`);
         setNavIsDark(t < 0.5);
         return;
       }
     }
 
-    /*
-      About → Contact: progressive SAGE → FOREST, FOREST → WHITE.
-      Mirrors the hero direction (light→dark). Anchored to "about-transition"
-      so navbar syncs to LightTransitionGroup's exact timing.
-    */
     const aboutTransitionEl = document.getElementById("about-transition");
     const contactEl         = document.getElementById("contact");
     if (aboutTransitionEl && contactEl) {
-      const aboutGroupTop = aboutTransitionEl.getBoundingClientRect().top + y;
-      const contactTop    = contactEl.getBoundingClientRect().top + y;
+      const aboutGroupTop  = aboutTransitionEl.getBoundingClientRect().top + y;
+      const contactTop     = contactEl.getBoundingClientRect().top + y;
       const aboutFadeStart = aboutGroupTop - vh * FADE_THRESHOLD;
       if (y >= aboutFadeStart && y < contactTop) {
         const t = Math.min(1, Math.max(0, (y - aboutFadeStart) / (vh * FADE_THRESHOLD)));
-        navBg.set(`rgb(${lerp(SAGE[0], FOREST[0], t)},${lerp(SAGE[1], FOREST[1], t)},${lerp(SAGE[2], FOREST[2], t)})`);
-        navColor.set(`rgb(${lerp(FOREST[0], WHITE[0], t)},${lerp(FOREST[1], WHITE[1], t)},${lerp(FOREST[2], WHITE[2], t)})`);
+        navBg.set(`rgb(${lerp(SAGE[0],FOREST[0],t)},${lerp(SAGE[1],FOREST[1],t)},${lerp(SAGE[2],FOREST[2],t)})`);
+        navColor.set(`rgb(${lerp(FOREST[0],WHITE[0],t)},${lerp(FOREST[1],WHITE[1],t)},${lerp(FOREST[2],WHITE[2],t)})`);
         setNavIsDark(t > 0.5);
         return;
       }
     }
 
-    // Binary section detection for all other sections below the hero
     const sections = document.querySelectorAll<HTMLElement>("[data-section-theme]");
     let isDark = true;
-    let matchedId = "";
     for (const el of sections) {
       const top    = el.offsetTop;
       const bottom = top + el.offsetHeight;
       if (y + NAV_HEIGHT >= top && y + NAV_HEIGHT < bottom) {
-        isDark    = el.dataset.sectionTheme === "dark";
-        matchedId = el.id;
+        isDark = el.dataset.sectionTheme === "dark";
         break;
       }
     }
-    const bgColor = isDark ? rgb(FOREST) : rgb(SAGE);
-    navBg.set(bgColor);
+    navBg.set(isDark ? rgb(FOREST) : rgb(SAGE));
     navColor.set(isDark ? rgb(WHITE) : rgb(FOREST));
     setNavIsDark(isDark);
-  });
+  }, [mobileOpen, navBg, navColor, setNavIsDark]);
+
+  useMotionValueEvent(scrollY, "change", updateNavColors);
+
+  // Re-run whenever applyScheme fires a palette-tick (once per animation frame)
+  useEffect(() => {
+    const refresh = () => updateNavColors(scrollY.get());
+    window.addEventListener("palette-tick", refresh);
+    return () => window.removeEventListener("palette-tick", refresh);
+  }, [updateNavColors, scrollY]);
 
   return (
     <>
@@ -182,15 +166,7 @@ export function Navbar() {
 
           {/* Desktop actions */}
           <div className="hidden md:flex items-center gap-3">
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-full hover:opacity-60 transition-opacity duration-300 cursor-pointer"
-                aria-label="Toggle colour mode"
-              >
-                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
-            )}
+            {mounted && <StyleSwitcher />}
             {/*
               Light nav: solid dark button — matches "View my work" in hero.
               Dark nav: outline button — matches "Get in touch" style.
@@ -202,7 +178,7 @@ export function Navbar() {
                 "rounded-full px-5 text-sm transition-all duration-300 shadow-none cursor-pointer",
                 navIsDark
                   ? "border border-white/30 bg-transparent text-white hover:bg-white/10"
-                  : "bg-[#253631] hover:bg-[#253631]/85 text-white"
+                  : "bg-forest hover:bg-forest/85 text-white"
               )}
             >
               Work with me
@@ -211,15 +187,7 @@ export function Navbar() {
 
           {/* Mobile */}
           <div className="flex md:hidden items-center gap-2">
-            {mounted && !mobileOpen && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-full hover:opacity-60 transition-opacity duration-300 cursor-pointer"
-                aria-label="Toggle colour mode"
-              >
-                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
-            )}
+            {mounted && !mobileOpen && <StyleSwitcher />}
             <Hamburger
               open={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}

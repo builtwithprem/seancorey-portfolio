@@ -34,7 +34,7 @@ export function Services() {
     <section
       id="values"
       data-section-theme="light"
-      className="bg-[#253631] pt-40 pb-24 lg:pt-56 lg:pb-36"
+      className="bg-forest pt-40 pb-24 lg:pt-56 lg:pb-36"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
@@ -46,7 +46,7 @@ export function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-bold text-[clamp(2rem,4vw,3.5rem)] text-[#253631] leading-tight mb-8"
+              className="font-display font-bold text-[clamp(2rem,4vw,3.5rem)] text-forest leading-tight mb-8"
             >
               My Values
             </motion.h2>
@@ -56,7 +56,7 @@ export function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[1.3rem] text-[#253631]/65 leading-relaxed font-sans"
+              className="text-[1.3rem] text-forest/65 leading-relaxed font-sans"
             >
               I&apos;ve built my process around four things that matter most to clients:
               clear communication, realistic timelines, thoughtful collaboration, and human + AI partnership.
@@ -75,17 +75,17 @@ export function Services() {
                 transition={{ duration: 0.7, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 className="flex gap-6"
               >
-                <div className="w-12 h-12 rounded-full bg-[#253631] flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="font-display font-bold text-base text-[#D5E3DE]">
+                <div className="w-12 h-12 rounded-full bg-forest flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="font-display font-bold text-base text-sage">
                     {p.number}
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="font-display font-semibold text-[1.65rem] leading-tight text-[#253631] mb-2">
+                  <h3 className="font-display font-semibold text-[1.65rem] leading-tight text-forest mb-2">
                     {p.title}
                   </h3>
-                  <p className="text-[1.1rem] text-[#253631]/65 leading-relaxed font-sans">
+                  <p className="text-[1.1rem] text-forest/65 leading-relaxed font-sans">
                     {p.description}
                   </p>
                 </div>
