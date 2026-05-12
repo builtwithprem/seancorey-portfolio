@@ -118,7 +118,7 @@ export function ContactModal({
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.04 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[200] bg-sage flex items-center justify-center px-6 py-20"
+          className="fixed inset-0 z-[200] bg-sage flex items-start sm:items-center justify-center px-6 py-10 sm:py-20 overflow-y-auto"
         >
           {/* Close */}
           <button
@@ -143,12 +143,12 @@ export function ContactModal({
                     initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-display font-bold text-[clamp(2rem,5vw,3.5rem)] text-forest leading-tight mb-12"
+                    className="font-display font-bold text-[clamp(2rem,5vw,3.5rem)] text-forest leading-tight mb-8 sm:mb-12"
                   >
                     Let&apos;s talk.
                   </motion.h2>
 
-                  <form onSubmit={handleSubmit} noValidate className="space-y-10">
+                  <form onSubmit={handleSubmit} noValidate className="space-y-7 sm:space-y-10">
 
                     {/*
                       Honeypot — positioned off-screen so humans never see it.
