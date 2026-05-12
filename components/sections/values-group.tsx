@@ -3,10 +3,7 @@
 import { useRef, useEffect, useCallback } from "react";
 import { useMotionValue, useMotionValueEvent, motion, useScroll } from "motion/react";
 import { getCssColorRgb, COLOR_VARS } from "@/lib/palette";
-
-function lerp(a: number, b: number, t: number) {
-  return Math.round(a + (b - a) * t);
-}
+import { lerp } from "@/lib/utils";
 
 // ─── Dark → Light ─────────────────────────────────────────────────────────────
 export function DarkTransitionGroup() {

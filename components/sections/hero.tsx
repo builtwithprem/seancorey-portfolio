@@ -1,15 +1,10 @@
 "use client";
 
 import { motion } from "motion/react";
-import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { ArrowDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-function scrollToSection(id: string, e?: React.MouseEvent) {
-  e?.preventDefault();
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-}
+import { scrollToSection } from "@/lib/nav";
 
 export function Hero() {
   return (
