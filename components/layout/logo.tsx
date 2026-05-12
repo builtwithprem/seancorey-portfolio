@@ -12,8 +12,8 @@ export function Logo() {
       {/* Circular headshot */}
       <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
         {imgError ? (
-          <div className="w-full h-full bg-teal flex items-center justify-center">
-            <span className="text-white text-[10px] font-display font-bold tracking-tight">
+          <div className="w-full h-full bg-sage flex items-center justify-center">
+            <span className="text-forest text-[10px] font-display font-bold tracking-tight">
               SC
             </span>
           </div>

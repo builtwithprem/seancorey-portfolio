@@ -37,7 +37,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          className="fixed inset-0 z-40 bg-forest flex flex-col"
+          className="fixed inset-0 z-40 bg-sage flex flex-col"
         >
           <div className="flex flex-col justify-between h-full px-6 pt-28 pb-12">
             <nav>
@@ -56,7 +56,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                   >
                     <button
                       onClick={() => { scrollTo(link.id); onClose(); }}
-                      className="block font-display font-bold text-[clamp(2.5rem,8vw,4rem)] text-white hover:opacity-60 transition-opacity duration-300 leading-tight py-2 cursor-pointer"
+                      className="block font-display font-bold text-[clamp(2.5rem,8vw,4rem)] text-forest hover:opacity-50 transition-opacity duration-300 leading-tight py-2 cursor-pointer"
                     >
                       {link.label}
                     </button>
@@ -75,7 +75,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               <a
                 href="mailto:sean@seancorey.net"
                 onClick={onClose}
-                className="text-zinc-400 hover:text-white text-sm font-sans transition-colors duration-200"
+                className="text-forest/50 hover:text-forest text-sm font-sans transition-colors duration-200"
               >
                 sean@seancorey.net
               </a>
@@ -106,7 +106,7 @@ export function Hamburger({ open, onClick }: HamburgerProps) {
       aria-expanded={open}
       className={cn(
         "relative w-8 h-8 flex flex-col items-center justify-center gap-0 md:hidden focus-visible:outline-none",
-        open && "text-white"
+        open && "text-forest"
       )}
     >
       <motion.span

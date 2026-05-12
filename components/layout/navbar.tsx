@@ -50,11 +50,13 @@ export function Navbar() {
 
   useEffect(() => { setMounted(true); }, []);
 
-  // Force white text + transparent bg when mobile nav is open
+  // Mobile nav is now sage/light — keep header forest-coloured over the panel
   useEffect(() => {
     if (mobileOpen) {
-      navColor.set(rgb(WHITE));
-      navBg.set("transparent");
+      const FOREST = getCssColorRgb(COLOR_VARS.forest);
+      const SAGE   = getCssColorRgb(COLOR_VARS.sage);
+      navColor.set(rgb(FOREST));
+      navBg.set(rgb(SAGE));
     }
   }, [mobileOpen, navBg, navColor]);
 
