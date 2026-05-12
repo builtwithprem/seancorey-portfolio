@@ -76,13 +76,16 @@ export function StyleSwitcher() {
             animate={{ opacity: 1, y: 0,  scale: 1   }}
             exit={{    opacity: 0, y: -6, scale: 0.9 }}
             transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute right-0 top-full mt-1 z-[301] flex flex-col items-center gap-2.5 px-2.5 py-3 rounded-2xl"
+            className="absolute top-full mt-2 z-[301] flex flex-col items-center gap-2.5 px-2.5 py-3 rounded-full"
             style={{
-              background:          "rgba(255,255,255,0.12)",
-              backdropFilter:      "blur(16px)",
-              WebkitBackdropFilter:"blur(16px)",
-              border:              "1px solid rgba(255,255,255,0.2)",
-              boxShadow:           "0 8px 32px rgba(0,0,0,0.2)",
+              left:                "50%",
+              transform:           "translateX(-50%)",
+              // Frosted glass tinted with the active scheme's light colour
+              background:          "color-mix(in srgb, var(--color-sage) 45%, transparent)",
+              backdropFilter:      "blur(24px)",
+              WebkitBackdropFilter:"blur(24px)",
+              border:              "1px solid color-mix(in srgb, var(--color-forest) 12%, transparent)",
+              boxShadow:           "0 8px 32px rgba(0,0,0,0.12)",
             }}
           >
             {SCHEMES.map((scheme, i) => {
