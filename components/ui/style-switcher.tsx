@@ -129,7 +129,7 @@ export function StyleSwitcher() {
                     <Tooltip.Portal>
                       <Tooltip.Positioner side="right" sideOffset={10}>
                         <Tooltip.Popup
-                          className="px-2.5 py-1 rounded-full text-[11px] font-sans font-medium tracking-wide"
+                          className="tooltip-popup px-2.5 py-1 rounded-full text-[11px] font-sans font-medium tracking-wide"
                           style={{
                             backgroundColor: "color-mix(in srgb, var(--color-forest) 90%, transparent)",
                             color:           "var(--color-sage)",
