@@ -29,7 +29,7 @@ export function About() {
     <section
       id="about"
       data-section-theme="light"
-      className="bg-[#D5E3DE] py-24 lg:py-36"
+      className="bg-sage py-24 lg:py-36"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
 
@@ -39,7 +39,7 @@ export function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display font-bold text-[#253631] leading-[1.05] text-[clamp(2.4rem,5vw,5rem)] mb-20 lg:mb-28 max-w-4xl"
+          className="font-display font-bold text-forest leading-[1.05] text-[clamp(2.4rem,5vw,5rem)] mb-20 lg:mb-28 max-w-4xl"
         >
           A little about me.
         </motion.h2>
@@ -80,7 +80,7 @@ export function About() {
                 {era.body.map((para, i) => (
                   <p
                     key={i}
-                    className={`font-sans text-[1.15rem] text-[#253631]/75 leading-relaxed ${i > 0 ? "mt-5" : ""}`}
+                    className={`font-sans text-[1.15rem] text-forest/75 leading-relaxed ${i > 0 ? "mt-5" : ""}`}
                   >
                     {para}
                   </p>

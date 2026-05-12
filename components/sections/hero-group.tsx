@@ -15,9 +15,11 @@ export function HeroGroup() {
     opacity.set(Math.max(0, 1 - y / (vh * 0.6)));
   });
 
-  // In dark mode the hero is already #253631, so the transition div should
-  // match to keep the continuous-surface illusion.
-  const transitionBg = resolvedTheme === "dark" ? "#253631" : "#D5E3DE";
+  // In dark mode the hero is already forest-colored, so the transition div
+  // must match to keep the continuous-surface illusion.
+  const transitionBg = resolvedTheme === "dark"
+    ? "var(--color-forest)"
+    : "var(--color-sage)";
 
   return (
     <motion.div style={{ opacity }}>
