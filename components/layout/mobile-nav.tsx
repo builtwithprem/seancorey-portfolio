@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // One-page site: section IDs, no external routes
@@ -98,25 +99,35 @@ export function Hamburger({ open, onClick }: HamburgerProps) {
       aria-label={open ? "Close menu" : "Open menu"}
       aria-expanded={open}
       className={cn(
-        "relative w-8 h-8 flex flex-col items-center justify-center gap-0 md:hidden focus-visible:outline-none",
+        "relative w-10 h-10 flex items-center justify-center md:hidden focus-visible:outline-none",
         open && "text-forest"
       )}
     >
-      <motion.span
-        animate={open ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="block w-5 h-px bg-current origin-center"
-      />
-      <motion.span
-        animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-        transition={{ duration: 0.2 }}
-        className="block w-5 h-px bg-current mt-1.5 origin-center"
-      />
-      <motion.span
-        animate={open ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="block w-5 h-px bg-current mt-1.5 origin-center"
-      />
+      <AnimatePresence mode="wait" initial={false}>
+        {open ? (
+          <motion.span
+            key="close"
+            initial={{ opacity: 0, rotate: -45 }}
+            animate={{ opacity: 1, rotate: 0 }}
+            exit={{ opacity: 0, rotate: 45 }}
+            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="flex items-center justify-center"
+          >
+            <X size={24} strokeWidth={1.75} />
+          </motion.span>
+        ) : (
+          <motion.span
+            key="open"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="flex items-center justify-center"
+          >
+            <Menu size={24} strokeWidth={1.75} />
+          </motion.span>
+        )}
+      </AnimatePresence>
     </button>
   );
 }

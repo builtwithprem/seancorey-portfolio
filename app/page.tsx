@@ -21,7 +21,7 @@ export default function Home() {
       <DarkTransitionGroup />
       <Services />
       {/* Spacer — same height as the transition div, gives breathing room before About */}
-      <div data-section-theme="light" aria-hidden className="h-[42vh] bg-sage" />
+      <div data-section-theme="light" aria-hidden className="h-[21vh] sm:h-[42vh] bg-sage" />
       <About />
       <LightTransitionGroup />
       <Cta />

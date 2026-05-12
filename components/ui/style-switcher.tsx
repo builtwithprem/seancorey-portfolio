@@ -66,7 +66,7 @@ export function StyleSwitcher() {
         aria-expanded={open}
         className="p-2 rounded-full hover:opacity-70 transition-opacity duration-200 cursor-pointer flex items-center justify-center"
       >
-        <Sun size={18} />
+        <Sun className="size-5 md:size-[18px]" />
       </button>
 
       {/* Dropdown panel */}

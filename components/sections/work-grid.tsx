@@ -50,7 +50,7 @@ function WorkCard({
         */}
         <motion.div
           layoutId={`card-image-${project.id}`}
-          className="relative aspect-[2/1] rounded-xl overflow-hidden mb-14"
+          className="relative aspect-square sm:aspect-[2/1] rounded-xl overflow-hidden mb-6 sm:mb-14"
           initial={{ scale: 1 }}
           whileInView={{ scale: 1.07 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -67,7 +67,7 @@ function WorkCard({
             <div className="absolute inset-0" style={{ background: project.gradient }} />
           )}
           <div className="absolute bottom-4 right-4">
-            <span className="text-xs text-white/40 font-sans">{project.year}</span>
+            <span className="text-xs text-white/70 font-sans">{project.year}</span>
           </div>
         </motion.div>
 
@@ -123,7 +123,7 @@ export function WorkGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display font-bold text-[clamp(2rem,4vw,3.5rem)] text-white leading-tight mb-5"
+          className="font-display font-bold text-[clamp(2.4rem,5vw,5rem)] text-white leading-tight mb-5"
         >
           Work I&apos;ve done
         </motion.h2>
@@ -259,7 +259,7 @@ export function WorkGrid() {
                   style={{ backgroundColor: "var(--color-sage)" }}
                 >
                   <motion.div layoutId={`card-meta-${selectedId}`} className="mb-5">
-                    <h2 className="font-display font-bold text-[clamp(1.5rem,2.5vw,2.25rem)] text-forest leading-tight">
+                    <h2 className="font-display font-bold text-[clamp(1.65rem,2.5vw,2.5rem)] text-forest leading-tight">
                       {selected.title}
                     </h2>
                   </motion.div>
@@ -273,10 +273,10 @@ export function WorkGrid() {
                       <span className="text-xs uppercase tracking-[0.18em] text-forest font-semibold font-sans">
                         {selected.category}
                       </span>
-                      <span className="text-forest/40 text-xs font-sans">{selected.year}</span>
+                      <span className="text-forest/65 text-sm font-sans">{selected.year}</span>
                     </div>
 
-                    <p className="text-forest/70 leading-relaxed font-sans text-sm mb-8">
+                    <p className="text-forest/70 leading-relaxed font-sans text-base mb-8">
                       {selected.description}
                     </p>
 

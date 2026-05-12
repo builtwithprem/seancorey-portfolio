@@ -19,7 +19,7 @@ export function Hero() {
       className="relative min-h-screen overflow-hidden bg-sage"
     >
       {/* 150px top padding keeps content clear of the 72px fixed navbar */}
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 flex flex-col pt-[9.375rem]">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 flex flex-col pt-24 sm:pt-[9.375rem]">
         <div className="w-full max-w-[800px] pb-24">
 
           <h1 className="font-display font-bold tracking-tight mb-8">
@@ -59,7 +59,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.72, ease: "easeOut" }}
-            className="flex flex-wrap items-center gap-4"
+            className="flex items-center gap-3"
           >
             {/* Down arrow + smooth scroll — works reliably on repeat clicks */}
             <a
@@ -67,7 +67,7 @@ export function Hero() {
               onClick={(e) => scrollToSection("work", e)}
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "bg-forest hover:bg-forest/85 text-white rounded-full px-8 gap-2 transition-colors duration-300 shadow-none cursor-pointer"
+                "flex-1 sm:flex-none justify-center bg-forest hover:bg-forest/85 text-white rounded-full px-6 sm:px-8 gap-2 transition-colors duration-300 shadow-none cursor-pointer"
               )}
             >
               View my work <ArrowDown size={16} />
@@ -76,7 +76,7 @@ export function Hero() {
               onClick={() => scrollToSection("contact")}
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
-                "rounded-full px-8 border-forest/30 text-forest hover:bg-forest/8 shadow-none transition-colors duration-300 cursor-pointer"
+                "flex-1 sm:flex-none justify-center rounded-full px-6 sm:px-8 border-forest/30 text-forest hover:bg-forest/8 shadow-none transition-colors duration-300 cursor-pointer"
               )}
             >
               Get in touch
