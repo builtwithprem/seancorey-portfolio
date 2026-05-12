@@ -47,7 +47,7 @@ export function Hero() {
             transition={{ duration: 0.7, delay: 0.55, ease: "easeOut" }}
             className="mb-10"
           >
-            <p className="text-[1.5rem] text-forest leading-relaxed font-sans">
+            <p className="text-[1.4rem] sm:text-[1.5rem] text-forest leading-relaxed font-sans">
               I bring 20 years of craft and judgment to every project, combining{" "}
               <strong className="font-semibold">human insight</strong> with an{" "}
               <strong className="font-semibold">AI-powered workflow</strong>{" "}

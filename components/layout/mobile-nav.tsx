@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
+
 // One-page site: section IDs, no external routes
 const navLinks = [
   { id: "hero",    label: "Home"    },
@@ -103,31 +104,19 @@ export function Hamburger({ open, onClick }: HamburgerProps) {
         open && "text-forest"
       )}
     >
-      <AnimatePresence mode="wait" initial={false}>
-        {open ? (
-          <motion.span
-            key="close"
-            initial={{ opacity: 0, rotate: -45 }}
-            animate={{ opacity: 1, rotate: 0 }}
-            exit={{ opacity: 0, rotate: 45 }}
-            transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-center justify-center"
-          >
-            <X size={28} strokeWidth={1.75} />
-          </motion.span>
-        ) : (
-          <motion.span
-            key="open"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="flex items-center justify-center"
-          >
-            <Menu size={28} strokeWidth={1.75} />
-          </motion.span>
-        )}
-      </AnimatePresence>
+      {/* Both icons stay in the DOM — CSS opacity swap means no render delay */}
+      <span className={cn(
+        "absolute transition-all duration-200",
+        open ? "opacity-100 rotate-0" : "opacity-0 rotate-45 pointer-events-none"
+      )}>
+        <X size={28} strokeWidth={1.75} />
+      </span>
+      <span className={cn(
+        "absolute transition-all duration-200",
+        open ? "opacity-0 -rotate-45 pointer-events-none" : "opacity-100 rotate-0"
+      )}>
+        <Menu size={28} strokeWidth={1.75} />
+      </span>
     </button>
   );
 }

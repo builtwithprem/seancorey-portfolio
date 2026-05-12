@@ -27,7 +27,7 @@ export function HeroGroup() {
       */}
       <div
         data-section-theme="dark"
-        className="h-[55vh] sm:h-[75vh]"
+        className="h-[65vh] sm:h-[75vh]"
         style={{
           marginTop: "-8em",
           marginBottom: "-11em",

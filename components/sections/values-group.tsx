@@ -150,7 +150,7 @@ export function LightTransitionGroup() {
     <div ref={ref} id="about-transition">
       <motion.div
         data-section-theme="light"
-        className="h-[21vh] sm:h-[42vh]"
+        className="h-[32vh] sm:h-[42vh]"
         style={{
           backgroundColor: divBg,
           display: "block",
