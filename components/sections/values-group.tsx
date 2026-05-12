@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { useMotionValue, useMotionValueEvent, motion, useScroll } from "motion/react";
 import { getCssColorRgb, COLOR_VARS } from "@/lib/palette";
 
@@ -28,7 +28,7 @@ export function DarkTransitionGroup() {
     };
   }, []);
 
-  useMotionValueEvent(scrollY, "change", (y) => {
+  const update = useCallback((y: number) => {
     const el = ref.current;
     if (!el) return;
     const vh       = window.innerHeight;
@@ -37,7 +37,6 @@ export function DarkTransitionGroup() {
     const start    = groupTop - range;
     const t = Math.min(1, Math.max(0, (y - start) / range));
 
-    // Read palette from CSS variables on each frame — reflects theme changes instantly
     const FOREST = getCssColorRgb(COLOR_VARS.forest);
     const SAGE   = getCssColorRgb(COLOR_VARS.sage);
     const color  = `rgb(${lerp(FOREST[0], SAGE[0], t)},${lerp(FOREST[1], SAGE[1], t)},${lerp(FOREST[2], SAGE[2], t)})`;
@@ -53,7 +52,16 @@ export function DarkTransitionGroup() {
     }
     const valuesEl = document.getElementById("values") as HTMLElement | null;
     if (valuesEl) valuesEl.style.backgroundColor = color;
-  });
+  }, [divBg]);
+
+  useMotionValueEvent(scrollY, "change", update);
+
+  // Re-run on every palette-tick so scheme switches update colours immediately
+  useEffect(() => {
+    const refresh = () => update(scrollY.get());
+    window.addEventListener("palette-tick", refresh);
+    return () => window.removeEventListener("palette-tick", refresh);
+  }, [update, scrollY]);
 
   return (
     <div ref={ref} id="values-transition">
@@ -90,7 +98,7 @@ export function LightTransitionGroup() {
     };
   }, []);
 
-  useMotionValueEvent(scrollY, "change", (y) => {
+  const update = useCallback((y: number) => {
     const el = ref.current;
     if (!el) return;
     const vh       = window.innerHeight;
@@ -127,7 +135,16 @@ export function LightTransitionGroup() {
       const contactEl = document.getElementById("contact") as HTMLElement | null;
       if (contactEl) contactEl.style.backgroundColor = "";
     }
-  });
+  }, [divBg]);
+
+  useMotionValueEvent(scrollY, "change", update);
+
+  // Re-run on every palette-tick so scheme switches update colours immediately
+  useEffect(() => {
+    const refresh = () => update(scrollY.get());
+    window.addEventListener("palette-tick", refresh);
+    return () => window.removeEventListener("palette-tick", refresh);
+  }, [update, scrollY]);
 
   return (
     <div ref={ref} id="about-transition">
