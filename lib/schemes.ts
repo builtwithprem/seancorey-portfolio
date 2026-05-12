@@ -10,7 +10,7 @@ export type Scheme = {
 
 export const SCHEMES = [
   { id: "forest", label: "Forest", light: "#D5E3DE", dark: "#253631", modalBg: "#111c18" },
-  { id: "ocean",  label: "Ocean",  light: "#B8D4F5", dark: "#182938", modalBg: "#0c1d2b" },
+  { id: "ocean",  label: "Ocean",  light: "#CFDEF0", dark: "#182938", modalBg: "#0c1d2b" },
   { id: "terra",  label: "Terra",  light: "#F3E7D0", dark: "#764E34", modalBg: "#3a2118" },
   { id: "mono",   label: "Mono",   light: "#FFFFFF", dark: "#000000", modalBg: "#111111" },
 ] as const satisfies readonly Scheme[];
@@ -36,24 +36,22 @@ function readVar(name: string): string {
     .trim();
 }
 
-// Tracks any in-flight animation so rapid clicks don't stack
+// Tracks any in-flight animation so rapid switches don't stack
 let inFlight: ReturnType<typeof animate> | null = null;
 
 /**
  * Smoothly animates the site palette from its current CSS variable values
- * to the target scheme. Clears any scroll-transition inline style overrides
- * first so CSS variables take full control during the animation.
+ * to the target scheme. Dispatches 'palette-tick' on every animation frame
+ * so the navbar scroll handler re-reads the new colour values and stays in sync.
  */
 export function applyScheme(to: Scheme): void {
-  // Cancel any running transition
   inFlight?.stop();
 
-  // Read current values (accounts for a previous partial switch)
   const fromSage   = readVar("--color-sage")    || to.light;
   const fromForest = readVar("--color-forest")   || to.dark;
   const fromModal  = readVar("--color-modal-bg") || to.modalBg;
 
-  // Clear scroll-transition inline overrides so CSS vars drive everything
+  // Clear scroll-transition inline overrides so CSS vars drive all elements
   document.body.style.backgroundColor = "";
   for (const id of ["work", "values", "about", "contact"] as const) {
     const el = document.getElementById(id);
@@ -66,9 +64,11 @@ export function applyScheme(to: Scheme): void {
     duration: 0.5,
     ease: [0.22, 1, 0.36, 1],
     onUpdate(t) {
-      root.style.setProperty("--color-sage",    lerpHex(fromSage,   to.light,    t));
-      root.style.setProperty("--color-forest",  lerpHex(fromForest, to.dark,     t));
-      root.style.setProperty("--color-modal-bg", lerpHex(fromModal, to.modalBg, t));
+      root.style.setProperty("--color-sage",     lerpHex(fromSage,   to.light,    t));
+      root.style.setProperty("--color-forest",   lerpHex(fromForest, to.dark,     t));
+      root.style.setProperty("--color-modal-bg", lerpHex(fromModal,  to.modalBg,  t));
+      // Tell the navbar to re-read the updated CSS variables this frame
+      window.dispatchEvent(new Event("palette-tick"));
     },
     onComplete() { inFlight = null; },
   });

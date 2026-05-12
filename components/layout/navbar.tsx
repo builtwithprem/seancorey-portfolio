@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { motion, useScroll, useMotionValue, useMotionValueEvent } from "motion/react";
@@ -58,19 +58,18 @@ export function Navbar() {
     }
   }, [mobileOpen, navBg, navColor]);
 
-  useMotionValueEvent(scrollY, "change", (y) => {
-    if (mobileOpen) return; // locked while overlay is open
+  // Extracted into useCallback so 'palette-tick' events can trigger it too
+  const updateNavColors = useCallback((y: number) => {
+    if (mobileOpen) return;
 
-    const vh = window.innerHeight;
-    // Read current palette from CSS variables so any theme switch is
-    // immediately reflected in the scroll interpolation (Phase 2 hook-in).
+    const vh     = window.innerHeight;
     const FOREST = getCssColorRgb(COLOR_VARS.forest);
     const SAGE   = getCssColorRgb(COLOR_VARS.sage);
 
     if (y <= vh) {
       const t = Math.min(1, Math.max(0, y / (vh * FADE_THRESHOLD)));
-      navBg.set(`rgb(${lerp(SAGE[0], FOREST[0], t)},${lerp(SAGE[1], FOREST[1], t)},${lerp(SAGE[2], FOREST[2], t)})`);
-      navColor.set(`rgb(${lerp(FOREST[0], WHITE[0], t)},${lerp(FOREST[1], WHITE[1], t)},${lerp(FOREST[2], WHITE[2], t)})`);
+      navBg.set(`rgb(${lerp(SAGE[0],FOREST[0],t)},${lerp(SAGE[1],FOREST[1],t)},${lerp(SAGE[2],FOREST[2],t)})`);
+      navColor.set(`rgb(${lerp(FOREST[0],WHITE[0],t)},${lerp(FOREST[1],WHITE[1],t)},${lerp(FOREST[2],WHITE[2],t)})`);
       setNavIsDark(t > 0.5);
       return;
     }
@@ -84,8 +83,8 @@ export function Navbar() {
       const fadeStart = groupTop - fadeRange;
       if (y >= fadeStart && y < valuesTop) {
         const t = Math.min(1, Math.max(0, (y - fadeStart) / fadeRange));
-        navBg.set(`rgb(${lerp(FOREST[0], SAGE[0], t)},${lerp(FOREST[1], SAGE[1], t)},${lerp(FOREST[2], SAGE[2], t)})`);
-        navColor.set(`rgb(${lerp(WHITE[0], FOREST[0], t)},${lerp(WHITE[1], FOREST[1], t)},${lerp(WHITE[2], FOREST[2], t)})`);
+        navBg.set(`rgb(${lerp(FOREST[0],SAGE[0],t)},${lerp(FOREST[1],SAGE[1],t)},${lerp(FOREST[2],SAGE[2],t)})`);
+        navColor.set(`rgb(${lerp(WHITE[0],FOREST[0],t)},${lerp(WHITE[1],FOREST[1],t)},${lerp(WHITE[2],FOREST[2],t)})`);
         setNavIsDark(t < 0.5);
         return;
       }
@@ -99,14 +98,13 @@ export function Navbar() {
       const aboutFadeStart = aboutGroupTop - vh * FADE_THRESHOLD;
       if (y >= aboutFadeStart && y < contactTop) {
         const t = Math.min(1, Math.max(0, (y - aboutFadeStart) / (vh * FADE_THRESHOLD)));
-        navBg.set(`rgb(${lerp(SAGE[0], FOREST[0], t)},${lerp(SAGE[1], FOREST[1], t)},${lerp(SAGE[2], FOREST[2], t)})`);
-        navColor.set(`rgb(${lerp(FOREST[0], WHITE[0], t)},${lerp(FOREST[1], WHITE[1], t)},${lerp(FOREST[2], WHITE[2], t)})`);
+        navBg.set(`rgb(${lerp(SAGE[0],FOREST[0],t)},${lerp(SAGE[1],FOREST[1],t)},${lerp(SAGE[2],FOREST[2],t)})`);
+        navColor.set(`rgb(${lerp(FOREST[0],WHITE[0],t)},${lerp(FOREST[1],WHITE[1],t)},${lerp(FOREST[2],WHITE[2],t)})`);
         setNavIsDark(t > 0.5);
         return;
       }
     }
 
-    // Binary section detection for all other sections below the hero
     const sections = document.querySelectorAll<HTMLElement>("[data-section-theme]");
     let isDark = true;
     for (const el of sections) {
@@ -120,7 +118,16 @@ export function Navbar() {
     navBg.set(isDark ? rgb(FOREST) : rgb(SAGE));
     navColor.set(isDark ? rgb(WHITE) : rgb(FOREST));
     setNavIsDark(isDark);
-  });
+  }, [mobileOpen, navBg, navColor, setNavIsDark]);
+
+  useMotionValueEvent(scrollY, "change", updateNavColors);
+
+  // Re-run whenever applyScheme fires a palette-tick (once per animation frame)
+  useEffect(() => {
+    const refresh = () => updateNavColors(scrollY.get());
+    window.addEventListener("palette-tick", refresh);
+    return () => window.removeEventListener("palette-tick", refresh);
+  }, [updateNavColors, scrollY]);
 
   return (
     <>

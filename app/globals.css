@@ -4,6 +4,17 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+  Site palette — NOT inline so Tailwind generates var() references.
+  bg-forest → background-color: var(--color-forest)
+  Changing these CSS variables at runtime updates every utility that uses them.
+*/
+@theme {
+  --color-forest:   #253631;  /* dark surface  */
+  --color-sage:     #D5E3DE;  /* light surface */
+  --color-modal-bg: #111c18;  /* work modal bg */
+}
+
 @theme inline {
   /* Semantic shadcn tokens */
   --color-background: var(--background);
@@ -39,15 +50,6 @@
   --color-teal-dark: oklch(0.48 0.062 198);
   --color-terra: oklch(0.49 0.13 44);
   --color-terra-light: oklch(0.62 0.12 44);
-
-  /*
-    Site palette — single source of truth for Forest/Sage scheme.
-    Swap these two values (and --color-modal-bg) to change the whole site.
-    JS reads them via getComputedStyle(document.documentElement).
-  */
-  --color-forest:    #253631;  /* dark surface — sections, body bg */
-  --color-sage:      #D5E3DE;  /* light surface — hero, about, values */
-  --color-modal-bg:  #111c18;  /* work card expanded modal bg */
 
   /* Typography */
   --font-display: var(--font-bricolage);
