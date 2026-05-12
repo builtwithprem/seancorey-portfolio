@@ -13,7 +13,7 @@ export function Cta() {
       <section
         id="contact"
         data-section-theme="dark"
-        className="bg-forest pt-[220px] pb-28 lg:pb-40"
+        className="bg-forest py-28 lg:py-40"
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center">
           <motion.h2
