@@ -47,20 +47,38 @@ export function About() {
         {/* Two-column body — photo left, eras right */}
         <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-16 lg:gap-24 items-start">
 
-          {/* Left — photo */}
+          {/* Left — photo + stats */}
           <motion.div
             initial={{ opacity: 0, y: 18 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-8">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/headshot.jpg"
                 alt="Sean Corey"
                 className="absolute inset-0 w-full h-full object-cover object-top"
               />
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-4">
+              {[
+                { value: "20+", label: "Years experience" },
+                { value: "7-fig", label: "Business built & sold" },
+                { value: "Global", label: "Clients worldwide" },
+              ].map(({ value, label }) => (
+                <div key={label} className="flex flex-col gap-1">
+                  <span className="font-display font-bold text-[1.5rem] text-forest leading-none">
+                    {value}
+                  </span>
+                  <span className="text-[0.75rem] text-forest/55 font-sans leading-tight">
+                    {label}
+                  </span>
+                </div>
+              ))}
             </div>
           </motion.div>
 

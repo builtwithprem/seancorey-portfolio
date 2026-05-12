@@ -293,14 +293,6 @@ export function WorkGrid() {
                       </div>
                     )}
 
-                    <div className="border-t border-forest/15 pt-6">
-                      <p className="text-[10px] uppercase tracking-[0.15em] text-forest/40 font-sans mb-3">
-                        Case Study
-                      </p>
-                      <p className="text-forest/55 font-sans text-sm leading-relaxed">
-                        Full case study coming soon. Get in touch to hear about this project.
-                      </p>
-                    </div>
                   </motion.div>
                 </div>
               </motion.div>
