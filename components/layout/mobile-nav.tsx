@@ -72,13 +72,6 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               transition={{ duration: 0.4, delay: 0.3 }}
               className="flex flex-col gap-4"
             >
-              <a
-                href="mailto:sean@seancorey.net"
-                onClick={onClose}
-                className="text-forest/50 hover:text-forest text-sm font-sans transition-colors duration-200"
-              >
-                sean@seancorey.net
-              </a>
               <button
                 onClick={() => { scrollTo("contact"); onClose(); }}
                 className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-forest hover:bg-forest/85 text-white font-sans text-sm font-medium transition-colors duration-300 self-start cursor-pointer"

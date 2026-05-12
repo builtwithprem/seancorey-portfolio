@@ -50,15 +50,19 @@ export function Navbar() {
 
   useEffect(() => { setMounted(true); }, []);
 
-  // Mobile nav is now sage/light — keep header forest-coloured over the panel
+  // Mobile nav is sage/light — lock header to forest-on-sage while open,
+  // then immediately restore scroll-based colours on close.
   useEffect(() => {
     if (mobileOpen) {
       const FOREST = getCssColorRgb(COLOR_VARS.forest);
       const SAGE   = getCssColorRgb(COLOR_VARS.sage);
       navColor.set(rgb(FOREST));
       navBg.set(rgb(SAGE));
+    } else {
+      updateNavColors(scrollY.get());
     }
-  }, [mobileOpen, navBg, navColor]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [mobileOpen]);
 
   // Extracted into useCallback so 'palette-tick' events can trigger it too
   const updateNavColors = useCallback((y: number) => {
