@@ -4,20 +4,7 @@ import { useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-
-// One-page site: section IDs, no external routes
-const navLinks = [
-  { id: "hero",    label: "Home"    },
-  { id: "work",    label: "Work"    },
-  { id: "values",  label: "Values"  },
-  { id: "about",   label: "About"   },
-  { id: "contact", label: "Contact" },
-];
-
-function scrollTo(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-}
+import { NAV_LINKS, scrollToSection } from "@/lib/nav";
 
 interface MobileNavProps {
   open: boolean;
@@ -44,7 +31,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
           <div className="flex flex-col justify-between h-full px-6 pt-28 pb-12">
             <nav>
               <ul className="space-y-1">
-                {navLinks.map((link, idx) => (
+                {NAV_LINKS.map((link, idx) => (
                   <motion.li
                     key={link.id}
                     initial={{ opacity: 0, x: -20 }}
@@ -57,7 +44,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                     }}
                   >
                     <button
-                      onClick={() => { scrollTo(link.id); onClose(); }}
+                      onClick={() => { scrollToSection(link.id); onClose(); }}
                       className="block font-display font-bold text-[clamp(2.5rem,8vw,4rem)] text-forest hover:opacity-50 transition-opacity duration-300 leading-tight py-2 cursor-pointer"
                     >
                       {link.label}
@@ -75,7 +62,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               className="flex flex-col gap-4"
             >
               <button
-                onClick={() => { scrollTo("contact"); onClose(); }}
+                onClick={() => { scrollToSection("contact"); onClose(); }}
                 className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-forest hover:bg-forest/85 text-white font-sans text-sm font-medium transition-colors duration-300 self-start cursor-pointer"
               >
                 Work with me

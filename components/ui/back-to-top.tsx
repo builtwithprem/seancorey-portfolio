@@ -9,10 +9,13 @@ export function BackToTop() {
 
   useEffect(() => {
     const onScroll = () => {
-      // Hysteresis: show at 400px, hide only once below 300px
-      // prevents rapid toggling near the threshold causing a blink
-      if (window.scrollY > 400) setVisible(true);
-      else if (window.scrollY < 300) setVisible(false);
+      // Hysteresis: show at 400px, hide below 300px — prevents threshold blink.
+      // Functional updater avoids setState when value hasn't changed.
+      setVisible(prev => {
+        if (window.scrollY > 400) return true;
+        if (window.scrollY < 300) return false;
+        return prev;
+      });
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);

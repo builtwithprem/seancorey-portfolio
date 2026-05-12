@@ -1,4 +1,5 @@
 import { animate } from "motion/react";
+import { hexToRgb } from "@/lib/palette";
 
 export type Scheme = {
   readonly id:      string;
@@ -17,12 +18,6 @@ export const SCHEMES = [
 ] as const satisfies readonly Scheme[];
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
-
-function hexToRgb(hex: string): [number, number, number] {
-  let h = hex.replace("#", "");
-  if (h.length === 3) h = h[0]+h[0]+h[1]+h[1]+h[2]+h[2];
-  return [parseInt(h.slice(0,2), 16), parseInt(h.slice(2,4), 16), parseInt(h.slice(4,6), 16)];
-}
 
 function lerpHex(from: string, to: string, t: number): string {
   const [r1,g1,b1] = hexToRgb(from);

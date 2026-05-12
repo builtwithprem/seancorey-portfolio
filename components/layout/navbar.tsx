@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
 import { motion, useScroll, useMotionValue, useMotionValueEvent } from "motion/react";
-import { cn } from "@/lib/utils";
+import { cn, lerp, rgb } from "@/lib/utils";
+import { NAV_LINKS, scrollToSection } from "@/lib/nav";
 import { Logo } from "@/components/layout/logo";
 import { Hamburger, MobileNav } from "@/components/layout/mobile-nav";
 import { getCssColorRgb, COLOR_VARS } from "@/lib/palette";
@@ -18,24 +19,6 @@ const FADE_THRESHOLD = 0.6;
 // Static white stop — unchanged by theme
 const WHITE = [255, 255, 255] as const;
 
-function lerp(a: number, b: number, t: number) {
-  return Math.round(a + (b - a) * t);
-}
-function rgb(c: readonly [number, number, number]) {
-  return `rgb(${c[0]},${c[1]},${c[2]})`;
-}
-
-const navLinks = [
-  { id: "hero",    label: "Home"    },
-  { id: "work",    label: "Work"    },
-  { id: "values",  label: "Values"  },
-  { id: "about",   label: "About"   },
-  { id: "contact", label: "Contact" },
-];
-
-function scrollTo(id: string) {
-  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-}
 
 export function Navbar() {
   const [mounted, setMounted]       = useState(false);
@@ -124,7 +107,7 @@ export function Navbar() {
     navBg.set(isDark ? rgb(FOREST) : rgb(SAGE));
     navColor.set(isDark ? rgb(WHITE) : rgb(FOREST));
     setNavIsDark(isDark);
-  }, [mobileOpen, navBg, navColor, setNavIsDark]);
+  }, [mobileOpen, navBg, navColor]);
 
   useMotionValueEvent(scrollY, "change", updateNavColors);
 
@@ -144,24 +127,17 @@ export function Navbar() {
         style={{ backgroundColor: mobileOpen ? "transparent" : navBg }}
         className="fixed top-0 left-0 right-0 z-50"
       >
-        {/*
-          color on motion.nav cascades to all children via CSS inheritance.
-          Tailwind preflight makes <a> tags inherit colour, so nav links
-          pick up the interpolated value automatically without explicit classes.
-        */}
         <motion.nav
           style={{ color: navColor }}
           className="max-w-7xl mx-auto px-6 lg:px-8 h-[72px] flex items-center justify-between"
         >
-          {/* Logo — inherits color from motion.nav */}
           <Logo />
 
-          {/* Desktop links — smooth scroll, inherits color from motion.nav */}
           <ul className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {NAV_LINKS.map((link) => (
               <li key={link.id}>
                 <button
-                  onClick={() => scrollTo(link.id)}
+                  onClick={() => scrollToSection(link.id)}
                   className="text-base tracking-wide hover:opacity-60 transition-opacity duration-300 cursor-pointer"
                 >
                   {link.label}
@@ -170,15 +146,10 @@ export function Navbar() {
             ))}
           </ul>
 
-          {/* Desktop actions */}
           <div className="hidden md:flex items-center gap-3">
             {mounted && <StyleSwitcher />}
-            {/*
-              Light nav: solid dark button — matches "View my work" in hero.
-              Dark nav: outline button — matches "Get in touch" style.
-            */}
             <button
-              onClick={() => scrollTo("contact")}
+              onClick={() => scrollToSection("contact")}
               className={cn(
                 buttonVariants({ size: "sm" }),
                 "rounded-full px-5 text-sm transition-all duration-300 shadow-none cursor-pointer",
@@ -191,7 +162,6 @@ export function Navbar() {
             </button>
           </div>
 
-          {/* Mobile */}
           <div className="flex md:hidden items-center gap-2">
             {mounted && !mobileOpen && <StyleSwitcher />}
             <Hamburger
