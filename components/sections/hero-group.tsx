@@ -1,25 +1,17 @@
 "use client";
 
 import { useMotionValue, useMotionValueEvent, motion, useScroll } from "motion/react";
-import { useTheme } from "next-themes";
 import { Hero } from "./hero";
 
 export function HeroGroup() {
   const opacity = useMotionValue(1);
   const { scrollY } = useScroll();
-  const { resolvedTheme } = useTheme();
 
   useMotionValueEvent(scrollY, "change", (y) => {
     const vh = window.innerHeight;
     // Matches FADE_THRESHOLD = 0.6 in navbar.tsx
     opacity.set(Math.max(0, 1 - y / (vh * 0.6)));
   });
-
-  // In dark mode the hero is already forest-colored, so the transition div
-  // must match to keep the continuous-surface illusion.
-  const transitionBg = resolvedTheme === "dark"
-    ? "var(--color-forest)"
-    : "var(--color-sage)";
 
   return (
     <motion.div style={{ opacity }}>
@@ -39,7 +31,7 @@ export function HeroGroup() {
           height: "75vh",
           marginTop: "-8em",
           marginBottom: "-11em",
-          backgroundColor: transitionBg,
+          backgroundColor: "var(--color-sage)",
           display: "block",
         }}
       />

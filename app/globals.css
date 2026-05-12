@@ -103,6 +103,14 @@
 
 /* V2 PALETTE — Forest / Sage (#D5E3DE light · #253631 dark) */
 :root {
+  /* Explicit :root fallbacks — Tailwind @theme registers the utilities but
+     some builds don't output the custom properties to :root. Defining them
+     here guarantees var(--color-*) always resolves, and applyScheme() can
+     still override them at runtime via element.style.setProperty(). */
+  --color-forest:   #253631;
+  --color-sage:     #D5E3DE;
+  --color-modal-bg: #111c18;
+
   --background: oklch(0.89 0.025 168);        /* #D5E3DE sage */
   --foreground: oklch(0.22 0.038 167);        /* #253631 forest */
   --card: oklch(0.89 0.025 168);
@@ -177,6 +185,44 @@
   ::selection {
     background-color: oklch(0.61 0.062 198 / 20%);
   }
+}
+
+/* ── Forest / Sage explicit utilities ───────────────────────────────────────
+   Tailwind @theme {} registers the tokens but this build's JIT does not emit
+   the utility classes. Defining them here in @layer utilities guarantees
+   bg-forest, text-forest, bg-sage etc. exist AND lets Tailwind wrap them with
+   hover:, aria-expanded: and other variants automatically.
+   All values reference the CSS custom properties set on :root so they respond
+   to applyScheme() at runtime — colour-mix() handles opacity modifiers.
+   ─────────────────────────────────────────────────────────────────────────── */
+@layer utilities {
+  /* ── Backgrounds ── */
+  .bg-forest     { background-color: var(--color-forest); }
+  .bg-sage       { background-color: var(--color-sage); }
+  .bg-forest\/8  { background-color: color-mix(in srgb, var(--color-forest)  8%, transparent); }
+  .bg-forest\/15 { background-color: color-mix(in srgb, var(--color-forest) 15%, transparent); }
+  .bg-forest\/85 { background-color: color-mix(in srgb, var(--color-forest) 85%, transparent); }
+  .bg-sage\/85   { background-color: color-mix(in srgb, var(--color-sage)   85%, transparent); }
+
+  /* ── Text ── */
+  .text-forest     { color: var(--color-forest); }
+  .text-sage       { color: var(--color-sage); }
+  .text-forest\/30 { color: color-mix(in srgb, var(--color-forest) 30%, transparent); }
+  .text-forest\/40 { color: color-mix(in srgb, var(--color-forest) 40%, transparent); }
+  .text-forest\/50 { color: color-mix(in srgb, var(--color-forest) 50%, transparent); }
+  .text-forest\/55 { color: color-mix(in srgb, var(--color-forest) 55%, transparent); }
+  .text-forest\/60 { color: color-mix(in srgb, var(--color-forest) 60%, transparent); }
+  .text-forest\/65 { color: color-mix(in srgb, var(--color-forest) 65%, transparent); }
+  .text-forest\/70 { color: color-mix(in srgb, var(--color-forest) 70%, transparent); }
+  .text-forest\/75 { color: color-mix(in srgb, var(--color-forest) 75%, transparent); }
+
+  /* ── Borders ── */
+  .border-forest     { border-color: var(--color-forest); }
+  .border-forest\/12 { border-color: color-mix(in srgb, var(--color-forest) 12%, transparent); }
+  .border-forest\/15 { border-color: color-mix(in srgb, var(--color-forest) 15%, transparent); }
+  .border-forest\/20 { border-color: color-mix(in srgb, var(--color-forest) 20%, transparent); }
+  .border-forest\/30 { border-color: color-mix(in srgb, var(--color-forest) 30%, transparent); }
+  .border-forest\/60 { border-color: color-mix(in srgb, var(--color-forest) 60%, transparent); }
 }
 
 /* Base UI Tooltip — enter fires on mount, exit on data-closed/data-state=closed */
