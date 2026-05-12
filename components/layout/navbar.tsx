@@ -2,14 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useTheme } from "next-themes";
-import { Moon, Sun } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { motion, useScroll, useMotionValue, useMotionValueEvent } from "motion/react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/layout/logo";
 import { Hamburger, MobileNav } from "@/components/layout/mobile-nav";
 import { getCssColorRgb, COLOR_VARS } from "@/lib/palette";
+import { StyleSwitcher } from "@/components/ui/style-switcher";
 
 const NAV_HEIGHT = 72;
 
@@ -39,22 +38,15 @@ function scrollTo(id: string) {
 }
 
 export function Navbar() {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted]     = useState(false);
+  const [mounted, setMounted]       = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [navIsDark, setNavIsDark]   = useState(false); // drives "Work with me" button style
+  const [navIsDark, setNavIsDark]   = useState(false);
   const { scrollY } = useScroll();
 
-  /*
-    Two MotionValues drive the nav's background + text colour directly
-    on the DOM element — no React re-renders on scroll, 60fps smooth.
-  */
-  // In dark mode the hero starts as forest green, so the nav starts dark too
-  const { resolvedTheme } = useTheme();
   // Initial values are plain strings — no typeof window branch, no SSR mismatch.
   // The scroll handler updates these from CSS variables on first interaction.
-  const navBg    = useMotionValue(resolvedTheme === "dark" ? "rgb(37,54,49)"   : "rgb(213,227,222)");
-  const navColor = useMotionValue(resolvedTheme === "dark" ? "rgb(255,255,255)" : "rgb(37,54,49)");
+  const navBg    = useMotionValue("rgb(213,227,222)"); // sage default
+  const navColor = useMotionValue("rgb(37,54,49)");    // forest default
 
   useEffect(() => { setMounted(true); }, []);
 
@@ -167,15 +159,7 @@ export function Navbar() {
 
           {/* Desktop actions */}
           <div className="hidden md:flex items-center gap-3">
-            {mounted && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-full hover:opacity-60 transition-opacity duration-300 cursor-pointer"
-                aria-label="Toggle colour mode"
-              >
-                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
-            )}
+            {mounted && <StyleSwitcher />}
             {/*
               Light nav: solid dark button — matches "View my work" in hero.
               Dark nav: outline button — matches "Get in touch" style.
@@ -196,15 +180,7 @@ export function Navbar() {
 
           {/* Mobile */}
           <div className="flex md:hidden items-center gap-2">
-            {mounted && !mobileOpen && (
-              <button
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="p-2 rounded-full hover:opacity-60 transition-opacity duration-300 cursor-pointer"
-                aria-label="Toggle colour mode"
-              >
-                {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
-            )}
+            {mounted && !mobileOpen && <StyleSwitcher />}
             <Hamburger
               open={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}
