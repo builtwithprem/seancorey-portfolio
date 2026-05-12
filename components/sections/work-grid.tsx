@@ -50,7 +50,7 @@ function WorkCard({
         */}
         <motion.div
           layoutId={`card-image-${project.id}`}
-          className="relative aspect-square sm:aspect-[2/1] rounded-xl overflow-hidden mb-6 sm:mb-14"
+          className="relative aspect-square sm:aspect-[2/1] rounded-xl overflow-hidden mb-10 sm:mb-14"
           initial={{ scale: 1 }}
           whileInView={{ scale: 1.07 }}
           viewport={{ once: true, amount: 0.3 }}
@@ -173,7 +173,7 @@ export function WorkGrid() {
               <motion.div
                 layoutId={`card-${selectedId}`}
                 className="relative w-full overflow-hidden rounded-2xl flex flex-col lg:flex-row pointer-events-auto"
-                style={{ maxWidth: "1320px", height: "90vh", backgroundColor: "var(--color-modal-bg)" }}
+                style={{ maxWidth: "1320px", height: "85dvh", backgroundColor: "var(--color-modal-bg)" }}
               >
                 <button
                   onClick={() => setSelectedId(null)}

@@ -113,7 +113,7 @@ export function Hamburger({ open, onClick }: HamburgerProps) {
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="flex items-center justify-center"
           >
-            <X size={24} strokeWidth={1.75} />
+            <X size={28} strokeWidth={1.75} />
           </motion.span>
         ) : (
           <motion.span
@@ -124,7 +124,7 @@ export function Hamburger({ open, onClick }: HamburgerProps) {
             transition={{ duration: 0.15 }}
             className="flex items-center justify-center"
           >
-            <Menu size={24} strokeWidth={1.75} />
+            <Menu size={28} strokeWidth={1.75} />
           </motion.span>
         )}
       </AnimatePresence>
