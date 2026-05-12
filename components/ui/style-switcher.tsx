@@ -10,9 +10,9 @@ const STORAGE_KEY = "palette-scheme";
 
 export function StyleSwitcher() {
   const [open, setOpen]         = useState(false);
-  const [activeId, setActiveId] = useState(SCHEMES[0].id);
+  const [activeId, setActiveId] = useState<string>(SCHEMES[0].id);
   const containerRef            = useRef<HTMLDivElement>(null);
-  const closeTimer              = useRef<ReturnType<typeof setTimeout>>();
+  const closeTimer              = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Restore saved scheme on mount (instant, no animation)
   useEffect(() => {
@@ -27,7 +27,7 @@ export function StyleSwitcher() {
 
   // Hover handlers — small delay on leave prevents flickering through the gap
   const handleEnter = () => {
-    clearTimeout(closeTimer.current);
+    if (closeTimer.current !== null) clearTimeout(closeTimer.current);
     setOpen(true);
   };
   const handleLeave = () => {
