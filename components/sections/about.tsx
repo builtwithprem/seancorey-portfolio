@@ -63,19 +63,19 @@ export function About() {
               />
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-4">
+            {/* Facts */}
+            <div className="divide-y divide-forest/10">
               {[
-                { value: "20+", label: "Years experience" },
-                { value: "7-fig", label: "Business built & sold" },
-                { value: "Global", label: "Clients worldwide" },
-              ].map(({ value, label }) => (
-                <div key={label} className="flex flex-col gap-1">
-                  <span className="font-display font-bold text-[1.5rem] text-forest leading-none">
-                    {value}
-                  </span>
-                  <span className="text-[0.75rem] text-forest/55 font-sans leading-tight">
+                { label: "Living in",  value: "Hoi An, Vietnam"                        },
+                { label: "Teaching",   value: "Yoga & Meditation on Insight Timer"      },
+                { label: "Work",       value: "Accepting clients worldwide"             },
+              ].map(({ label, value }) => (
+                <div key={label} className="flex items-baseline gap-2 py-3.5">
+                  <span className="text-[0.7rem] uppercase tracking-[0.18em] text-forest/45 font-sans shrink-0 w-20">
                     {label}
+                  </span>
+                  <span className="text-[0.95rem] text-forest/80 font-sans leading-snug">
+                    {value}
                   </span>
                 </div>
               ))}
