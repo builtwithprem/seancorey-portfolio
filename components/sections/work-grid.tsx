@@ -50,7 +50,7 @@ function WorkCard({
         */}
         <motion.div
           layoutId={`card-image-${project.id}`}
-          className="relative h-[75vh] sm:h-auto sm:aspect-[2/1] rounded-xl overflow-hidden mb-8 sm:mb-12"
+          className="relative h-[60vh] sm:h-auto sm:aspect-[2/1] rounded-xl overflow-hidden mb-8 sm:mb-12"
           initial={{ scale: 1 }}
           whileInView={{ scale: 1.07 }}
           viewport={{ once: true, amount: 0.3 }}
