@@ -270,7 +270,7 @@ export function WorkGrid() {
                     transition={{ delay: 0.2, duration: 0.4 }}
                   >
                     <div className="flex items-center gap-5 mb-5">
-                      <span className="text-[10px] uppercase tracking-[0.18em] text-teal font-sans">
+                      <span className="text-xs uppercase tracking-[0.18em] text-forest font-semibold font-sans">
                         {selected.category}
                       </span>
                       <span className="text-forest/40 text-xs font-sans">{selected.year}</span>

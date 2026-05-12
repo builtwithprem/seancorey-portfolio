@@ -56,7 +56,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
                   >
                     <button
                       onClick={() => { scrollTo(link.id); onClose(); }}
-                      className="block font-display font-bold text-[clamp(2.5rem,8vw,4rem)] text-white hover:text-teal transition-colors duration-300 leading-tight py-2 cursor-pointer"
+                      className="block font-display font-bold text-[clamp(2.5rem,8vw,4rem)] text-white hover:opacity-60 transition-opacity duration-300 leading-tight py-2 cursor-pointer"
                     >
                       {link.label}
                     </button>
@@ -81,7 +81,7 @@ export function MobileNav({ open, onClose }: MobileNavProps) {
               </a>
               <button
                 onClick={() => { scrollTo("contact"); onClose(); }}
-                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-teal hover:bg-teal-dark text-white font-sans text-sm font-medium transition-colors duration-300 self-start cursor-pointer"
+                className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-forest hover:bg-forest/85 text-white font-sans text-sm font-medium transition-colors duration-300 self-start cursor-pointer"
               >
                 Work with me
               </button>

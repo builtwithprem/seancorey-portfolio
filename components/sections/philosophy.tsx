@@ -58,8 +58,8 @@ export function Philosophy() {
             >
               {/* Numbered badge — teal, matching Services section icons */}
               {/* V1: style={{ backgroundColor: "oklch(0.49 0.13 44 / 10%)" }} (terra) */}
-              <div className="w-9 h-9 rounded-full bg-teal/10 flex items-center justify-center mb-5">
-                <span className="font-display font-semibold text-sm text-teal">
+              <div className="w-9 h-9 rounded-full bg-forest/10 flex items-center justify-center mb-5">
+                <span className="font-display font-semibold text-sm text-forest">
                   {p.number}
                 </span>
               </div>

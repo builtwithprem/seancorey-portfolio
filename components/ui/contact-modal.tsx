@@ -180,7 +180,7 @@ export function ContactModal({
                         htmlFor="cf-name"
                         className={LABEL_CLASS}
                       >
-                        Your Name <span className="text-teal">*</span>
+                        Your Name <span className="text-forest">*</span>
                       </label>
                       <input
                         id="cf-name"
@@ -205,7 +205,7 @@ export function ContactModal({
                         htmlFor="cf-email"
                         className={LABEL_CLASS}
                       >
-                        Email Address <span className="text-teal">*</span>
+                        Email Address <span className="text-forest">*</span>
                       </label>
                       <input
                         id="cf-email"
@@ -264,7 +264,7 @@ export function ContactModal({
                         htmlFor="cf-message"
                         className={LABEL_CLASS}
                       >
-                        Tell me about your project <span className="text-teal">*</span>
+                        Tell me about your project <span className="text-forest">*</span>
                       </label>
                       <textarea
                         id="cf-message"
