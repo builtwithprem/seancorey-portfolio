@@ -69,7 +69,7 @@ export const projects: Project[] = [
     description: "Placeholder description for Yoga Hive.",
     gradient: "linear-gradient(135deg, #5a7a7e 0%, #2d4a50 100%)",
     images: [
-      "/sean-corey-design-yoga-hive-1.png",
+      "/sean-corey-design-yoga-hive-1.jpg",
       "/sean-corey-design-yoga-hive-2.jpg",
       "/sean-corey-design-yoga-hive-3.jpg",
       "/sean-corey-design-yoga-hive-4.jpg",
