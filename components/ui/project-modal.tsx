@@ -151,7 +151,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                         <img
                           src={src}
                           alt={`${project.title} — ${i + 1}`}
-                          className="w-full h-full sm:h-auto block object-cover object-top sm:object-none"
+                          className="w-full h-full sm:h-auto block object-cover object-top"
                         />
                       </div>
                     </div>
