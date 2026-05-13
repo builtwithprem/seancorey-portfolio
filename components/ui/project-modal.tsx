@@ -142,12 +142,11 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   {images.map((src, i) => (
                     <div
                       key={i}
-                      className="flex-shrink-0 px-2"
-                      style={{ flex: "0 0 80%", maxWidth: "80%" }}
+                      className="flex-[0_0_92%] sm:flex-[0_0_80%] px-2"
                     >
                       {/* Mobile: fixed 60vh so web design screenshots have impact.
                           Desktop: natural height — already looks great. */}
-                      <div className="h-[60vh] sm:h-auto overflow-hidden rounded-xl">
+                      <div className="h-[30vh] sm:h-auto overflow-hidden rounded-xl">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           src={src}
