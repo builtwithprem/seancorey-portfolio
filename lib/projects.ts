@@ -7,7 +7,7 @@ export type Project = {
   images?: string[];
   url?: string;
   services?: string[];
-  caseStudy?: string[];  // paragraphs rendered below the image slider
+  caseStudy?: { heading?: string; text: string }[];
 };
 
 export const projects: Project[] = [
@@ -26,9 +26,18 @@ export const projects: Project[] = [
     url: "https://mokaorigins.com",
     services: ["Ecommerce", "Website Design", "Website Development", "Consulting", "Infrastructure"],
     caseStudy: [
-      "Moka Origins has been a longtime client. Over 8+ years, I've helped them evolve their Shopify presence through two major overhauls and ongoing strategic support.",
-      "The most recent project moved them from a code-heavy infrastructure to a visual page builder... giving their team the independence to make updates without relying on a developer. I planned and designed the full site architecture, migrated to a modern theme with fast load times, an AJAX cart, and robust search functionality.",
-      "The relationship continues with campaign launches, page builds, and technology consulting as the business grows.",
+      {
+        heading: "The Challenge",
+        text: "Moka Origins had outgrown their existing Shopify infrastructure. A code-heavy setup was limiting the team's ability to make updates independently and keeping the site from performing at the level the brand deserved.",
+      },
+      {
+        heading: "The Approach",
+        text: "I planned and designed the full site architecture, migrating to a modern theme with fast load times, an AJAX cart, and robust search. The bigger shift was moving from a code-based build to a visual page builder... giving their team real ownership over the site without needing a developer for every change.",
+      },
+      {
+        heading: "Ongoing Support",
+        text: "Eight-plus years in, the relationship continues. Campaign launches, page builds, and strategic technology consulting as the business evolves.",
+      },
     ],
   },
   {

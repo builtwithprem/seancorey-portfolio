@@ -106,7 +106,12 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   <p className="text-[0.7rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-4">
                     Services
                   </p>
-                  <ul className="space-y-2">
+                  {/* >3 items on mobile → two columns */}
+                  <ul className={`gap-x-6 gap-y-2 ${
+                    project.services.length > 3
+                      ? "grid grid-cols-2 lg:grid-cols-1"
+                      : "space-y-2"
+                  }`}>
                     {project.services.map(s => (
                       <li key={s} className="text-[1rem] text-forest/70 font-sans">{s}</li>
                     ))}
@@ -138,9 +143,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   <div
                     key={i}
                     onClick={() => setImgIdx(i)}
-                    className={`snap-center flex-shrink-0 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 ${
-                      i === imgIdx ? "opacity-100 scale-100" : "opacity-50 hover:opacity-70"
-                    }`}
+                    className="snap-center flex-shrink-0 rounded-xl overflow-hidden cursor-pointer"
                     style={{ width: "min(72vw, 680px)" }}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -195,13 +198,20 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           )}
 
           {/* Case study */}
-          <div className="max-w-2xl mx-auto px-6 lg:px-12 py-20">
+          <div className="max-w-2xl mx-auto px-6 lg:px-12 pt-10 pb-20">
             {project.caseStudy && project.caseStudy.length > 0 ? (
-              <div className="space-y-6">
-                {project.caseStudy.map((para, i) => (
-                  <p key={i} className="font-sans text-[1.1rem] text-forest/75 leading-relaxed">
-                    {para}
-                  </p>
+              <div className="space-y-10">
+                {project.caseStudy.map((block, i) => (
+                  <div key={i}>
+                    {block.heading && (
+                      <h3 className="font-display font-semibold text-[1.15rem] text-forest mb-3">
+                        {block.heading}
+                      </h3>
+                    )}
+                    <p className="font-sans text-[1.1rem] text-forest/70 leading-relaxed">
+                      {block.text}
+                    </p>
+                  </div>
                 ))}
               </div>
             ) : (
