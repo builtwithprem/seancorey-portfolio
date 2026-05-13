@@ -3,9 +3,11 @@ export type Project = {
   title: string;
   category: string;
   description: string;
-  gradient: string;    // modal fallback when no images provided
-  images?: string[];   // [0] is the grid thumbnail, all shown in modal
-  url?: string;        // optional CTA link shown in modal
+  gradient: string;
+  images?: string[];
+  url?: string;
+  services?: string[];
+  caseStudy?: { heading?: string; text: string }[];
 };
 
 export const projects: Project[] = [
@@ -13,7 +15,7 @@ export const projects: Project[] = [
     id: "moka-origins",
     title: "Moka Origins",
     category: "Brand Identity",
-    description: "Placeholder description for Moka Origins.",
+    description: "A full ecommerce overhaul for a specialty coffee brand. Built for speed, clarity, and a team that can actually use it.",
     gradient: "linear-gradient(135deg, #48949e 0%, #2a5a62 100%)",
     images: [
       "/sean-corey-design-moka-1.jpg",
@@ -22,6 +24,21 @@ export const projects: Project[] = [
       "/sean-corey-design-moka-4.jpg",
     ],
     url: "https://mokaorigins.com",
+    services: ["Ecommerce", "UI Design", "Web Development", "Consulting", "Infrastructure"],
+    caseStudy: [
+      {
+        heading: "The Challenge",
+        text: "Moka Origins had outgrown their existing Shopify infrastructure. A code-heavy setup was limiting the team's ability to make updates independently and keeping the site from performing at the level the brand deserved.",
+      },
+      {
+        heading: "The Approach",
+        text: "I planned and designed the full site architecture, migrating to a modern theme with fast load times, an AJAX cart, and robust search. The bigger shift was moving from a code-based build to a visual page builder... giving their team real ownership over the site without needing a developer for every change.",
+      },
+      {
+        heading: "Ongoing Support",
+        text: "Eight-plus years in, the relationship continues. Campaign launches, page builds, and strategic technology consulting as the business evolves.",
+      },
+    ],
   },
   {
     id: "himalayan-institute",
@@ -35,6 +52,7 @@ export const projects: Project[] = [
       "/sean-corey-design-himalayan-3.jpg",
       "/sean-corey-design-himalayan-4.jpg",
     ],
+    services: ["Web Design", "UX Design", "Development"],
   },
   {
     id: "sean-corey-yoga",
@@ -48,6 +66,7 @@ export const projects: Project[] = [
       "/sean-corey-design-sean-corey-yoga-3.jpg",
       "/sean-corey-design-sean-corey-yoga-4.jpg",
     ],
+    services: ["Brand Identity", "Web Design"],
   },
   {
     id: "vishoka-meditation",
@@ -61,6 +80,7 @@ export const projects: Project[] = [
       "/sean-corey-design-vishoka-3.jpg",
       "/sean-corey-design-vishoka-4.jpg",
     ],
+    services: ["Brand Identity", "Packaging", "Web Design"],
   },
   {
     id: "yoga-hive",
@@ -74,6 +94,7 @@ export const projects: Project[] = [
       "/sean-corey-design-yoga-hive-3.jpg",
       "/sean-corey-design-yoga-hive-4.jpg",
     ],
+    services: ["Web Design", "UX Design"],
   },
   {
     id: "vadavas-by-lex",
@@ -87,5 +108,48 @@ export const projects: Project[] = [
       "/sean-corey-design-vadavas-3.jpg",
       "/sean-corey-design-vadavas-4.jpg",
     ],
+    services: ["Design Direction", "Brand Identity"],
+  },
+  {
+    id: "yoga-dorri",
+    title: "Yoga Dorri",
+    category: "Web Design",
+    description: "Placeholder description for Yoga Dorri.",
+    gradient: "linear-gradient(135deg, #a09070 0%, #5a4a30 100%)",
+    images: [
+      "/sean-corey-design-yoga-dorri-1.jpg",
+      "/sean-corey-design-yoga-dorri-2.jpg",
+      "/sean-corey-design-yoga-dorri-3.jpg",
+      "/sean-corey-design-yoga-dorri-4.jpg",
+    ],
+    services: ["Web Design", "Brand Identity"],
+  },
+  {
+    id: "smokin-joes",
+    title: "Smokin' Joes",
+    category: "Web Design",
+    description: "Placeholder description for Smokin' Joes.",
+    gradient: "linear-gradient(135deg, #8b3a1a 0%, #3a1a08 100%)",
+    images: [
+      "/sean-corey-design-smokin-joes-1.jpg",
+      "/sean-corey-design-smokin-joes-2.jpg",
+      "/sean-corey-design-smokin-joes-3.jpg",
+      "/sean-corey-design-smokin-joes-4.jpg",
+    ],
+    services: ["Web Design", "UI Design"],
+  },
+  {
+    id: "ngc-general-contractors",
+    title: "NGC General Contractors",
+    category: "Web Design",
+    description: "Placeholder description for NGC General Contractors.",
+    gradient: "linear-gradient(135deg, #4a5a6a 0%, #1a2a3a 100%)",
+    images: [
+      "/sean-corey-design-ngc-1.jpg",
+      "/sean-corey-design-ngc-2.jpg",
+      "/sean-corey-design-ngc-3.jpg",
+      "/sean-corey-design-ngc-4.jpg",
+    ],
+    services: ["Web Design", "UI Design"],
   },
 ];

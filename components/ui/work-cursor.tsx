@@ -28,7 +28,7 @@ export function WorkCursor({ isHovering }: WorkCursorProps) {
   return (
     <motion.div
       // translateX/Y centre the circle on the pointer
-      style={{ x, y, translateX: "-50%", translateY: "-50%" }}
+      style={{ x, y, translateX: "-50%", translateY: "-50%", backgroundColor: "var(--color-sage)" }}
       animate={{
         opacity: isHovering ? 1 : 0,
         scale:   isHovering ? 1 : 0.3,
