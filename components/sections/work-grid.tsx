@@ -64,7 +64,7 @@ function WorkCard({
           )}
         </motion.div>
 
-        <motion.div layoutId={`card-meta-${project.id}`}>
+        <motion.div layoutId={`card-meta-${project.id}`} className="text-center">
           <p className="font-display font-bold text-white text-[1.2rem] sm:text-[1.5rem] leading-tight mb-1 sm:mb-2">
             {project.title}
           </p>
@@ -118,7 +118,7 @@ export function WorkGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display font-bold text-[clamp(2.25rem,5vw,4.5rem)] text-white leading-tight mb-5"
+          className="font-display font-bold text-[clamp(2.25rem,5vw,4.5rem)] text-white leading-tight mb-5 text-center"
         >
           My Work
         </motion.h2>
@@ -128,7 +128,7 @@ export function WorkGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="text-[1.1rem] sm:text-[1.3rem] text-white/60 leading-relaxed font-sans max-w-xl mb-20"
+          className="text-[1.1rem] sm:text-[1.3rem] text-white/60 leading-relaxed font-sans max-w-xl mb-20 text-center mx-auto"
         >
           A selection of projects spanning e-commerce, education, wellness, and mission-driven brands.
         </motion.p>
