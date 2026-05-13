@@ -197,6 +197,40 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </motion.div>
           )}
 
+          {/* Browser mockup preview */}
+          {project.previewImage && (
+            <div className="max-w-2xl mx-auto px-6 lg:px-12 pt-10">
+              <div
+                className="rounded-2xl overflow-hidden"
+                style={{ boxShadow: "0 8px 48px color-mix(in srgb, var(--color-forest) 12%, transparent)" }}
+              >
+                {/* Browser chrome */}
+                <div className="bg-forest/6 border-b border-forest/8 px-4 py-3 flex items-center gap-3">
+                  {/* Traffic lights */}
+                  <div className="flex gap-1.5 flex-shrink-0">
+                    <div className="w-2.5 h-2.5 rounded-full bg-forest/20" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-forest/20" />
+                    <div className="w-2.5 h-2.5 rounded-full bg-forest/20" />
+                  </div>
+                  {/* URL bar */}
+                  <div className="flex-1 bg-forest/6 rounded-full px-3 py-1 text-center text-[0.65rem] text-forest/40 font-sans truncate">
+                    {project.url ? project.url.replace(/^https?:\/\//, "") : project.title.toLowerCase().replace(/\s+/g, "") + ".com"}
+                  </div>
+                </div>
+
+                {/* Scrollable screenshot */}
+                <div className="h-[420px] overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-forest/20 [&::-webkit-scrollbar-thumb]:rounded-full">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={project.previewImage}
+                    alt={`${project.title} website preview`}
+                    className="w-full h-auto block"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Case study */}
           <div className="max-w-2xl mx-auto px-6 lg:px-12 pt-10 pb-20">
             {project.caseStudy && project.caseStudy.length > 0 ? (
