@@ -39,3 +39,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# media assets — keep locally, serve via CDN or Netlify Large Media
+public/*.jpg
+public/*.jpeg
+public/*.png
+public/*.webp
+public/*.mp4
+public/*.mov
+public/*.webm
