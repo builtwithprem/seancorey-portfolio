@@ -50,7 +50,7 @@ function WorkCard({
         */}
         <motion.div
           layoutId={`card-image-${project.id}`}
-          className="relative h-[60vh] sm:h-auto sm:aspect-[2/1] rounded-xl overflow-hidden mb-8 sm:mb-12"
+          className="relative aspect-[3/2] sm:aspect-[2/1] rounded-xl overflow-hidden mb-8 sm:mb-12"
         >
           {thumbnail ? (
             // eslint-disable-next-line @next/next/no-img-element

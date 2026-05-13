@@ -34,10 +34,10 @@ export function Services() {
     <section
       id="values"
       data-section-theme="light"
-      className="bg-forest pt-40 pb-24 lg:pt-56 lg:pb-36"
+      className="bg-forest pt-20 pb-16 sm:pt-40 sm:pb-24 lg:pt-56 lg:pb-36"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24 items-start">
 
           {/* Left — sticky while right column scrolls */}
           <div className="lg:sticky lg:top-[220px]">
@@ -56,7 +56,7 @@ export function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[1.3rem] text-forest/65 leading-relaxed font-sans"
+              className="text-[1.1rem] sm:text-[1.3rem] text-forest/65 leading-relaxed font-sans"
             >
               I&apos;ve built my process around four things that matter most to clients:
               clear communication, realistic timelines, thoughtful collaboration, and human + AI partnership.
@@ -65,7 +65,7 @@ export function Services() {
           </div>
 
           {/* Right — scrolls past the sticky left column */}
-          <div className="space-y-12 lg:pt-24">
+          <div className="space-y-8 sm:space-y-12 lg:pt-24">
             {principles.map((p, idx) => (
               <motion.div
                 key={p.number}
@@ -82,7 +82,7 @@ export function Services() {
                 </div>
 
                 <div>
-                  <h3 className="font-display font-semibold text-[1.65rem] leading-tight text-forest mb-2">
+                  <h3 className="font-display font-semibold text-[1.25rem] sm:text-[1.65rem] leading-tight text-forest mb-2">
                     {p.title}
                   </h3>
                   <p className="text-[1.1rem] text-forest/65 leading-relaxed font-sans">
