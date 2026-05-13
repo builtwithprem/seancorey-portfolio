@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
+import { Player } from "@lottiefiles/react-lottie-player";
 import { WorkCursor } from "@/components/ui/work-cursor";
 import { projects } from "@/lib/projects";
 
@@ -53,7 +54,14 @@ function WorkCard({
           className="relative aspect-[3/2] sm:aspect-[2/1] rounded-xl overflow-hidden"
         >
           {thumbnail ? (
-            /\.(mov|webm|mp4)$/i.test(thumbnail) ? (
+            /\.json$/i.test(thumbnail) ? (
+              <Player
+                autoplay
+                loop
+                src={thumbnail}
+                className="absolute inset-0 w-full h-full"
+              />
+            ) : /\.(mov|webm|mp4)$/i.test(thumbnail) ? (
               <video
                 autoPlay
                 loop
