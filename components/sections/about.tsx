@@ -6,7 +6,7 @@ const eras = [
   {
     label: "Origin",
     body: [
-      "I've spent 20 years building on the internet. In my twenties and thirties, I founded TrueThemes, a WordPress theme business that reached seven figures and became the #1 seller on ThemeForest before I sold it in 2017.",
+      "I've spent 20 years building on the internet. In my twenties and thirties, I founded TrueThemes, a WordPress theme business that became the #1 seller on ThemeForest before I sold it in 2017.",
     ],
   },
   {
