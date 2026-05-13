@@ -199,7 +199,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Browser mockup preview */}
           {project.previewImage && (
-            <div className="max-w-2xl mx-auto px-6 lg:px-12 pt-10">
+            <div className="max-w-[1180px] mx-auto px-6 lg:px-12 pt-10">
               <div
                 className="rounded-2xl overflow-hidden"
                 style={{ boxShadow: "0 8px 48px color-mix(in srgb, var(--color-forest) 12%, transparent)" }}
