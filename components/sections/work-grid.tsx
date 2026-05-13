@@ -43,24 +43,17 @@ function WorkCard({
           transition: "opacity 0.15s ease",
         }}
       >
-        {/*
-          Image expands ~7% beyond its container as it enters view.
-          scale() keeps the rounded corners intact and avoids any layout shift —
-          the transform happens outside the normal flow.
-        */}
         <motion.div
           layoutId={`card-image-${project.id}`}
-          className="relative aspect-[3/2] sm:aspect-[2/1] rounded-xl overflow-hidden"
+          className="rounded-xl overflow-hidden"
         >
-          {thumbnail ? (
+          {thumbnail && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={thumbnail}
               alt={project.title}
-              className="absolute inset-0 w-full h-full object-cover object-left sm:object-center"
+              className="w-full h-auto block"
             />
-          ) : (
-            <div className="absolute inset-0" style={{ background: project.gradient }} />
           )}
         </motion.div>
 
