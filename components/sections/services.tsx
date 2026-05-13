@@ -58,9 +58,8 @@ export function Services() {
               transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
               className="text-[1.1rem] sm:text-[1.3rem] text-forest/65 leading-relaxed font-sans"
             >
-              I&apos;ve built my process around four things that matter most to clients:
-              clear communication, realistic timelines, thoughtful collaboration, and human + AI partnership.
-              Not just deliverables — the experience of working together.
+              Good work isn&apos;t just about the final deliverable. It&apos;s the process, the communication,
+              and the way we work together. These are the things I build around.
             </motion.p>
           </div>
 
