@@ -132,7 +132,7 @@ export function WorkGrid() {
           A selection of projects spanning e-commerce, education, wellness, and mission-driven brands.
         </motion.p>
 
-        <div className="grid grid-cols-1 gap-y-14 sm:gap-y-24 lg:gap-y-32">
+        <div className="grid grid-cols-1 gap-y-20 sm:gap-y-24 lg:gap-y-32">
           {projects.map((project, idx) => (
             <WorkCard
               key={project.id}
