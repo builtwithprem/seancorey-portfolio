@@ -45,7 +45,7 @@ function WorkCard({
       >
         <motion.div
           layoutId={`card-image-${project.id}`}
-          className="rounded-xl overflow-hidden"
+          className="rounded-xl overflow-hidden mb-6 sm:mb-10"
         >
           {thumbnail && (
             // eslint-disable-next-line @next/next/no-img-element
