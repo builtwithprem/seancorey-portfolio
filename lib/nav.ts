@@ -14,7 +14,7 @@ export function scrollToSection(id: string, e?: React.MouseEvent) {
   if (!target) return;
 
   const start    = window.scrollY;
-  const end      = target.getBoundingClientRect().top + window.scrollY;
+  const end      = target.getBoundingClientRect().top + window.scrollY - 88; // 72px nav + 16px breathing room
   const distance = end - start;
   const duration = 1400; // ms — slow, premium feel
   let startTime: number | null = null;
