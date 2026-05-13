@@ -46,7 +46,7 @@ export function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-bold text-[clamp(2.4rem,5vw,5rem)] text-forest leading-tight mb-8"
+              className="font-display font-bold text-[clamp(2.25rem,5vw,4.5rem)] text-forest leading-tight mb-8"
             >
               My Values
             </motion.h2>

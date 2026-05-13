@@ -39,7 +39,7 @@ export function About() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display font-bold text-forest leading-[1.05] text-[clamp(2.4rem,5vw,5rem)] mb-12 sm:mb-20 lg:mb-28 max-w-4xl"
+          className="font-display font-bold text-forest leading-[1.05] text-[clamp(2.25rem,5vw,4.5rem)] mb-12 sm:mb-20 lg:mb-28 max-w-4xl"
         >
           A little about me.
         </motion.h2>

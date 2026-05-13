@@ -68,13 +68,10 @@ function WorkCard({
         </motion.div>
 
         <motion.div layoutId={`card-meta-${project.id}`}>
-          <p className="text-[0.7rem] uppercase tracking-[0.18em] text-white/40 font-sans mb-2">
-            {project.category}
-          </p>
-          <p className="font-display font-bold text-white text-[1.2rem] leading-tight mb-1">
+          <p className="font-display font-bold text-white text-[1.2rem] sm:text-[1.5rem] leading-tight mb-1 sm:mb-2">
             {project.title}
           </p>
-          <p className="font-sans text-[0.95rem] text-white/55 leading-relaxed">
+          <p className="font-sans text-[0.95rem] sm:text-[1.1rem] text-white/55 leading-relaxed">
             {project.description}
           </p>
         </motion.div>
@@ -124,7 +121,7 @@ export function WorkGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display font-bold text-[clamp(2.4rem,5vw,5rem)] text-white leading-tight mb-5"
+          className="font-display font-bold text-[clamp(2.25rem,5vw,4.5rem)] text-white leading-tight mb-5"
         >
           My Work
         </motion.h2>
