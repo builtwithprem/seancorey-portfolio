@@ -75,13 +75,13 @@ export function About() {
                 viewport={{ once: true, margin: "-40px" }}
                 transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
               >
-                <p className="text-[0.875rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-4">
+                <p className="text-[1rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-4">
                   {era.label}
                 </p>
                 {era.body.map((para, i) => (
                   <p
                     key={i}
-                    className={`font-sans text-[1rem] sm:text-[1.15rem] text-forest/75 leading-relaxed ${i > 0 ? "mt-4" : ""}`}
+                    className={`font-sans text-[1.1rem] sm:text-[1.3rem] text-forest/75 leading-relaxed ${i > 0 ? "mt-4" : ""}`}
                   >
                     {para}
                   </p>
