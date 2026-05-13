@@ -29,38 +29,33 @@ function WorkCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.75, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
+      onClick={onSelect}
+      onMouseEnter={onHoverStart}
+      onMouseLeave={onHoverEnd}
+      className="group cursor-none bg-black/30 rounded-3xl overflow-hidden"
     >
-      <div
-        onClick={onSelect}
-        onMouseEnter={onHoverStart}
-        onMouseLeave={onHoverEnd}
-        className="group cursor-none"
-      >
-        <div className="rounded-xl overflow-hidden mb-6 sm:mb-10">
-          {thumbnail && (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={thumbnail}
-              alt={project.title}
-              className="w-full h-auto block"
-            />
-          )}
-        </div>
+      {thumbnail && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={thumbnail}
+          alt={project.title}
+          className="w-full h-auto block"
+        />
+      )}
 
-        <div className="text-center mx-auto max-w-[40rem]">
-          <p className="font-display font-bold text-white text-[1.2rem] sm:text-[1.5rem] leading-tight mb-1 sm:mb-2">
-            {project.title}
-          </p>
-          <p className="font-sans text-[0.95rem] sm:text-[1.1rem] text-white/55 leading-relaxed mb-4">
-            {project.description}
-          </p>
-          <button
-            onClick={onSelect}
-            className="inline-flex items-center gap-1.5 text-[0.75rem] uppercase tracking-[0.15em] text-white/70 underline underline-offset-4 hover:text-white transition-colors duration-200 cursor-pointer font-sans"
-          >
-            View Project <ArrowUpRight size={13} strokeWidth={1.75} />
-          </button>
-        </div>
+      <div className="p-7 sm:p-8">
+        <p className="font-display font-bold text-white text-[1.2rem] sm:text-[1.4rem] leading-tight mb-2">
+          {project.title}
+        </p>
+        <p className="font-sans text-[0.95rem] sm:text-[1rem] text-white/55 leading-relaxed mb-5">
+          {project.description}
+        </p>
+        <button
+          onClick={onSelect}
+          className="inline-flex items-center gap-1.5 text-[0.75rem] uppercase tracking-[0.15em] text-white/70 underline underline-offset-4 hover:text-white transition-colors duration-200 cursor-pointer font-sans"
+        >
+          View Project <ArrowUpRight size={13} strokeWidth={1.75} />
+        </button>
       </div>
     </motion.div>
   );
@@ -89,7 +84,7 @@ export function WorkGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display font-bold text-[clamp(2.25rem,5vw,4.5rem)] text-white leading-tight mb-5 text-center"
+          className="font-display font-bold text-[clamp(2.25rem,5vw,4.5rem)] text-white leading-tight mb-5"
         >
           My Work
         </motion.h2>
@@ -99,12 +94,12 @@ export function WorkGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="text-[1.1rem] sm:text-[1.3rem] text-white/60 leading-relaxed font-sans max-w-xl mb-20 text-center mx-auto"
+          className="text-[1.1rem] sm:text-[1.3rem] text-white/60 leading-relaxed font-sans max-w-xl mb-20"
         >
           A selection of projects spanning e-commerce, education, wellness, and mission-driven brands.
         </motion.p>
 
-        <div className="grid grid-cols-1 gap-y-20 sm:gap-y-24 lg:gap-y-32">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
           {projects.map((project, idx) => (
             <WorkCard
               key={project.id}

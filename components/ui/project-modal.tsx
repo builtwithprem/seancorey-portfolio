@@ -85,7 +85,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             >
               {/* Left */}
               <div>
-                <p className="font-sans text-[1.1rem] text-forest/70 leading-relaxed mb-8">
+                <p className="font-sans text-[1.1rem] text-forest/70 leading-relaxed mb-5">
                   {project.description}
                 </p>
                 {project.url && (
@@ -103,7 +103,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               {/* Right — services */}
               {project.services && project.services.length > 0 && (
                 <div>
-                  <p className="text-[0.7rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-4">
+                  <p className="text-[0.8rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-4">
                     Services
                   </p>
                   {/* >3 items on mobile → two columns */}

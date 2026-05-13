@@ -24,7 +24,7 @@ export const projects: Project[] = [
       "/sean-corey-design-moka-1.jpg",
     ],
     url: "https://mokaorigins.com",
-    services: ["Ecommerce", "Website Design", "Website Development", "Consulting", "Infrastructure"],
+    services: ["Ecommerce", "UI Design", "Web Development", "Consulting", "Infrastructure"],
     caseStudy: [
       {
         heading: "The Challenge",
