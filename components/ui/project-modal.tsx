@@ -42,6 +42,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
     if (!track) return;
     const slide = track.children[imgIdx] as HTMLElement | undefined;
     if (slide) slide.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+
   }, [imgIdx]);
 
   return (
@@ -123,19 +124,24 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="relative"
             >
-              {/* Scrollable track — snaps to each image */}
+              {/* Scrollable track — active slide centered, adjacent slides peek in */}
               <div
                 ref={trackRef}
-                className="flex overflow-x-auto snap-x snap-mandatory gap-3 px-6 lg:px-12 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                style={{
+                  paddingLeft:  "max(24px, calc(50% - 340px))",
+                  paddingRight: "max(24px, calc(50% - 340px))",
+                  scrollPaddingLeft: "max(24px, calc(50% - 340px))",
+                }}
               >
                 {images.map((src, i) => (
                   <div
                     key={i}
                     onClick={() => setImgIdx(i)}
-                    className={`snap-start flex-shrink-0 rounded-xl overflow-hidden cursor-pointer transition-opacity duration-200 ${
-                      i === imgIdx ? "opacity-100" : "opacity-60 hover:opacity-80"
+                    className={`snap-center flex-shrink-0 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 ${
+                      i === imgIdx ? "opacity-100 scale-100" : "opacity-50 hover:opacity-70"
                     }`}
-                    style={{ width: "calc(80vw)", maxWidth: "860px" }}
+                    style={{ width: "min(72vw, 680px)" }}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img

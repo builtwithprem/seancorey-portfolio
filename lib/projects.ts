@@ -19,12 +19,12 @@ export const projects: Project[] = [
     gradient: "linear-gradient(135deg, #48949e 0%, #2a5a62 100%)",
     images: [
       "/sean-corey-design-moka-1.jpg",
-      "/sean-corey-design-moka-2.jpg",
-      "/sean-corey-design-moka-3.jpg",
-      "/sean-corey-design-moka-4.jpg",
+      "/sean-corey-design-moka-1.jpg",
+      "/sean-corey-design-moka-1.jpg",
+      "/sean-corey-design-moka-1.jpg",
     ],
     url: "https://mokaorigins.com",
-    services: ["Ecommerce", "Website Design", "Consulting", "Infrastructure"],
+    services: ["Ecommerce", "Website Design", "Website Development", "Consulting", "Infrastructure"],
     caseStudy: [
       "Moka Origins has been a longtime client. Over 8+ years, I've helped them evolve their Shopify presence through two major overhauls and ongoing strategic support.",
       "The most recent project moved them from a code-heavy infrastructure to a visual page builder... giving their team the independence to make updates without relying on a developer. I planned and designed the full site architecture, migrated to a modern theme with fast load times, an AJAX cart, and robust search functionality.",
