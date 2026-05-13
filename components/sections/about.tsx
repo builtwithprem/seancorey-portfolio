@@ -45,7 +45,7 @@ export function About() {
         </motion.h2>
 
         {/* Two-column body — photo left, eras right */}
-        <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-8 sm:gap-12 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-20 lg:gap-24 items-start">
 
           {/* Left — photo + stats */}
           <motion.div
