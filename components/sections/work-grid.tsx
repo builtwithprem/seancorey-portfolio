@@ -88,6 +88,15 @@ export function WorkGrid() {
 
   useEffect(() => { setImgIdx(0); }, [selectedId]);
 
+  // Auto-advance slides every 3.5s; resets on manual navigation
+  useEffect(() => {
+    if (!selectedId || images.length <= 1) return;
+    const id = setInterval(() => {
+      setImgIdx(i => (i + 1) % images.length);
+    }, 3500);
+    return () => clearInterval(id);
+  }, [selectedId, imgIdx, images.length]);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") { setSelectedId(null); return; }
