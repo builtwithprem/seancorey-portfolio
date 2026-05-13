@@ -44,7 +44,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.04 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[200] bg-sage overflow-y-auto"
+          className="fixed inset-0 z-[200] bg-white overflow-y-auto"
         >
           {/* Close */}
           <button
