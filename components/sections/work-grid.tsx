@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
-import { Player } from "@lottiefiles/react-lottie-player";
 import { WorkCursor } from "@/components/ui/work-cursor";
 import { projects } from "@/lib/projects";
 
@@ -54,31 +53,12 @@ function WorkCard({
           className="relative aspect-[3/2] sm:aspect-[2/1] rounded-xl overflow-hidden"
         >
           {thumbnail ? (
-            /\.json$/i.test(thumbnail) ? (
-              <Player
-                autoplay
-                loop
-                src={thumbnail}
-                className="absolute inset-0 w-full h-full"
-              />
-            ) : /\.(mov|webm|mp4)$/i.test(thumbnail) ? (
-              <video
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover object-left sm:object-center"
-              >
-                <source src={thumbnail} type={thumbnail.endsWith(".mov") ? "video/quicktime" : thumbnail.endsWith(".webm") ? "video/webm" : "video/mp4"} />
-              </video>
-            ) : (
-              // eslint-disable-next-line @next/next/no-img-element
-              <img
-                src={thumbnail}
-                alt={project.title}
-                className="absolute inset-0 w-full h-full object-cover object-left sm:object-center"
-              />
-            )
+            // eslint-disable-next-line @next/next/no-img-element
+            <img
+              src={thumbnail}
+              alt={project.title}
+              className="absolute inset-0 w-full h-full object-cover object-left sm:object-center"
+            />
           ) : (
             <div className="absolute inset-0" style={{ background: project.gradient }} />
           )}
