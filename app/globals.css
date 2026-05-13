@@ -174,7 +174,7 @@
     @apply border-border outline-ring/50;
   }
   html {
-    @apply scroll-smooth;
+    /* scroll-behaviour managed by scrollToSection in lib/nav.ts */
   }
   body {
     /* Dark base — light sections float on top; reveals as hero fades on scroll */

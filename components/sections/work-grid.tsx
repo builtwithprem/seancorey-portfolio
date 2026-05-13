@@ -99,7 +99,13 @@ export function WorkGrid() {
           A selection of projects spanning e-commerce, education, wellness, and mission-driven brands.
         </motion.p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-8">
+        <motion.div
+          initial={{ paddingLeft: "8vw", paddingRight: "8vw" }}
+          whileInView={{ paddingLeft: "0px", paddingRight: "0px" }}
+          viewport={{ once: true, amount: 0.05 }}
+          transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+        >
           {projects.map((project, idx) => (
             <WorkCard
               key={project.id}
@@ -110,7 +116,7 @@ export function WorkGrid() {
               onHoverEnd={() => setIsHovering(false)}
             />
           ))}
-        </div>
+        </motion.div>
       </div>
 
       <WorkCursor isHovering={isHovering && !selectedId} />

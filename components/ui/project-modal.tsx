@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import type { Project } from "@/lib/projects";
@@ -17,7 +17,11 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const images      = project?.images ?? [];
   const hasMultiple = images.length > 1;
 
-  useEffect(() => { setImgIdx(0); }, [project?.id]);
+  // Start at index 1 so the first image peeks from the left — fills the center slot
+  useEffect(() => {
+    if (!project) return;
+    setImgIdx(project.images && project.images.length > 1 ? 1 : 0);
+  }, [project?.id]);
 
   useEffect(() => {
     document.body.style.overflow = project ? "hidden" : "";
@@ -36,14 +40,28 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
     return () => window.removeEventListener("keydown", fn);
   }, [project, onClose, images.length]);
 
-  // Scroll carousel track to active slide
+  // Scroll carousel track to active slide (button/keyboard nav)
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
     const slide = track.children[imgIdx] as HTMLElement | undefined;
     if (slide) slide.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-
   }, [imgIdx]);
+
+  // Sync imgIdx when user swipes the track natively
+  const handleTrackScroll = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const center = track.scrollLeft + track.clientWidth / 2;
+    let closest = 0;
+    let closestDist = Infinity;
+    Array.from(track.children).forEach((child, i) => {
+      const el = child as HTMLElement;
+      const dist = Math.abs(el.offsetLeft + el.offsetWidth / 2 - center);
+      if (dist < closestDist) { closestDist = dist; closest = i; }
+    });
+    setImgIdx(closest);
+  }, []);
 
   return (
     <AnimatePresence>
@@ -85,7 +103,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             >
               {/* Left */}
               <div>
-                <p className="font-sans text-[1.1rem] text-forest/70 leading-relaxed mb-5">
+                <p className="font-sans text-[1.1rem] text-forest/70 leading-relaxed mb-8">
                   {project.description}
                 </p>
                 {project.url && (
@@ -132,6 +150,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               {/* Scrollable track — active slide centered, adjacent slides peek in */}
               <div
                 ref={trackRef}
+                onScroll={handleTrackScroll}
                 className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
                 style={{
                   paddingLeft:  "max(24px, calc(50% - 340px))",
