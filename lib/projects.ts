@@ -3,9 +3,10 @@ export type Project = {
   title: string;
   category: string;
   description: string;
-  gradient: string;    // modal fallback when no images provided
-  images?: string[];   // [0] is the grid thumbnail, all shown in modal
-  url?: string;        // optional CTA link shown in modal
+  gradient: string;
+  images?: string[];
+  url?: string;
+  services?: string[];
 };
 
 export const projects: Project[] = [
@@ -22,6 +23,7 @@ export const projects: Project[] = [
       "/sean-corey-design-moka-4.jpg",
     ],
     url: "https://mokaorigins.com",
+    services: ["Brand Identity", "Web Design", "Art Direction"],
   },
   {
     id: "himalayan-institute",
@@ -35,6 +37,7 @@ export const projects: Project[] = [
       "/sean-corey-design-himalayan-3.jpg",
       "/sean-corey-design-himalayan-4.jpg",
     ],
+    services: ["Web Design", "UX Design", "Development"],
   },
   {
     id: "sean-corey-yoga",
@@ -48,6 +51,7 @@ export const projects: Project[] = [
       "/sean-corey-design-sean-corey-yoga-3.jpg",
       "/sean-corey-design-sean-corey-yoga-4.jpg",
     ],
+    services: ["Brand Identity", "Web Design"],
   },
   {
     id: "vishoka-meditation",
@@ -61,6 +65,7 @@ export const projects: Project[] = [
       "/sean-corey-design-vishoka-3.jpg",
       "/sean-corey-design-vishoka-4.jpg",
     ],
+    services: ["Brand Identity", "Packaging", "Web Design"],
   },
   {
     id: "yoga-hive",
@@ -74,6 +79,7 @@ export const projects: Project[] = [
       "/sean-corey-design-yoga-hive-3.jpg",
       "/sean-corey-design-yoga-hive-4.jpg",
     ],
+    services: ["Web Design", "UX Design"],
   },
   {
     id: "vadavas-by-lex",
@@ -87,5 +93,6 @@ export const projects: Project[] = [
       "/sean-corey-design-vadavas-3.jpg",
       "/sean-corey-design-vadavas-4.jpg",
     ],
+    services: ["Design Direction", "Brand Identity"],
   },
 ];
