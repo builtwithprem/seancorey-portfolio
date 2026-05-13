@@ -53,12 +53,24 @@ function WorkCard({
           className="relative aspect-[3/2] sm:aspect-[2/1] rounded-xl overflow-hidden"
         >
           {thumbnail ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={thumbnail}
-              alt={project.title}
-              className="absolute inset-0 w-full h-full object-cover object-left sm:object-center"
-            />
+            /\.(mov|webm|mp4)$/i.test(thumbnail) ? (
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover object-left sm:object-center"
+              >
+                <source src={thumbnail} type={thumbnail.endsWith(".mov") ? "video/quicktime" : thumbnail.endsWith(".webm") ? "video/webm" : "video/mp4"} />
+              </video>
+            ) : (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={thumbnail}
+                alt={project.title}
+                className="absolute inset-0 w-full h-full object-cover object-left sm:object-center"
+              />
+            )
           ) : (
             <div className="absolute inset-0" style={{ background: project.gradient }} />
           )}
