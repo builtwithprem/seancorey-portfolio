@@ -37,6 +37,19 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: "sean-corey-yoga",
+    title: "Sean Corey Yoga",
+    category: "Brand Identity",
+    description: "Placeholder description for Sean Corey Yoga.",
+    gradient: "linear-gradient(135deg, #7a8a6e 0%, #3a4a2e 100%)",
+    images: [
+      "/sean-corey-design-sean-corey-yoga-1.jpg",
+      "/sean-corey-design-sean-corey-yoga-2.jpg",
+      "/sean-corey-design-sean-corey-yoga-3.jpg",
+      "/sean-corey-design-sean-corey-yoga-4.jpg",
+    ],
+  },
+  {
     id: "vishoka-meditation",
     title: "Vishoka Meditation",
     category: "Brand Identity",
@@ -60,19 +73,6 @@ export const projects: Project[] = [
       "/sean-corey-design-yoga-hive-2.jpg",
       "/sean-corey-design-yoga-hive-3.jpg",
       "/sean-corey-design-yoga-hive-4.jpg",
-    ],
-  },
-  {
-    id: "sean-corey-yoga",
-    title: "Sean Corey Yoga",
-    category: "Brand Identity",
-    description: "Placeholder description for Sean Corey Yoga.",
-    gradient: "linear-gradient(135deg, #7a8a6e 0%, #3a4a2e 100%)",
-    images: [
-      "/sean-corey-design-sean-corey-yoga-1.jpg",
-      "/sean-corey-design-sean-corey-yoga-2.jpg",
-      "/sean-corey-design-sean-corey-yoga-3.jpg",
-      "/sean-corey-design-sean-corey-yoga-4.jpg",
     ],
   },
   {
