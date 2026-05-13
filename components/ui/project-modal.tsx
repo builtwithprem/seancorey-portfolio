@@ -145,12 +145,16 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                       className="flex-shrink-0 px-2"
                       style={{ flex: "0 0 80%", maxWidth: "80%" }}
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={src}
-                        alt={`${project.title} — ${i + 1}`}
-                        className="w-full h-auto block rounded-xl"
-                      />
+                      {/* Mobile: fixed 60vh so web design screenshots have impact.
+                          Desktop: natural height — already looks great. */}
+                      <div className="h-[60vh] sm:h-auto overflow-hidden rounded-xl">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={src}
+                          alt={`${project.title} — ${i + 1}`}
+                          className="w-full h-full sm:h-auto block object-cover object-top sm:object-none"
+                        />
+                      </div>
                     </div>
                   ))}
                 </div>
