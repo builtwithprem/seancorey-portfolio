@@ -51,10 +51,6 @@ function WorkCard({
         <motion.div
           layoutId={`card-image-${project.id}`}
           className="relative h-[60vh] sm:h-auto sm:aspect-[2/1] rounded-xl overflow-hidden mb-8 sm:mb-12"
-          initial={{ scale: 1 }}
-          whileInView={{ scale: 1.07 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
           {thumbnail ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -72,9 +68,14 @@ function WorkCard({
         </motion.div>
 
         <motion.div layoutId={`card-meta-${project.id}`}>
-          <p className="font-sans text-[1.1rem] leading-relaxed">
-            <span className="font-bold text-white">{project.title}</span>
-            <span className="text-white/50 font-normal"> — {project.description}</span>
+          <p className="text-[0.7rem] uppercase tracking-[0.18em] text-white/40 font-sans mb-2">
+            {project.category}
+          </p>
+          <p className="font-display font-bold text-white text-[1.2rem] leading-tight mb-1">
+            {project.title}
+          </p>
+          <p className="font-sans text-[0.95rem] text-white/55 leading-relaxed">
+            {project.description}
           </p>
         </motion.div>
       </motion.div>
@@ -115,7 +116,7 @@ export function WorkGrid() {
     <section
       id="work"
       data-section-theme="dark"
-      className="bg-forest py-24 lg:py-32"
+      className="bg-forest py-16 sm:py-24 lg:py-32"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.h2
@@ -133,12 +134,12 @@ export function WorkGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="text-[1.3rem] text-white/60 leading-relaxed font-sans max-w-xl mb-20"
+          className="text-[1.1rem] sm:text-[1.3rem] text-white/60 leading-relaxed font-sans max-w-xl mb-20"
         >
           A selection of projects spanning e-commerce, education, wellness, and mission-driven brands.
         </motion.p>
 
-        <div className="grid grid-cols-1 gap-y-20 sm:gap-y-24 lg:gap-y-32">
+        <div className="grid grid-cols-1 gap-y-14 sm:gap-y-24 lg:gap-y-32">
           {projects.map((project, idx) => (
             <WorkCard
               key={project.id}
