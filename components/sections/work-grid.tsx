@@ -50,7 +50,7 @@ function WorkCard({
         */}
         <motion.div
           layoutId={`card-image-${project.id}`}
-          className="relative aspect-[3/2] sm:aspect-[2/1] rounded-xl overflow-hidden mb-8 sm:mb-12"
+          className="relative aspect-[3/2] sm:aspect-[2/1] rounded-xl overflow-hidden"
         >
           {thumbnail ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -68,9 +68,15 @@ function WorkCard({
           <p className="font-display font-bold text-white text-[1.2rem] sm:text-[1.5rem] leading-tight mb-1 sm:mb-2">
             {project.title}
           </p>
-          <p className="font-sans text-[0.95rem] sm:text-[1.1rem] text-white/55 leading-relaxed">
+          <p className="font-sans text-[0.95rem] sm:text-[1.1rem] text-white/55 leading-relaxed mb-4">
             {project.description}
           </p>
+          <button
+            onClick={onSelect}
+            className="inline-flex items-center gap-1.5 text-[0.75rem] uppercase tracking-[0.15em] text-white/70 underline underline-offset-4 hover:text-white transition-colors duration-200 cursor-pointer font-sans"
+          >
+            View Project <ArrowUpRight size={13} strokeWidth={1.75} />
+          </button>
         </motion.div>
       </motion.div>
     </motion.div>
