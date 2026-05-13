@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import type { Project } from "@/lib/projects";
@@ -12,6 +12,7 @@ interface ProjectModalProps {
 
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const [imgIdx, setImgIdx] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
 
   const images      = project?.images ?? [];
   const hasMultiple = images.length > 1;
@@ -35,6 +36,14 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
     return () => window.removeEventListener("keydown", fn);
   }, [project, onClose, images.length]);
 
+  // Scroll carousel track to active slide
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const slide = track.children[imgIdx] as HTMLElement | undefined;
+    if (slide) slide.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  }, [imgIdx]);
+
   return (
     <AnimatePresence>
       {project && (
@@ -44,7 +53,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 1.04 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed inset-0 z-[200] bg-white overflow-y-auto"
+          className="fixed inset-0 z-[200] bg-sage overflow-y-auto"
         >
           {/* Close */}
           <button
@@ -61,42 +70,24 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-bold text-forest text-[clamp(2.25rem,5vw,4.5rem)] leading-tight mb-5"
+              className="font-display font-bold text-forest text-[clamp(2.25rem,5vw,4.5rem)] leading-tight mb-10"
             >
               {project.title}
             </motion.h2>
 
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-              className="font-sans text-[1.1rem] text-forest/70 leading-relaxed max-w-2xl mb-10"
-            >
-              {project.description}
-            </motion.p>
-
-            {/* Metadata row */}
+            {/* Two-column: description+CTA left, services right */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.26, ease: [0.22, 1, 0.36, 1] }}
-              className="flex flex-wrap items-start gap-10"
+              transition={{ duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              className="grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-10 lg:gap-16"
             >
-              {project.services && project.services.length > 0 && (
-                <div>
-                  <p className="text-[0.7rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-3">
-                    Services
-                  </p>
-                  <ul className="space-y-1">
-                    {project.services.map(s => (
-                      <li key={s} className="text-[1rem] text-forest/75 font-sans">{s}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {project.url && (
-                <div className="flex items-end">
+              {/* Left */}
+              <div>
+                <p className="font-sans text-[1.1rem] text-forest/70 leading-relaxed mb-8">
+                  {project.description}
+                </p>
+                {project.url && (
                   <a
                     href={project.url}
                     target="_blank"
@@ -105,79 +96,113 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   >
                     Visit Website <ArrowUpRight size={15} />
                   </a>
+                )}
+              </div>
+
+              {/* Right — services */}
+              {project.services && project.services.length > 0 && (
+                <div>
+                  <p className="text-[0.7rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-4">
+                    Services
+                  </p>
+                  <ul className="space-y-2">
+                    {project.services.map(s => (
+                      <li key={s} className="text-[1rem] text-forest/70 font-sans">{s}</li>
+                    ))}
+                  </ul>
                 </div>
               )}
             </motion.div>
           </div>
 
-          {/* Full-width image slider */}
+          {/* Carousel */}
           {images.length > 0 && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="relative w-full"
+              className="relative"
             >
-              <div className="relative h-[65vh] overflow-hidden">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={`${project.id}-${imgIdx}`}
-                    src={images[imgIdx]}
-                    alt={`${project.title} — ${imgIdx + 1}`}
-                    className="absolute inset-0 w-full h-full object-cover"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.35, ease: "easeInOut" }}
-                  />
-                </AnimatePresence>
-
-                {hasMultiple && imgIdx > 0 && (
-                  <button
-                    onClick={() => setImgIdx(i => i - 1)}
-                    className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/35 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/55 transition-colors duration-200 cursor-pointer"
-                    aria-label="Previous image"
+              {/* Scrollable track — snaps to each image */}
+              <div
+                ref={trackRef}
+                className="flex overflow-x-auto snap-x snap-mandatory gap-3 px-6 lg:px-12 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              >
+                {images.map((src, i) => (
+                  <div
+                    key={i}
+                    onClick={() => setImgIdx(i)}
+                    className={`snap-start flex-shrink-0 rounded-xl overflow-hidden cursor-pointer transition-opacity duration-200 ${
+                      i === imgIdx ? "opacity-100" : "opacity-60 hover:opacity-80"
+                    }`}
+                    style={{ width: "calc(80vw)", maxWidth: "860px" }}
                   >
-                    <ChevronLeft size={18} />
-                  </button>
-                )}
-
-                {hasMultiple && imgIdx < images.length - 1 && (
-                  <button
-                    onClick={() => setImgIdx(i => i + 1)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-black/35 backdrop-blur-sm flex items-center justify-center text-white hover:bg-black/55 transition-colors duration-200 cursor-pointer"
-                    aria-label="Next image"
-                  >
-                    <ChevronRight size={18} />
-                  </button>
-                )}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={src}
+                      alt={`${project.title} — ${i + 1}`}
+                      className="w-full h-auto block"
+                    />
+                  </div>
+                ))}
               </div>
 
-              {/* Dot indicators */}
+              {/* Prev / Next buttons */}
               {hasMultiple && (
-                <div className="flex justify-center gap-2 py-5">
-                  {images.map((_, i) => (
-                    <button
-                      key={i}
-                      onClick={() => setImgIdx(i)}
-                      aria-label={`Image ${i + 1}`}
-                      className={`rounded-full transition-all duration-250 cursor-pointer ${
-                        i === imgIdx
-                          ? "w-5 h-1.5 bg-forest"
-                          : "w-1.5 h-1.5 bg-forest/30 hover:bg-forest/60"
-                      }`}
-                    />
-                  ))}
+                <div className="flex items-center justify-center gap-3 pt-5">
+                  <button
+                    onClick={() => setImgIdx(i => Math.max(0, i - 1))}
+                    disabled={imgIdx === 0}
+                    className="w-9 h-9 rounded-full border border-forest/20 flex items-center justify-center text-forest disabled:opacity-25 hover:bg-forest/8 transition-colors duration-200 cursor-pointer"
+                    aria-label="Previous"
+                  >
+                    <ChevronLeft size={16} />
+                  </button>
+
+                  {/* Dots */}
+                  <div className="flex gap-2">
+                    {images.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setImgIdx(i)}
+                        aria-label={`Image ${i + 1}`}
+                        className={`rounded-full transition-all duration-250 cursor-pointer ${
+                          i === imgIdx
+                            ? "w-5 h-1.5 bg-forest"
+                            : "w-1.5 h-1.5 bg-forest/30 hover:bg-forest/60"
+                        }`}
+                      />
+                    ))}
+                  </div>
+
+                  <button
+                    onClick={() => setImgIdx(i => Math.min(images.length - 1, i + 1))}
+                    disabled={imgIdx === images.length - 1}
+                    className="w-9 h-9 rounded-full border border-forest/20 flex items-center justify-center text-forest disabled:opacity-25 hover:bg-forest/8 transition-colors duration-200 cursor-pointer"
+                    aria-label="Next"
+                  >
+                    <ChevronRight size={16} />
+                  </button>
                 </div>
               )}
             </motion.div>
           )}
 
-          {/* Case study area — placeholder for future content */}
-          <div className="max-w-5xl mx-auto px-6 lg:px-12 py-20">
-            <p className="text-forest/25 font-sans text-sm italic">
-              Case study coming soon.
-            </p>
+          {/* Case study */}
+          <div className="max-w-2xl mx-auto px-6 lg:px-12 py-20">
+            {project.caseStudy && project.caseStudy.length > 0 ? (
+              <div className="space-y-6">
+                {project.caseStudy.map((para, i) => (
+                  <p key={i} className="font-sans text-[1.1rem] text-forest/75 leading-relaxed">
+                    {para}
+                  </p>
+                ))}
+              </div>
+            ) : (
+              <p className="text-forest/25 font-sans text-sm italic">
+                Case study coming soon.
+              </p>
+            )}
           </div>
         </motion.div>
       )}

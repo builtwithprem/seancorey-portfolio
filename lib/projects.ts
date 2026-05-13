@@ -7,6 +7,7 @@ export type Project = {
   images?: string[];
   url?: string;
   services?: string[];
+  caseStudy?: string[];  // paragraphs rendered below the image slider
 };
 
 export const projects: Project[] = [
@@ -14,7 +15,7 @@ export const projects: Project[] = [
     id: "moka-origins",
     title: "Moka Origins",
     category: "Brand Identity",
-    description: "Placeholder description for Moka Origins.",
+    description: "A full ecommerce overhaul for a specialty coffee brand. Built for speed, clarity, and a team that can actually use it.",
     gradient: "linear-gradient(135deg, #48949e 0%, #2a5a62 100%)",
     images: [
       "/sean-corey-design-moka-1.jpg",
@@ -23,7 +24,12 @@ export const projects: Project[] = [
       "/sean-corey-design-moka-4.jpg",
     ],
     url: "https://mokaorigins.com",
-    services: ["Brand Identity", "Web Design", "Art Direction"],
+    services: ["Ecommerce", "Website Design", "Consulting", "Infrastructure"],
+    caseStudy: [
+      "Moka Origins has been a longtime client. Over 8+ years, I've helped them evolve their Shopify presence through two major overhauls and ongoing strategic support.",
+      "The most recent project moved them from a code-heavy infrastructure to a visual page builder... giving their team the independence to make updates without relying on a developer. I planned and designed the full site architecture, migrated to a modern theme with fast load times, an AJAX cart, and robust search functionality.",
+      "The relationship continues with campaign launches, page builds, and technology consulting as the business grows.",
+    ],
   },
   {
     id: "himalayan-institute",
