@@ -173,9 +173,6 @@
   * {
     @apply border-border outline-ring/50;
   }
-  html {
-    /* scroll-behaviour managed by scrollToSection in lib/nav.ts */
-  }
   body {
     /* Dark base — light sections float on top; reveals as hero fades on scroll */
     /* V1: @apply bg-background text-foreground font-sans antialiased; */

@@ -19,9 +19,9 @@ export const projects: Project[] = [
     gradient: "linear-gradient(135deg, #48949e 0%, #2a5a62 100%)",
     images: [
       "/sean-corey-design-moka-1.jpg",
-      "/sean-corey-design-moka-1.jpg",
-      "/sean-corey-design-moka-1.jpg",
-      "/sean-corey-design-moka-1.jpg",
+      "/sean-corey-design-moka-2.jpg",
+      "/sean-corey-design-moka-3.jpg",
+      "/sean-corey-design-moka-4.jpg",
     ],
     url: "https://mokaorigins.com",
     services: ["Ecommerce", "UI Design", "Web Development", "Consulting", "Infrastructure"],
