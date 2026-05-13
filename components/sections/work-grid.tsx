@@ -64,7 +64,7 @@ function WorkCard({
           )}
         </motion.div>
 
-        <motion.div layoutId={`card-meta-${project.id}`} className="text-center">
+        <motion.div layoutId={`card-meta-${project.id}`} className="text-center mx-auto max-w-[40rem]">
           <p className="font-display font-bold text-white text-[1.2rem] sm:text-[1.5rem] leading-tight mb-1 sm:mb-2">
             {project.title}
           </p>
