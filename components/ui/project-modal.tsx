@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
+import useEmblaCarousel from "embla-carousel-react";
 import type { Project } from "@/lib/projects";
 
 interface ProjectModalProps {
@@ -11,16 +12,33 @@ interface ProjectModalProps {
 }
 
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
-  const [imgIdx, setImgIdx] = useState(0);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+
   const images      = project?.images ?? [];
   const hasMultiple = images.length > 1;
 
-  const prev = (imgIdx - 1 + images.length) % images.length;
-  const next = (imgIdx + 1) % images.length;
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop:          true,
+    align:         "center",
+    containScroll: false,  // lets adjacent slides peek in
+  });
 
-  const go = (i: number) => setImgIdx((i + images.length) % images.length);
+  // Sync dot indicator with embla's selected slide
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+    emblaApi.on("select", onSelect);
+    return () => { emblaApi.off("select", onSelect); };
+  }, [emblaApi]);
 
-  useEffect(() => { setImgIdx(0); }, [project?.id]);
+  // Reset to slide 0 when a new project opens
+  useEffect(() => {
+    if (emblaApi) emblaApi.scrollTo(0, true); // true = jump (no animation on open)
+    setSelectedIndex(0);
+  }, [project?.id, emblaApi]);
+
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
 
   useEffect(() => {
     document.body.style.overflow = project ? "hidden" : "";
@@ -30,14 +48,13 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
   useEffect(() => {
     if (!project) return;
     const fn = (e: KeyboardEvent) => {
-      if (e.key === "Escape") { onClose(); return; }
-      if (images.length <= 1) return;
-      if (e.key === "ArrowLeft")  go(imgIdx - 1);
-      if (e.key === "ArrowRight") go(imgIdx + 1);
+      if (e.key === "Escape")     { onClose(); return; }
+      if (e.key === "ArrowLeft")  scrollPrev();
+      if (e.key === "ArrowRight") scrollNext();
     };
     window.addEventListener("keydown", fn);
     return () => window.removeEventListener("keydown", fn);
-  }, [project, onClose, imgIdx, images.length]);
+  }, [project, onClose, scrollPrev, scrollNext]);
 
   return (
     <AnimatePresence>
@@ -70,14 +87,13 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               {project.title}
             </motion.h2>
 
-            {/* Two-column: description+CTA left, services right */}
             <motion.div
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
               className="grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-10 lg:gap-16"
             >
-              {/* Left */}
+              {/* Left — description + CTA */}
               <div>
                 <p className="font-sans text-[1.1rem] text-forest/70 leading-relaxed mb-8">
                   {project.description}
@@ -100,7 +116,6 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                   <p className="text-[0.8rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-4">
                     Services
                   </p>
-                  {/* >3 items on mobile → two columns */}
                   <ul className={`gap-x-6 gap-y-2 ${
                     project.services.length > 3
                       ? "grid grid-cols-2 lg:grid-cols-1"
@@ -115,82 +130,60 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </motion.div>
           </div>
 
-          {/* 3-up carousel — prev · center · next always fill full width */}
+          {/* Embla carousel */}
           {images.length > 0 && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              {images.length === 1 ? (
-                // Single image — centred, constrained width
-                <div className="px-6 lg:px-12">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={images[0]} alt={project.title} className="w-full h-auto block rounded-xl" />
-                </div>
-              ) : (
-                // 3-up slots — each exactly 1/3 of full width, no scroll
-                <div className="flex gap-3 px-3">
-                  {/* Prev */}
-                  <div
-                    className="w-1/3 flex-shrink-0 rounded-xl overflow-hidden cursor-pointer opacity-60 hover:opacity-80 transition-opacity duration-200"
-                    onClick={() => go(prev)}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={images[prev]} alt="" className="w-full h-auto block" />
-                  </div>
-
-                  {/* Active */}
-                  <div className="w-1/3 flex-shrink-0 rounded-xl overflow-hidden">
-                    <AnimatePresence mode="wait">
-                      <motion.img
-                        key={imgIdx}
-                        src={images[imgIdx]}
-                        alt={`${project.title} — ${imgIdx + 1}`}
-                        className="w-full h-auto block"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.25 }}
+              <div ref={emblaRef} className="overflow-hidden">
+                <div className="flex">
+                  {images.map((src, i) => (
+                    <div
+                      key={i}
+                      className="flex-shrink-0 px-2"
+                      style={{ flex: "0 0 80%", maxWidth: "80%" }}
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={src}
+                        alt={`${project.title} — ${i + 1}`}
+                        className="w-full h-auto block rounded-xl"
                       />
-                    </AnimatePresence>
-                  </div>
-
-                  {/* Next */}
-                  <div
-                    className="w-1/3 flex-shrink-0 rounded-xl overflow-hidden cursor-pointer opacity-60 hover:opacity-80 transition-opacity duration-200"
-                    onClick={() => go(next)}
-                  >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={images[next]} alt="" className="w-full h-auto block" />
-                  </div>
+                    </div>
+                  ))}
                 </div>
-              )}
+              </div>
 
               {/* Nav controls */}
               {hasMultiple && (
                 <div className="flex items-center justify-center gap-3 pt-5">
                   <button
-                    onClick={() => go(imgIdx - 1)}
+                    onClick={scrollPrev}
                     className="w-9 h-9 rounded-full border border-forest/20 flex items-center justify-center text-forest hover:bg-forest/8 transition-colors duration-200 cursor-pointer"
                     aria-label="Previous"
                   >
                     <ChevronLeft size={16} />
                   </button>
+
                   <div className="flex gap-2">
                     {images.map((_, i) => (
                       <button
                         key={i}
-                        onClick={() => setImgIdx(i)}
+                        onClick={() => emblaApi?.scrollTo(i)}
                         aria-label={`Image ${i + 1}`}
                         className={`rounded-full transition-all duration-250 cursor-pointer ${
-                          i === imgIdx ? "w-5 h-1.5 bg-forest" : "w-1.5 h-1.5 bg-forest/30 hover:bg-forest/60"
+                          i === selectedIndex
+                            ? "w-5 h-1.5 bg-forest"
+                            : "w-1.5 h-1.5 bg-forest/30 hover:bg-forest/60"
                         }`}
                       />
                     ))}
                   </div>
+
                   <button
-                    onClick={() => go(imgIdx + 1)}
+                    onClick={scrollNext}
                     className="w-9 h-9 rounded-full border border-forest/20 flex items-center justify-center text-forest hover:bg-forest/8 transition-colors duration-200 cursor-pointer"
                     aria-label="Next"
                   >
