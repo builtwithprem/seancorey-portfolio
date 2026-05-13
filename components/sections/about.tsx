@@ -63,23 +63,6 @@ export function About() {
               />
             </div>
 
-            {/* Facts */}
-            <div className="divide-y divide-forest/10">
-              {[
-                { label: "Living in",  value: "Hoi An, Vietnam"                        },
-                { label: "Teaching",   value: "Yoga & Meditation on Insight Timer"      },
-                { label: "Work",       value: "Accepting clients worldwide"             },
-              ].map(({ label, value }) => (
-                <div key={label} className="flex items-baseline gap-2 py-3.5">
-                  <span className="text-[0.7rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans shrink-0 w-20">
-                    {label}
-                  </span>
-                  <span className="text-[0.95rem] text-forest/80 font-sans leading-snug">
-                    {value}
-                  </span>
-                </div>
-              ))}
-            </div>
           </motion.div>
 
           {/* Right — eras */}
