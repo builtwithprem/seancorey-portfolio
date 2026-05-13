@@ -43,39 +43,33 @@ function WorkCard({
           transition: "opacity 0.15s ease",
         }}
       >
-        {/*
-          Image expands ~7% beyond its container as it enters view.
-          scale() keeps the rounded corners intact and avoids any layout shift —
-          the transform happens outside the normal flow.
-        */}
         <motion.div
           layoutId={`card-image-${project.id}`}
-          className="relative h-[60vh] sm:h-auto sm:aspect-[2/1] rounded-xl overflow-hidden mb-8 sm:mb-12"
-          initial={{ scale: 1 }}
-          whileInView={{ scale: 1.07 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="rounded-xl overflow-hidden mb-6 sm:mb-10"
         >
-          {thumbnail ? (
+          {thumbnail && (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={thumbnail}
               alt={project.title}
-              className="absolute inset-0 w-full h-full object-cover object-left sm:object-center"
+              className="w-full h-auto block"
             />
-          ) : (
-            <div className="absolute inset-0" style={{ background: project.gradient }} />
           )}
-          <div className="absolute bottom-4 right-4">
-            <span className="text-xs text-white/70 font-sans">{project.year}</span>
-          </div>
         </motion.div>
 
-        <motion.div layoutId={`card-meta-${project.id}`}>
-          <p className="font-sans text-[1.1rem] leading-relaxed">
-            <span className="font-bold text-white">{project.title}</span>
-            <span className="text-white/50 font-normal"> — {project.description}</span>
+        <motion.div layoutId={`card-meta-${project.id}`} className="text-center mx-auto max-w-[40rem]">
+          <p className="font-display font-bold text-white text-[1.2rem] sm:text-[1.5rem] leading-tight mb-1 sm:mb-2">
+            {project.title}
           </p>
+          <p className="font-sans text-[0.95rem] sm:text-[1.1rem] text-white/55 leading-relaxed mb-4">
+            {project.description}
+          </p>
+          <button
+            onClick={onSelect}
+            className="inline-flex items-center gap-1.5 text-[0.75rem] uppercase tracking-[0.15em] text-white/70 underline underline-offset-4 hover:text-white transition-colors duration-200 cursor-pointer font-sans"
+          >
+            View Project <ArrowUpRight size={13} strokeWidth={1.75} />
+          </button>
         </motion.div>
       </motion.div>
     </motion.div>
@@ -115,7 +109,7 @@ export function WorkGrid() {
     <section
       id="work"
       data-section-theme="dark"
-      className="bg-forest py-24 lg:py-32"
+      className="bg-forest py-16 sm:py-24 lg:py-32"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.h2
@@ -123,7 +117,7 @@ export function WorkGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display font-bold text-[clamp(2.4rem,5vw,5rem)] text-white leading-tight mb-5"
+          className="font-display font-bold text-[clamp(2.25rem,5vw,4.5rem)] text-white leading-tight mb-5 text-center"
         >
           My Work
         </motion.h2>
@@ -133,7 +127,7 @@ export function WorkGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="text-[1.3rem] text-white/60 leading-relaxed font-sans max-w-xl mb-20"
+          className="text-[1.1rem] sm:text-[1.3rem] text-white/60 leading-relaxed font-sans max-w-xl mb-20 text-center mx-auto"
         >
           A selection of projects spanning e-commerce, education, wellness, and mission-driven brands.
         </motion.p>
@@ -273,7 +267,6 @@ export function WorkGrid() {
                       <span className="text-xs uppercase tracking-[0.18em] text-forest font-semibold font-sans">
                         {selected.category}
                       </span>
-                      <span className="text-forest/65 text-sm font-sans">{selected.year}</span>
                     </div>
 
                     <p className="text-forest/70 leading-relaxed font-sans text-base mb-8">

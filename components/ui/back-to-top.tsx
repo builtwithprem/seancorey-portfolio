@@ -6,19 +6,38 @@ import { ArrowUp } from "lucide-react";
 
 export function BackToTop() {
   const [visible, setVisible] = useState(false);
+  const [isDark, setIsDark]   = useState(true); // default: body bg is dark
 
   useEffect(() => {
-    const onScroll = () => {
-      // Hysteresis: show at 400px, hide below 300px — prevents threshold blink.
-      // Functional updater avoids setState when value hasn't changed.
+    const update = () => {
+      const y = window.scrollY;
+
+      // Visibility — hysteresis prevents threshold blink
       setVisible(prev => {
-        if (window.scrollY > 400) return true;
-        if (window.scrollY < 300) return false;
+        if (y > 400) return true;
+        if (y < 300) return false;
         return prev;
       });
+
+      // Colour — check which data-section-theme sits behind the button.
+      // Button is fixed bottom-6 right-6; approximate document Y is scrollY + vh - ~50px.
+      const buttonDocY = y + window.innerHeight - 50;
+      const sections   = document.querySelectorAll<HTMLElement>("[data-section-theme]");
+      let dark = true;
+      for (const el of sections) {
+        const top    = el.offsetTop;
+        const bottom = top + el.offsetHeight;
+        if (buttonDocY >= top && buttonDocY < bottom) {
+          dark = el.dataset.sectionTheme === "dark";
+          break;
+        }
+      }
+      setIsDark(dark);
     };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+
+    window.addEventListener("scroll", update, { passive: true });
+    update();
+    return () => window.removeEventListener("scroll", update);
   }, []);
 
   return (
@@ -33,14 +52,17 @@ export function BackToTop() {
           whileTap={{ scale: 0.92 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           aria-label="Back to top"
-          className="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer border"
-          style={{
-            backgroundColor: "var(--color-forest)",
-            borderColor:     "color-mix(in srgb, var(--color-sage) 25%, transparent)",
-            color:           "var(--color-sage)",
-          }}
+          className={[
+            "fixed bottom-6 right-6 z-50",
+            "w-14 h-14 sm:w-16 sm:h-16",
+            "rounded-full flex items-center justify-center cursor-pointer",
+            "border-2 bg-transparent transition-colors duration-300",
+            isDark
+              ? "border-white/70 text-white hover:border-white hover:text-white"
+              : "border-forest/70 text-forest hover:border-forest hover:text-forest",
+          ].join(" ")}
         >
-          <ArrowUp size={22} strokeWidth={1.75} />
+          <ArrowUp className="size-5 sm:size-6" strokeWidth={1.75} />
         </motion.button>
       )}
     </AnimatePresence>
