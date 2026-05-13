@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight, ArrowUpRight } from "lucide-react";
 import type { Project } from "@/lib/projects";
@@ -12,16 +12,15 @@ interface ProjectModalProps {
 
 export function ProjectModal({ project, onClose }: ProjectModalProps) {
   const [imgIdx, setImgIdx] = useState(0);
-  const trackRef = useRef<HTMLDivElement>(null);
-
   const images      = project?.images ?? [];
   const hasMultiple = images.length > 1;
 
-  // Start at index 1 so the first image peeks from the left — fills the center slot
-  useEffect(() => {
-    if (!project) return;
-    setImgIdx(project.images && project.images.length > 1 ? 1 : 0);
-  }, [project?.id]);
+  const prev = (imgIdx - 1 + images.length) % images.length;
+  const next = (imgIdx + 1) % images.length;
+
+  const go = (i: number) => setImgIdx((i + images.length) % images.length);
+
+  useEffect(() => { setImgIdx(0); }, [project?.id]);
 
   useEffect(() => {
     document.body.style.overflow = project ? "hidden" : "";
@@ -33,35 +32,12 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
     const fn = (e: KeyboardEvent) => {
       if (e.key === "Escape") { onClose(); return; }
       if (images.length <= 1) return;
-      if (e.key === "ArrowLeft")  setImgIdx(i => Math.max(0, i - 1));
-      if (e.key === "ArrowRight") setImgIdx(i => Math.min(images.length - 1, i + 1));
+      if (e.key === "ArrowLeft")  go(imgIdx - 1);
+      if (e.key === "ArrowRight") go(imgIdx + 1);
     };
     window.addEventListener("keydown", fn);
     return () => window.removeEventListener("keydown", fn);
-  }, [project, onClose, images.length]);
-
-  // Scroll carousel track to active slide (button/keyboard nav)
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    const slide = track.children[imgIdx] as HTMLElement | undefined;
-    if (slide) slide.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
-  }, [imgIdx]);
-
-  // Sync imgIdx when user swipes the track natively
-  const handleTrackScroll = useCallback(() => {
-    const track = trackRef.current;
-    if (!track) return;
-    const center = track.scrollLeft + track.clientWidth / 2;
-    let closest = 0;
-    let closestDist = Infinity;
-    Array.from(track.children).forEach((child, i) => {
-      const el = child as HTMLElement;
-      const dist = Math.abs(el.offsetLeft + el.offsetWidth / 2 - center);
-      if (dist < closestDist) { closestDist = dist; closest = i; }
-    });
-    setImgIdx(closest);
-  }, []);
+  }, [project, onClose, imgIdx, images.length]);
 
   return (
     <AnimatePresence>
@@ -139,55 +115,68 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </motion.div>
           </div>
 
-          {/* Carousel */}
+          {/* 3-up carousel — prev · center · next always fill full width */}
           {images.length > 0 && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="relative"
             >
-              {/* Scrollable track — active slide centered, adjacent slides peek in */}
-              <div
-                ref={trackRef}
-                onScroll={handleTrackScroll}
-                className="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-                style={{
-                  paddingLeft:  "max(24px, calc(50% - 340px))",
-                  paddingRight: "max(24px, calc(50% - 340px))",
-                  scrollPaddingLeft: "max(24px, calc(50% - 340px))",
-                }}
-              >
-                {images.map((src, i) => (
+              {images.length === 1 ? (
+                // Single image — centred, constrained width
+                <div className="px-6 lg:px-12">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={images[0]} alt={project.title} className="w-full h-auto block rounded-xl" />
+                </div>
+              ) : (
+                // 3-up slots — each exactly 1/3 of full width, no scroll
+                <div className="flex gap-3 px-3">
+                  {/* Prev */}
                   <div
-                    key={i}
-                    onClick={() => setImgIdx(i)}
-                    className="snap-center flex-shrink-0 rounded-xl overflow-hidden cursor-pointer"
-                    style={{ width: "min(72vw, 680px)" }}
+                    className="w-1/3 flex-shrink-0 rounded-xl overflow-hidden cursor-pointer opacity-60 hover:opacity-80 transition-opacity duration-200"
+                    onClick={() => go(prev)}
                   >
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={src}
-                      alt={`${project.title} — ${i + 1}`}
-                      className="w-full h-auto block"
-                    />
+                    <img src={images[prev]} alt="" className="w-full h-auto block" />
                   </div>
-                ))}
-              </div>
 
-              {/* Prev / Next buttons */}
+                  {/* Active */}
+                  <div className="w-1/3 flex-shrink-0 rounded-xl overflow-hidden">
+                    <AnimatePresence mode="wait">
+                      <motion.img
+                        key={imgIdx}
+                        src={images[imgIdx]}
+                        alt={`${project.title} — ${imgIdx + 1}`}
+                        className="w-full h-auto block"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.25 }}
+                      />
+                    </AnimatePresence>
+                  </div>
+
+                  {/* Next */}
+                  <div
+                    className="w-1/3 flex-shrink-0 rounded-xl overflow-hidden cursor-pointer opacity-60 hover:opacity-80 transition-opacity duration-200"
+                    onClick={() => go(next)}
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={images[next]} alt="" className="w-full h-auto block" />
+                  </div>
+                </div>
+              )}
+
+              {/* Nav controls */}
               {hasMultiple && (
                 <div className="flex items-center justify-center gap-3 pt-5">
                   <button
-                    onClick={() => setImgIdx(i => Math.max(0, i - 1))}
-                    disabled={imgIdx === 0}
-                    className="w-9 h-9 rounded-full border border-forest/20 flex items-center justify-center text-forest disabled:opacity-25 hover:bg-forest/8 transition-colors duration-200 cursor-pointer"
+                    onClick={() => go(imgIdx - 1)}
+                    className="w-9 h-9 rounded-full border border-forest/20 flex items-center justify-center text-forest hover:bg-forest/8 transition-colors duration-200 cursor-pointer"
                     aria-label="Previous"
                   >
                     <ChevronLeft size={16} />
                   </button>
-
-                  {/* Dots */}
                   <div className="flex gap-2">
                     {images.map((_, i) => (
                       <button
@@ -195,18 +184,14 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                         onClick={() => setImgIdx(i)}
                         aria-label={`Image ${i + 1}`}
                         className={`rounded-full transition-all duration-250 cursor-pointer ${
-                          i === imgIdx
-                            ? "w-5 h-1.5 bg-forest"
-                            : "w-1.5 h-1.5 bg-forest/30 hover:bg-forest/60"
+                          i === imgIdx ? "w-5 h-1.5 bg-forest" : "w-1.5 h-1.5 bg-forest/30 hover:bg-forest/60"
                         }`}
                       />
                     ))}
                   </div>
-
                   <button
-                    onClick={() => setImgIdx(i => Math.min(images.length - 1, i + 1))}
-                    disabled={imgIdx === images.length - 1}
-                    className="w-9 h-9 rounded-full border border-forest/20 flex items-center justify-center text-forest disabled:opacity-25 hover:bg-forest/8 transition-colors duration-200 cursor-pointer"
+                    onClick={() => go(imgIdx + 1)}
+                    className="w-9 h-9 rounded-full border border-forest/20 flex items-center justify-center text-forest hover:bg-forest/8 transition-colors duration-200 cursor-pointer"
                     aria-label="Next"
                   >
                     <ChevronRight size={16} />
