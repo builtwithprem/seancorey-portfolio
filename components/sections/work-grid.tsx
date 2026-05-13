@@ -35,12 +35,14 @@ function WorkCard({
       className="group cursor-none bg-black/30 rounded-3xl overflow-hidden"
     >
       {thumbnail && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
-          src={thumbnail}
-          alt={project.title}
-          className="w-full h-auto block"
-        />
+        <div className="m-[15px] rounded-2xl overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={thumbnail}
+            alt={project.title}
+            className="w-full h-auto block"
+          />
+        </div>
       )}
 
       <div className="p-7 sm:p-8">
