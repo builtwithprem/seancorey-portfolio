@@ -7,25 +7,25 @@ const principles = [
     number: "1",
     title: "Clear Communication",
     description:
-      "I explain my thinking. You understand the why behind every decision. No surprises, no jargon. Good work starts with honest conversation, and I keep that going throughout every project.",
+      "I explain my thinking. You understand the why behind every decision. No surprises, no jargon, no guessing.",
   },
   {
     number: "2",
     title: "Realistic Timelines",
     description:
-      "I give honest estimates. I deliver on time. Quality doesn't have to mean slow — it means planning well, staying focused, and flagging issues before they become problems.",
+      "I give honest estimates. I deliver on time. Quality doesn't mean slow. It means planning well, staying focused, and catching issues early.",
   },
   {
     number: "3",
     title: "Thoughtful Collaboration",
     description:
-      "Your input matters. I listen, ask questions, and iterate together until it feels right. The best results come from a process that respects your knowledge of your own work.",
+      "Your input matters. I listen, ask questions, iterate until it feels right. The best results come from respecting what you know about your own work.",
   },
   {
     number: "4",
     title: "Human + AI",
     description:
-      "I use AI as a creative partner, not a shortcut. It helps me move faster, explore more ideas, and catch things I might miss — while every decision, every detail, every word stays guided by human judgment and craft.",
+      "I use AI as a creative partner, not a shortcut. It helps me move faster, explore more ideas, catch things I might miss. But every decision, every detail, every word is guided by human judgment and craft.",
   },
 ];
 
