@@ -51,7 +51,6 @@ function WorkCard({
         <motion.div
           layoutId={`card-image-${project.id}`}
           className="relative aspect-[3/2] sm:aspect-[2/1] rounded-xl overflow-hidden mb-8 sm:mb-12"
-          style={{ backgroundColor: "var(--color-sage)" }}
         >
           {thumbnail ? (
             // eslint-disable-next-line @next/next/no-img-element
