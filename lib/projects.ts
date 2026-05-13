@@ -16,7 +16,7 @@ export const projects: Project[] = [
     category: "Brand Identity",
     description: "Visual identity and digital presence for a premium specialty coffee brand rooted in Ethiopian origin stories.",
     gradient: "linear-gradient(135deg, #48949e 0%, #2a5a62 100%)",
-    images: ["/moka-project.jpg", "/moka-detail-1.jpg", "/moka-detail-2.jpg", "/moka-detail-3.jpg"],
+    images: ["/moka-transparent.png", "/moka-project.jpg", "/moka-detail-1.jpg", "/moka-detail-2.jpg", "/moka-detail-3.jpg"],
     url: "https://mokaorigins.com",
     year: "2025",
   },
