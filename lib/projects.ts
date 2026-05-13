@@ -8,7 +8,6 @@ export type Project = {
   url?: string;
   services?: string[];
   caseStudy?: { heading?: string; text: string }[];
-  previewImage?: string;  // tall screenshot for the browser mockup
 };
 
 export const projects: Project[] = [
@@ -26,7 +25,6 @@ export const projects: Project[] = [
     ],
     url: "https://mokaorigins.com",
     services: ["Ecommerce", "UI Design", "Web Development", "Consulting", "Infrastructure"],
-    previewImage: "/sean-corey-design-moka-preview.jpg",
     caseStudy: [
       {
         heading: "The Challenge",
