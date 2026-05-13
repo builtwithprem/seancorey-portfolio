@@ -45,7 +45,7 @@ export function About() {
         </motion.h2>
 
         {/* Two-column body — photo left, eras right */}
-        <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-16 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-8 sm:gap-12 lg:gap-24 items-start">
 
           {/* Left — photo + stats */}
           <motion.div
@@ -54,7 +54,7 @@ export function About() {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden mb-8">
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/headshot.jpg"

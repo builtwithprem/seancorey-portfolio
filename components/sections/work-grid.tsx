@@ -62,9 +62,6 @@ function WorkCard({
           ) : (
             <div className="absolute inset-0" style={{ background: project.gradient }} />
           )}
-          <div className="absolute bottom-4 right-4">
-            <span className="text-xs text-white/70 font-sans">{project.year}</span>
-          </div>
         </motion.div>
 
         <motion.div layoutId={`card-meta-${project.id}`}>
@@ -271,7 +268,6 @@ export function WorkGrid() {
                       <span className="text-xs uppercase tracking-[0.18em] text-forest font-semibold font-sans">
                         {selected.category}
                       </span>
-                      <span className="text-forest/65 text-sm font-sans">{selected.year}</span>
                     </div>
 
                     <p className="text-forest/70 leading-relaxed font-sans text-base mb-8">
