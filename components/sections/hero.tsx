@@ -19,7 +19,7 @@ export function Hero() {
 
           <h1 className="font-display font-bold tracking-tight mb-8">
             <motion.span
-              className="block text-[clamp(2.5rem,5vw,4.5rem)] text-forest leading-[1.2]"
+              className="block text-[clamp(2.35rem,5vw,4.5rem)] text-forest leading-[1.2]"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
@@ -27,7 +27,7 @@ export function Hero() {
               Hi, I&apos;m Sean.
             </motion.span>
             <motion.span
-              className="block text-[clamp(2.5rem,5vw,4.5rem)] text-forest leading-[1.2]"
+              className="block text-[clamp(2.35rem,5vw,4.5rem)] text-forest leading-[1.2]"
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
