@@ -32,7 +32,7 @@ function WorkCard({
       onClick={onSelect}
       onMouseEnter={onHoverStart}
       onMouseLeave={onHoverEnd}
-      className="group cursor-none bg-black/30 rounded-3xl overflow-hidden"
+      className="group cursor-none bg-black/20 rounded-3xl overflow-hidden"
     >
       {thumbnail && (
         <div className="m-[15px] rounded-2xl overflow-hidden">
