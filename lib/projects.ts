@@ -103,7 +103,7 @@ export const projects: Project[] = [
     description: "Placeholder description for Vadavas by Lex.",
     gradient: "linear-gradient(135deg, #8b7355 0%, #4a3920 100%)",
     images: [
-      "/sean-corey-design-vadavas-1.png",
+      "/sean-corey-design-vadavas-1.jpg",
       "/sean-corey-design-vadavas-2.jpg",
       "/sean-corey-design-vadavas-3.jpg",
       "/sean-corey-design-vadavas-4.jpg",
