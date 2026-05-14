@@ -75,9 +75,9 @@ export function StyleSwitcher() {
       <button
         aria-label="Change colour scheme"
         aria-expanded={open}
-        className="p-2 rounded-full hover:opacity-70 transition-opacity duration-200 cursor-pointer flex items-center justify-center"
+        className="p-3 rounded-full hover:opacity-70 transition-opacity duration-200 cursor-pointer flex items-center justify-center"
       >
-        <Sun className="size-6 md:size-[18px]" />
+        <Sun className="size-7 md:size-5" />
       </button>
 
       {/* Dropdown panel */}

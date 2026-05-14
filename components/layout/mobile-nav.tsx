@@ -87,7 +87,7 @@ export function Hamburger({ open, onClick }: HamburgerProps) {
       aria-label={open ? "Close menu" : "Open menu"}
       aria-expanded={open}
       className={cn(
-        "relative w-10 h-10 flex items-center justify-center md:hidden focus-visible:outline-none",
+        "relative w-12 h-12 flex items-center justify-center md:hidden focus-visible:outline-none",
         open && "text-forest"
       )}
     >
@@ -96,13 +96,13 @@ export function Hamburger({ open, onClick }: HamburgerProps) {
         "absolute transition-all duration-200",
         open ? "opacity-100 rotate-0" : "opacity-0 rotate-45 pointer-events-none"
       )}>
-        <X size={28} strokeWidth={1.75} />
+        <X size={30} strokeWidth={1.75} />
       </span>
       <span className={cn(
         "absolute transition-all duration-200",
         open ? "opacity-0 -rotate-45 pointer-events-none" : "opacity-100 rotate-0"
       )}>
-        <Menu size={28} strokeWidth={1.75} />
+        <Menu size={30} strokeWidth={1.75} />
       </span>
     </button>
   );
