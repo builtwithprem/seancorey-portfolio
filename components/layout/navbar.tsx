@@ -162,7 +162,7 @@ export function Navbar() {
             </button>
           </div>
 
-          <div className="flex md:hidden items-center gap-2">
+          <div className="flex md:hidden items-center gap-0.5">
             {mounted && !mobileOpen && <StyleSwitcher />}
             <Hamburger
               open={mobileOpen}

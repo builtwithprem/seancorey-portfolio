@@ -10,7 +10,7 @@ export function Logo() {
   return (
     <button onClick={() => scrollToSection("hero")} className="flex items-center gap-2.5 group cursor-pointer">
       {/* Circular headshot */}
-      <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0">
+      <div className="w-11 h-11 sm:w-10 sm:h-10 rounded-full overflow-hidden flex-shrink-0">
         {imgError ? (
           <div className="w-full h-full bg-sage flex items-center justify-center">
             <span className="text-forest text-[10px] font-display font-bold tracking-tight">
@@ -29,7 +29,7 @@ export function Logo() {
       </div>
 
       {/* Name — no color class, inherits from parent */}
-      <span className="font-display font-semibold text-[1.2rem] tracking-tight">
+      <span className="font-display font-semibold text-[1.3rem] sm:text-[1.2rem] tracking-tight">
         Sean Corey
       </span>
     </button>
