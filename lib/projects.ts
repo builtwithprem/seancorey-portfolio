@@ -47,7 +47,7 @@ export const projects: Project[] = [
     description: "Placeholder description for Himalayan Institute.",
     gradient: "linear-gradient(135deg, #3a3a3a 0%, #181818 100%)",
     images: [
-      "/sean-corey-design-himalayan-1.png",
+      "/sean-corey-design-himalayan-1.jpg",
       "/sean-corey-design-himalayan-2.jpg",
       "/sean-corey-design-himalayan-3.jpg",
       "/sean-corey-design-himalayan-4.jpg",
