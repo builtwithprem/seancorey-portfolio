@@ -42,6 +42,17 @@ export function StyleSwitcher() {
     return () => document.removeEventListener("keydown", handler);
   }, [open]);
 
+  // Close on scroll (mobile — after 5px movement)
+  useEffect(() => {
+    if (!open) return;
+    const startY = window.scrollY;
+    const onScroll = () => {
+      if (Math.abs(window.scrollY - startY) > 5) setOpen(false);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [open]);
+
   const select = (scheme: Scheme) => {
     if (scheme.id !== activeId) {
       applyScheme(scheme);
