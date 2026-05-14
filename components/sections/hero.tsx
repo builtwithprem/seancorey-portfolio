@@ -14,7 +14,7 @@ export function Hero() {
       className="relative min-h-screen overflow-hidden bg-sage"
     >
       {/* 150px top padding keeps content clear of the 72px fixed navbar */}
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 flex flex-col pt-32 sm:pt-[11rem]">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 flex flex-col pt-24 sm:pt-[11rem]">
         <div className="w-full pb-24">
 
           <h1 className="font-display font-bold tracking-tight mb-8 max-w-[1000px]">

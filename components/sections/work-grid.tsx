@@ -78,7 +78,7 @@ export function WorkGrid() {
     <section
       id="work"
       data-section-theme="dark"
-      className="bg-forest py-16 sm:py-24 lg:py-32"
+      className="bg-forest py-12 sm:py-16 lg:py-[calc(var(--spacing)*22)]"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <motion.h2
@@ -96,7 +96,7 @@ export function WorkGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="text-[1.1rem] sm:text-[1.3rem] text-white/60 leading-relaxed font-sans max-w-xl mb-16 sm:mb-20"
+          className="text-[1.1rem] sm:text-[1.3rem] text-white/60 leading-relaxed font-sans max-w-xl mb-[calc(var(--spacing)*11)] lg:mb-[calc(var(--spacing)*15)]"
         >
           A selection of projects spanning e-commerce, education, wellness, and mission-driven brands.
         </motion.p>
