@@ -82,7 +82,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display font-bold text-forest text-[clamp(2.25rem,5vw,4.5rem)] leading-tight mb-10"
+              className="font-display font-bold text-forest text-[clamp(2.25rem,5vw,4.5rem)] leading-tight mb-[1.875rem]"
             >
               {project.title}
             </motion.h2>
@@ -92,7 +92,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
             >
-              <p className="font-sans text-[1.1rem] text-forest/70 leading-relaxed mb-8">
+              <p className="font-sans text-[1.1rem] text-forest/70 leading-relaxed mb-8 sm:max-w-[500px]">
                 {project.description}
               </p>
               {project.url && (
@@ -175,46 +175,49 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
             </motion.div>
           )}
 
-          {/* Services */}
-          {project.services && project.services.length > 0 && (
-            <div className="max-w-5xl mx-auto px-6 lg:px-12 pt-10">
-              <p className="text-[0.8rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-4">
-                Services
-              </p>
-              <ul className={`gap-x-6 gap-y-2 ${
-                project.services.length > 3
-                  ? "grid grid-cols-2 lg:grid-cols-4"
-                  : "flex flex-wrap gap-x-8 gap-y-2"
-              }`}>
-                {project.services.map(s => (
-                  <li key={s} className="text-[1rem] text-forest/70 font-sans">{s}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {/* Case study + Services side-by-side */}
+          <div className="max-w-5xl mx-auto px-6 lg:px-12 pt-10 pb-20">
+            <div className="grid grid-cols-1 lg:grid-cols-[1fr_200px] gap-12 lg:gap-16 items-start">
 
-          {/* Case study */}
-          <div className="max-w-2xl mx-auto px-6 lg:px-12 pt-10 pb-20">
-            {project.caseStudy && project.caseStudy.length > 0 ? (
-              <div className="space-y-10">
-                {project.caseStudy.map((block, i) => (
-                  <div key={i}>
-                    {block.heading && (
-                      <h3 className="font-display font-semibold text-[1.15rem] text-forest mb-3">
-                        {block.heading}
-                      </h3>
-                    )}
-                    <p className="font-sans text-[1.1rem] text-forest/70 leading-relaxed">
-                      {block.text}
-                    </p>
+              {/* Case study — wide left column */}
+              <div>
+                {project.caseStudy && project.caseStudy.length > 0 ? (
+                  <div className="space-y-10">
+                    {project.caseStudy.map((block, i) => (
+                      <div key={i}>
+                        {block.heading && (
+                          <h3 className="font-display font-semibold text-[1.15rem] text-forest mb-3">
+                            {block.heading}
+                          </h3>
+                        )}
+                        <p className="font-sans text-[1.1rem] text-forest/70 leading-relaxed">
+                          {block.text}
+                        </p>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                ) : (
+                  <p className="text-forest/25 font-sans text-sm italic">
+                    Case study coming soon.
+                  </p>
+                )}
               </div>
-            ) : (
-              <p className="text-forest/25 font-sans text-sm italic">
-                Case study coming soon.
-              </p>
-            )}
+
+              {/* Services — narrow right column */}
+              {project.services && project.services.length > 0 && (
+                <div className="bg-white rounded-3xl shadow-sm p-6">
+                  <p className="text-[0.75rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-4">
+                    Services
+                  </p>
+                  <ul className="space-y-2.5">
+                    {project.services.map(s => (
+                      <li key={s} className="text-[0.95rem] text-forest/70 font-sans">{s}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
+            </div>
           </div>
         </motion.div>
       )}
