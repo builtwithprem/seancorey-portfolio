@@ -46,6 +46,7 @@ export const projects: Project[] = [
     category: "Web Design",
     description: "Nine years of embedded partnership with one of North America's most respected yoga and wellness institutions. Strategy, design, and infrastructure at scale.",
     gradient: "linear-gradient(135deg, #3a3a3a 0%, #181818 100%)",
+    url: "https://himalayaninstitute.org",
     images: [
       "/sean-corey-design-himalayan-1.jpg",
       "/sean-corey-design-himalayan-2.jpg",
