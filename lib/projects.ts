@@ -44,7 +44,7 @@ export const projects: Project[] = [
     id: "himalayan-institute",
     title: "Himalayan Institute",
     category: "Web Design",
-    description: "Placeholder description for Himalayan Institute.",
+    description: "Nine years of embedded partnership with one of North America's most respected yoga and wellness institutions. Strategy, design, and infrastructure at scale.",
     gradient: "linear-gradient(135deg, #3a3a3a 0%, #181818 100%)",
     images: [
       "/sean-corey-design-himalayan-1.jpg",
@@ -52,7 +52,37 @@ export const projects: Project[] = [
       "/sean-corey-design-himalayan-3.jpg",
       "/sean-corey-design-himalayan-4.jpg",
     ],
-    services: ["Web Design", "UX Design", "Development"],
+    services: [
+      "Web Design",
+      "UX Strategy",
+      "Platform Development",
+      "Email Marketing",
+      "Analytics",
+      "Infrastructure",
+      "Documentation",
+    ],
+    caseStudy: [
+      {
+        heading: "The Challenge",
+        text: "Himalayan Institute needed more than a vendor. With multiple web properties, a growing online learning platform, and an organization-wide need for design consistency, they needed someone who could think and operate at a systems level.",
+      },
+      {
+        heading: "The Approach",
+        text: "Over five years of full-time embedded work, I led web design strategy across all of their digital properties. That included a full redesign of their main website, humanitarian site, online shop, and HI Online — their online learning platform.",
+      },
+      {
+        heading: undefined,
+        text: "HI Online was a significant build. I was part of the core team that architected, planned, designed, and developed the platform from the ground up. Beyond the platform itself, the work included email marketing templates, analytics configuration, conversion tracking, and a full restructure of site navigation across properties.",
+      },
+      {
+        heading: undefined,
+        text: "On the infrastructure side, I helped plan and execute a migration of 1,000+ posts between systems and led the move of all properties to a new web server. I also wrote internal documentation and helped standardize design and development workflows across the organization.",
+      },
+      {
+        heading: "Ongoing",
+        text: "Nine years in, the relationship continues. The work has evolved from full-time embedded leadership to focused strategic support as HI Online and their broader digital presence continues to grow.",
+      },
+    ],
   },
   {
     id: "sean-corey-yoga",
