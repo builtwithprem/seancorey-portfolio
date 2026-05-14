@@ -14,10 +14,10 @@ export function Hero() {
       className="relative min-h-screen overflow-hidden bg-sage"
     >
       {/* 150px top padding keeps content clear of the 72px fixed navbar */}
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 flex flex-col pt-32 sm:pt-[9.375rem]">
-        <div className="w-full max-w-[800px] pb-24">
+      <div className="relative max-w-7xl mx-auto px-6 lg:px-8 flex flex-col pt-32 sm:pt-[11rem]">
+        <div className="w-full pb-24">
 
-          <h1 className="font-display font-bold tracking-tight mb-8">
+          <h1 className="font-display font-bold tracking-tight mb-8 max-w-[1000px]">
             <motion.span
               className="block text-[clamp(2.35rem,5vw,4.5rem)] text-forest leading-[1.2]"
               initial={{ opacity: 0, y: 18 }}
@@ -32,7 +32,7 @@ export function Hero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
-              I build websites for people doing work that matters.
+              I build websites for brands doing meaningful work.
             </motion.span>
           </h1>
 
@@ -40,7 +40,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.55, ease: "easeOut" }}
-            className="mb-10"
+            className="mb-10 max-w-[740px]"
           >
             <p className="text-[1.4rem] sm:text-[1.5rem] text-forest leading-relaxed font-sans">
               I bring 20 years of craft and judgment to every project, combining{" "}
