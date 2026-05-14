@@ -91,41 +91,19 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
-              className="grid grid-cols-1 lg:grid-cols-[3fr_1fr] gap-10 lg:gap-16"
             >
-              {/* Left — description + CTA */}
-              <div>
-                <p className="font-sans text-[1.1rem] text-forest/70 leading-relaxed mb-8">
-                  {project.description}
-                </p>
-                {project.url && (
-                  <a
-                    href={project.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 bg-forest hover:bg-forest/85 text-white rounded-full px-7 h-11 text-sm font-sans transition-colors duration-300"
-                  >
-                    Visit Website <ArrowUpRight size={15} />
-                  </a>
-                )}
-              </div>
-
-              {/* Right — services */}
-              {project.services && project.services.length > 0 && (
-                <div>
-                  <p className="text-[0.8rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-4">
-                    Services
-                  </p>
-                  <ul className={`gap-x-6 gap-y-2 ${
-                    project.services.length > 3
-                      ? "grid grid-cols-2 lg:grid-cols-1"
-                      : "space-y-2"
-                  }`}>
-                    {project.services.map(s => (
-                      <li key={s} className="text-[1rem] text-forest/70 font-sans">{s}</li>
-                    ))}
-                  </ul>
-                </div>
+              <p className="font-sans text-[1.1rem] text-forest/70 leading-relaxed mb-8">
+                {project.description}
+              </p>
+              {project.url && (
+                <a
+                  href={project.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-forest hover:bg-forest/85 text-white rounded-full px-7 h-11 text-sm font-sans transition-colors duration-300"
+                >
+                  Visit Website <ArrowUpRight size={15} />
+                </a>
               )}
             </motion.div>
           </div>
@@ -195,6 +173,24 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
                 </div>
               )}
             </motion.div>
+          )}
+
+          {/* Services */}
+          {project.services && project.services.length > 0 && (
+            <div className="max-w-5xl mx-auto px-6 lg:px-12 pt-10">
+              <p className="text-[0.8rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-4">
+                Services
+              </p>
+              <ul className={`gap-x-6 gap-y-2 ${
+                project.services.length > 3
+                  ? "grid grid-cols-2 lg:grid-cols-4"
+                  : "flex flex-wrap gap-x-8 gap-y-2"
+              }`}>
+                {project.services.map(s => (
+                  <li key={s} className="text-[1rem] text-forest/70 font-sans">{s}</li>
+                ))}
+              </ul>
+            </div>
           )}
 
           {/* Case study */}
