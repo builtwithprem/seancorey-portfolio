@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Navbar } from "@/components/layout/navbar";
 import { Footer } from "@/components/layout/footer";
 import { BackToTop } from "@/components/ui/back-to-top";
+import { Preloader } from "@/components/ui/preloader";
 
 const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen antialiased">
+        <Preloader />
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
