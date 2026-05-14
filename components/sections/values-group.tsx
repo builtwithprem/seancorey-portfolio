@@ -64,7 +64,7 @@ export function DarkTransitionGroup() {
     <div ref={ref} id="values-transition">
       <motion.div
         data-section-theme="dark"
-        className="h-[21vh] sm:h-[42vh]"
+        className="h-[65vh] sm:h-[42vh]"
         style={{
           backgroundColor: divBg,
           marginTop: "-8em",
