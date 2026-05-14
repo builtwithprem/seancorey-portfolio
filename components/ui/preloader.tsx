@@ -34,24 +34,24 @@ export function Preloader() {
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center"
           style={{ backgroundColor: "var(--color-forest)" }}
         >
-          {/* Sonar pulse — two rings expand outward from a centre dot */}
+          {/* Orbit — a dot traces a slow circle around a centre point */}
           <div className="relative flex items-center justify-center w-28 h-28 mb-10">
-            <motion.span
+            {/* Orbit track */}
+            <span
               className="absolute inset-0 rounded-full"
-              style={{ border: "1px solid color-mix(in srgb, var(--color-sage) 30%, transparent)" }}
-              animate={{ scale: [1, 1.6], opacity: [0.5, 0] }}
-              transition={{ repeat: Infinity, duration: 2.4, ease: "easeOut" }}
+              style={{ border: "1px solid color-mix(in srgb, var(--color-sage) 12%, transparent)" }}
             />
+            {/* Orbiting dot */}
             <motion.span
-              className="absolute inset-0 rounded-full"
-              style={{ border: "1px solid color-mix(in srgb, var(--color-sage) 20%, transparent)" }}
-              animate={{ scale: [1, 1.6], opacity: [0.4, 0] }}
-              transition={{ repeat: Infinity, duration: 2.4, delay: 0.6, ease: "easeOut" }}
+              className="absolute w-2 h-2 rounded-full"
+              style={{ backgroundColor: "color-mix(in srgb, var(--color-sage) 80%, transparent)", top: "0%", left: "50%", marginLeft: "-4px", marginTop: "-4px", transformOrigin: "4px 60px" }}
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 3.5, ease: "linear" }}
             />
             {/* Centre dot */}
             <span
-              className="w-2 h-2 rounded-full"
-              style={{ backgroundColor: "color-mix(in srgb, var(--color-sage) 70%, transparent)" }}
+              className="w-1.5 h-1.5 rounded-full"
+              style={{ backgroundColor: "color-mix(in srgb, var(--color-sage) 40%, transparent)" }}
             />
           </div>
 
