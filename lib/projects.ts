@@ -75,7 +75,7 @@ export const projects: Project[] = [
     description: "Placeholder description for Vishoka Meditation.",
     gradient: "linear-gradient(135deg, #c4864a 0%, #7a4c22 100%)",
     images: [
-      "/sean-corey-design-vishoka-1.png",
+      "/sean-corey-design-vishoka-1.jpg",
       "/sean-corey-design-vishoka-2.jpg",
       "/sean-corey-design-vishoka-3.jpg",
       "/sean-corey-design-vishoka-4.jpg",
