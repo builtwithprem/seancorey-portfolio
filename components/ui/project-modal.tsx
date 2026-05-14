@@ -177,7 +177,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
           {/* Case study + Services side-by-side */}
           <div className="max-w-5xl mx-auto px-6 lg:px-12 pt-10 pb-20">
-            <div className="grid grid-cols-1 lg:grid-cols-[1fr_200px] gap-12 lg:gap-16 items-start">
+            <div className="grid grid-cols-1 lg:grid-cols-[560px_200px] gap-12 lg:gap-16 items-start">
 
               {/* Case study — wide left column */}
               <div>
@@ -205,7 +205,7 @@ export function ProjectModal({ project, onClose }: ProjectModalProps) {
 
               {/* Services — narrow right column */}
               {project.services && project.services.length > 0 && (
-                <div className="bg-white rounded-3xl shadow-sm p-6">
+                <div>
                   <p className="text-[0.75rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-4">
                     Services
                   </p>
