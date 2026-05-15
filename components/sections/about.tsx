@@ -37,7 +37,7 @@ function TrackContent({ items }: { items: string[] }) {
     <>
       {Array.from({ length: REPEATS }, (_, r) =>
         items.map((item, i) => (
-          <span key={`${r}-${i}`} className="font-display font-bold text-[clamp(2.25rem,5.5vw,4.5rem)] text-forest">
+          <span key={`${r}-${i}`} className="font-display font-bold text-[clamp(2.5rem,6vw,5rem)] text-forest">
             {item}
             <span style={{ color: "color-mix(in srgb, var(--color-forest) 70%, transparent)", fontSize: "0.6em", verticalAlign: "middle", padding: "0 0.3em" }}> ✺ </span>
           </span>
@@ -76,7 +76,7 @@ export function About() {
       className="bg-sage overflow-hidden"
     >
       {/* ── Marquee banners ── */}
-      <div className="pt-16 sm:pt-24 pb-12 sm:pb-16 space-y-1 -rotate-2 scale-110">
+      <div className="pt-16 sm:pt-24 pb-16 sm:pb-20 space-y-1">
         <MarqueeRow items={ROW_ONE} direction="left" />
         <MarqueeRow items={ROW_TWO} direction="right" />
       </div>
