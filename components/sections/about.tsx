@@ -39,7 +39,7 @@ function TrackContent({ items }: { items: string[] }) {
         items.map((item, i) => (
           <span key={`${r}-${i}`} className="font-display font-bold text-[clamp(2.75rem,7vw,6rem)] text-forest">
             {item}
-            <span style={{ color: "color-mix(in srgb, var(--color-forest) 70%, transparent)" }}> ✺ </span>
+            <span style={{ color: "color-mix(in srgb, var(--color-forest) 70%, transparent)", fontSize: "0.5em", letterSpacing: "0.5em", verticalAlign: "middle", padding: "0 0.5em" }}> ✺ </span>
           </span>
         ))
       )}
