@@ -49,10 +49,10 @@ function MarqueeRow({ items, direction, speed = 38 }: MarqueeRowProps) {
         style={{ animation: `marquee-${direction} ${speed}s linear infinite` }}
       >
         {/* Two identical halves — animation moves exactly -50% for seamless loop */}
-        <span className="font-display font-bold text-[clamp(2rem,5vw,4rem)] text-forest">
+        <span className="font-display font-bold text-[clamp(2.5rem,6.25vw,5rem)] text-forest">
           {track}
         </span>
-        <span className="font-display font-bold text-[clamp(2rem,5vw,4rem)] text-forest" aria-hidden>
+        <span className="font-display font-bold text-[clamp(2.5rem,6.25vw,5rem)] text-forest" aria-hidden>
           {track}
         </span>
       </div>
@@ -68,7 +68,7 @@ export function About() {
       className="bg-sage overflow-hidden"
     >
       {/* ── Marquee banners ── */}
-      <div className="pt-16 sm:pt-24 pb-12 sm:pb-16 space-y-3">
+      <div className="pt-16 sm:pt-24 pb-12 sm:pb-16 space-y-1 -rotate-2 scale-110">
         <MarqueeRow items={ROW_ONE} direction="left" />
         <MarqueeRow items={ROW_TWO} direction="right" />
       </div>
