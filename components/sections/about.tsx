@@ -30,8 +30,21 @@ const eras = [
 ];
 
 // Repeat items enough times that the track is always wider than the viewport
-function buildTrack(items: string[], repeats = 6) {
-  return Array.from({ length: repeats }, () => items.join(" · ") + " · ").join("");
+const REPEATS = 8;
+
+function TrackContent({ items }: { items: string[] }) {
+  return (
+    <>
+      {Array.from({ length: REPEATS }, (_, r) =>
+        items.map((item, i) => (
+          <span key={`${r}-${i}`} className="font-display font-bold text-[clamp(2.75rem,7vw,6rem)] text-forest">
+            {item}
+            <span style={{ color: "color-mix(in srgb, var(--color-forest) 70%, transparent)" }}> ✺ </span>
+          </span>
+        ))
+      )}
+    </>
+  );
 }
 
 interface MarqueeRowProps {
@@ -41,20 +54,15 @@ interface MarqueeRowProps {
 }
 
 function MarqueeRow({ items, direction, speed = 38 }: MarqueeRowProps) {
-  const track = buildTrack(items);
   return (
     <div className="overflow-hidden w-full select-none py-1">
       <div
         className="flex whitespace-nowrap"
         style={{ animation: `marquee-${direction} ${speed}s linear infinite` }}
       >
-        {/* Two identical halves — animation moves exactly -50% for seamless loop */}
-        <span className="font-display font-bold text-[clamp(2.5rem,6.25vw,5rem)] text-forest">
-          {track}
-        </span>
-        <span className="font-display font-bold text-[clamp(2.5rem,6.25vw,5rem)] text-forest" aria-hidden>
-          {track}
-        </span>
+        {/* Two identical halves — animation moves -50% for seamless loop */}
+        <span><TrackContent items={items} /></span>
+        <span aria-hidden><TrackContent items={items} /></span>
       </div>
     </div>
   );
