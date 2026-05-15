@@ -82,7 +82,7 @@ export function About() {
       className="bg-sage overflow-hidden"
     >
       {/* ── Marquee banners ── */}
-      <div className="pt-16 sm:pt-24 pb-16 sm:pb-20 space-y-1">
+      <div className="pt-16 sm:pt-24 pb-20 sm:pb-[6.25rem] space-y-1">
         <MarqueeRow items={ROW_ONE} direction="left" />
         <MarqueeRow items={ROW_TWO} direction="right" />
       </div>
