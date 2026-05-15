@@ -130,7 +130,7 @@ export function Navbar() {
           maskImage: "linear-gradient(to bottom, black 0%, black 25%, transparent 85%)",
           WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 25%, transparent 85%)",
         }}
-        className="fixed top-[72px] left-0 right-0 h-12 sm:h-24 pointer-events-none z-40"
+        className="fixed top-[72px] left-0 right-0 h-12 sm:h-24 pointer-events-none z-[1]"
       />
 
       <motion.header

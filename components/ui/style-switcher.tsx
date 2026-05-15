@@ -25,12 +25,16 @@ export function StyleSwitcher() {
     }
   }, []);
 
-  // Hover handlers — small delay on leave prevents flickering through the gap
+  // Hover open/close — desktop only. Touch devices skip these entirely
+  // because browsers fire mouseenter → mouseleave → click in sequence,
+  // creating a race between the close timer and the click toggle.
   const handleEnter = () => {
+    if (!window.matchMedia("(hover: hover)").matches) return;
     if (closeTimer.current !== null) clearTimeout(closeTimer.current);
     setOpen(true);
   };
   const handleLeave = () => {
+    if (!window.matchMedia("(hover: hover)").matches) return;
     closeTimer.current = setTimeout(() => setOpen(false), 120);
   };
 
@@ -75,7 +79,10 @@ export function StyleSwitcher() {
       <button
         aria-label="Change colour scheme"
         aria-expanded={open}
-        onClick={() => setOpen(v => !v)}
+        onClick={() => {
+          if (closeTimer.current !== null) clearTimeout(closeTimer.current);
+          setOpen(v => !v);
+        }}
         className="p-3 rounded-full hover:opacity-70 transition-opacity duration-200 cursor-pointer flex items-center justify-center"
       >
         <Sun className="size-7 md:size-5" />
@@ -139,7 +146,7 @@ export function StyleSwitcher() {
                       }
                     />
                     <Tooltip.Portal>
-                      <Tooltip.Positioner side="right" sideOffset={10}>
+                      <Tooltip.Positioner side="right" sideOffset={10} style={{ zIndex: 9999 }}>
                         <Tooltip.Popup
                           className="tooltip-popup px-2.5 py-1 rounded-full text-[11px] font-sans font-medium tracking-wide"
                           style={{
