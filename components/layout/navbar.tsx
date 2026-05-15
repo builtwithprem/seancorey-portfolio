@@ -120,13 +120,16 @@ export function Navbar() {
 
   // Gradient strip just below the navbar — fades from nav bg to transparent
   // Uses the same navBg motion value so it tracks scroll + scheme switches
-  const navGradient = useMotionTemplate`linear-gradient(to bottom, ${navBg}, transparent)`;
-
   return (
     <>
-      {/* Soft gradient fade below the nav */}
+      {/* Soft gradient fade below the nav — mask controls the curve,
+          backgroundColor drives the colour so it tracks nav + schemes */}
       <motion.div
-        style={{ background: navGradient }}
+        style={{
+          backgroundColor: navBg,
+          maskImage: "linear-gradient(to bottom, black 0%, black 25%, transparent 85%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 25%, transparent 85%)",
+        }}
         className="fixed top-[72px] left-0 right-0 h-12 sm:h-24 pointer-events-none z-40"
       />
 
