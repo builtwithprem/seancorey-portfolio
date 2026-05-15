@@ -2,9 +2,7 @@
 
 import { motion } from "motion/react";
 
-// Row 1 scrolls left — identity / professional
 const ROW_ONE = ["Sean Corey", "Web Designer", "AI Architect", "Visual Designer"];
-// Row 2 scrolls right — personal / practice
 const ROW_TWO = ["Yoga Teacher", "Meditator", "Creative Strategist"];
 
 const eras = [
@@ -29,7 +27,6 @@ const eras = [
   },
 ];
 
-// Repeat items enough times that the track is always wider than the viewport
 const REPEATS = 8;
 
 function TrackContent({ items }: { items: string[] }) {
@@ -37,9 +34,9 @@ function TrackContent({ items }: { items: string[] }) {
     <>
       {Array.from({ length: REPEATS }, (_, r) =>
         items.map((item, i) => (
-          <span key={`${r}-${i}`} className="font-display font-bold text-[clamp(2.5rem,6vw,5rem)] text-sage">
+          <span key={`${r}-${i}`} className="font-display font-bold text-[clamp(2.5rem,6vw,5rem)] text-forest">
             {item}
-            <span style={{ color: "color-mix(in srgb, var(--color-sage) 60%, transparent)", fontSize: "0.6em", verticalAlign: "middle", padding: "0 0.3em" }}> ✺ </span>
+            <span style={{ color: "color-mix(in srgb, var(--color-forest) 40%, transparent)", fontSize: "0.6em", verticalAlign: "middle", padding: "0 0.3em" }}> ✺ </span>
           </span>
         ))
       )}
@@ -56,7 +53,6 @@ interface MarqueeRowProps {
 function MarqueeRow({ items, direction, speed = 38 }: MarqueeRowProps) {
   return (
     <div className="relative overflow-hidden w-full select-none py-3">
-      {/* Scrolling track */}
       <div
         className="flex whitespace-nowrap"
         style={{ animation: `marquee-${direction} ${speed}s linear infinite` }}
@@ -65,14 +61,14 @@ function MarqueeRow({ items, direction, speed = 38 }: MarqueeRowProps) {
         <span aria-hidden><TrackContent items={items} /></span>
       </div>
 
-      {/* Gradient fade — left and right edges */}
+      {/* Gradient edges — fade into the sage background */}
       <div
         className="absolute inset-y-0 left-0 w-32 pointer-events-none"
-        style={{ background: "linear-gradient(to right, var(--color-forest), transparent)" }}
+        style={{ background: "linear-gradient(to right, var(--color-sage), transparent)" }}
       />
       <div
         className="absolute inset-y-0 right-0 w-32 pointer-events-none"
-        style={{ background: "linear-gradient(to left, var(--color-forest), transparent)" }}
+        style={{ background: "linear-gradient(to left, var(--color-sage), transparent)" }}
       />
     </div>
   );
@@ -85,61 +81,59 @@ export function About() {
       data-section-theme="light"
       className="bg-sage overflow-hidden"
     >
-      {/* ── Marquee band — forest bg ── */}
-      <div className="bg-forest pt-16 sm:pt-24 pb-16 sm:pb-20 space-y-1">
+      {/* ── Marquee banners ── */}
+      <div className="pt-16 sm:pt-24 pb-16 sm:pb-20 space-y-1">
         <MarqueeRow items={ROW_ONE} direction="left" />
         <MarqueeRow items={ROW_TWO} direction="right" />
       </div>
 
-      {/* ── Centered content ── */}
-      <div className="max-w-[650px] mx-auto px-6 pb-20 sm:pb-28">
+      {/* ── Two-column body ── */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-20 sm:pb-28">
+        <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-16 lg:gap-24 items-start">
 
-        {/* Headshot circle */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="flex justify-center mb-16"
-        >
-          <div
-            className="w-[180px] h-[180px] rounded-full overflow-hidden flex-shrink-0"
-            style={{ border: "2px solid color-mix(in srgb, var(--color-forest) 15%, transparent)" }}
+          {/* Left — photo */}
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/headshot.jpg"
-              alt="Sean Corey"
-              className="w-full h-full object-cover object-top"
-            />
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/headshot.jpg"
+                alt="Sean Corey"
+                className="absolute inset-0 w-full h-full object-cover object-top"
+              />
+            </div>
+          </motion.div>
+
+          {/* Right — eras */}
+          <div className="space-y-10 sm:space-y-12">
+            {eras.map((era, idx) => (
+              <motion.div
+                key={era.label}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <h3 className="font-display font-semibold text-[1.25rem] sm:text-[1.65rem] leading-tight text-forest mb-4">
+                  {era.label}
+                </h3>
+                {era.body.map((para, i) => (
+                  <p
+                    key={i}
+                    className={`text-[1rem] sm:text-[1.2rem] text-forest/65 leading-relaxed font-sans ${i > 0 ? "mt-4" : ""}`}
+                  >
+                    {para}
+                  </p>
+                ))}
+              </motion.div>
+            ))}
           </div>
-        </motion.div>
 
-        {/* Era blocks */}
-        <div className="space-y-10 sm:space-y-14">
-          {eras.map((era, idx) => (
-            <motion.div
-              key={era.label}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <h3 className="font-display font-semibold text-[1.25rem] sm:text-[1.65rem] leading-tight text-forest mb-4">
-                {era.label}
-              </h3>
-              {era.body.map((para, i) => (
-                <p
-                  key={i}
-                  className={`text-[1rem] sm:text-[1.2rem] text-forest/65 leading-relaxed font-sans ${i > 0 ? "mt-4" : ""}`}
-                >
-                  {para}
-                </p>
-              ))}
-            </motion.div>
-          ))}
         </div>
-
       </div>
     </section>
   );
