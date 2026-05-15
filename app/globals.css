@@ -238,3 +238,13 @@
   from { opacity: 1; transform: none; }
   to   { opacity: 0; transform: scale(0.88) translateX(-5px); }
 }
+
+/* Marquee banners */
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}

@@ -2,6 +2,11 @@
 
 import { motion } from "motion/react";
 
+// Row 1 scrolls left — identity / professional
+const ROW_ONE = ["Sean Corey", "Web Designer", "AI Architect", "Visual Designer"];
+// Row 2 scrolls right — personal / practice
+const ROW_TWO = ["Yoga Teacher", "Meditator", "Creative Strategist"];
+
 const eras = [
   {
     label: "Origin",
@@ -24,73 +29,99 @@ const eras = [
   },
 ];
 
+// Repeat items enough times that the track is always wider than the viewport
+function buildTrack(items: string[], repeats = 6) {
+  return Array.from({ length: repeats }, () => items.join(" · ") + " · ").join("");
+}
+
+interface MarqueeRowProps {
+  items: string[];
+  direction: "left" | "right";
+  speed?: number;
+}
+
+function MarqueeRow({ items, direction, speed = 38 }: MarqueeRowProps) {
+  const track = buildTrack(items);
+  return (
+    <div className="overflow-hidden w-full select-none py-1">
+      <div
+        className="flex whitespace-nowrap"
+        style={{ animation: `marquee-${direction} ${speed}s linear infinite` }}
+      >
+        {/* Two identical halves — animation moves exactly -50% for seamless loop */}
+        <span className="font-display font-bold text-[clamp(2rem,5vw,4rem)] text-forest">
+          {track}
+        </span>
+        <span className="font-display font-bold text-[clamp(2rem,5vw,4rem)] text-forest" aria-hidden>
+          {track}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 export function About() {
   return (
     <section
       id="about"
       data-section-theme="light"
-      className="bg-sage py-16 sm:py-24 lg:py-36"
+      className="bg-sage overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+      {/* ── Marquee banners ── */}
+      <div className="pt-16 sm:pt-24 pb-12 sm:pb-16 space-y-3">
+        <MarqueeRow items={ROW_ONE} direction="left" />
+        <MarqueeRow items={ROW_TWO} direction="right" />
+      </div>
 
-        {/* Heading */}
-        <motion.h2
-          initial={{ opacity: 0, y: 18 }}
-          whileInView={{ opacity: 1, y: 0 }}
+      {/* ── Centered content ── */}
+      <div className="max-w-[650px] mx-auto px-6 pb-20 sm:pb-28">
+
+        {/* Headshot circle */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display font-bold text-forest leading-[1.05] text-[clamp(2.25rem,5vw,4.5rem)] mb-12 sm:mb-20 lg:mb-28 max-w-4xl"
+          className="flex justify-center mb-12"
         >
-          A little about me.
-        </motion.h2>
-
-        {/* Two-column body — photo left, eras right */}
-        <div className="grid grid-cols-1 lg:grid-cols-[5fr_7fr] gap-20 lg:gap-24 items-start">
-
-          {/* Left — photo + stats */}
-          <motion.div
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+          <div
+            className="w-[140px] h-[140px] rounded-full overflow-hidden flex-shrink-0"
+            style={{ border: "2px solid color-mix(in srgb, var(--color-forest) 15%, transparent)" }}
           >
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/headshot.jpg"
-                alt="Sean Corey"
-                className="absolute inset-0 w-full h-full object-cover object-top"
-              />
-            </div>
-
-          </motion.div>
-
-          {/* Right — eras */}
-          <div className="space-y-8 sm:space-y-12">
-            {eras.map((era, idx) => (
-              <motion.div
-                key={era.label}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              >
-                <p className="text-[1rem] uppercase tracking-[0.18em] text-forest font-semibold font-sans mb-4">
-                  {era.label}
-                </p>
-                {era.body.map((para, i) => (
-                  <p
-                    key={i}
-                    className={`font-sans text-[1.1rem] text-forest/75 leading-relaxed ${i > 0 ? "mt-4" : ""}`}
-                  >
-                    {para}
-                  </p>
-                ))}
-              </motion.div>
-            ))}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/headshot.jpg"
+              alt="Sean Corey"
+              className="w-full h-full object-cover object-top"
+            />
           </div>
+        </motion.div>
 
+        {/* Era blocks */}
+        <div className="space-y-10 sm:space-y-14">
+          {eras.map((era, idx) => (
+            <motion.div
+              key={era.label}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.7, delay: idx * 0.1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <h3 className="font-display font-semibold text-[1.25rem] sm:text-[1.65rem] leading-tight text-forest mb-4">
+                {era.label}
+              </h3>
+              {era.body.map((para, i) => (
+                <p
+                  key={i}
+                  className={`text-[1.1rem] sm:text-[1.3rem] text-forest/65 leading-relaxed font-sans ${i > 0 ? "mt-4" : ""}`}
+                >
+                  {para}
+                </p>
+              ))}
+            </motion.div>
+          ))}
         </div>
+
       </div>
     </section>
   );
