@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 
 const ROW_ONE = ["Sean Corey", "Web Designer", "AI Architect", "Visual Designer"];
@@ -51,11 +52,20 @@ interface MarqueeRowProps {
 }
 
 function MarqueeRow({ items, direction, speed = 24 }: MarqueeRowProps) {
+  const [duration, setDuration] = useState(speed);
+
+  useEffect(() => {
+    const update = () => setDuration(window.innerWidth < 640 ? speed * 0.55 : speed);
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, [speed]);
+
   return (
     <div className="relative overflow-hidden w-full select-none py-3">
       <div
         className="flex whitespace-nowrap"
-        style={{ animation: `marquee-${direction} ${speed}s linear infinite` }}
+        style={{ animation: `marquee-${direction} ${duration}s linear infinite` }}
       >
         <span><TrackContent items={items} /></span>
         <span aria-hidden><TrackContent items={items} /></span>
