@@ -37,9 +37,9 @@ function TrackContent({ items }: { items: string[] }) {
     <>
       {Array.from({ length: REPEATS }, (_, r) =>
         items.map((item, i) => (
-          <span key={`${r}-${i}`} className="font-display font-bold text-[clamp(2.5rem,6vw,5rem)] text-forest">
+          <span key={`${r}-${i}`} className="font-display font-bold text-[clamp(2.5rem,6vw,5rem)] text-sage">
             {item}
-            <span style={{ color: "color-mix(in srgb, var(--color-forest) 70%, transparent)", fontSize: "0.6em", verticalAlign: "middle", padding: "0 0.3em" }}> ✺ </span>
+            <span style={{ color: "color-mix(in srgb, var(--color-sage) 60%, transparent)", fontSize: "0.6em", verticalAlign: "middle", padding: "0 0.3em" }}> ✺ </span>
           </span>
         ))
       )}
@@ -55,15 +55,25 @@ interface MarqueeRowProps {
 
 function MarqueeRow({ items, direction, speed = 38 }: MarqueeRowProps) {
   return (
-    <div className="overflow-hidden w-full select-none py-1">
+    <div className="relative overflow-hidden w-full select-none py-3">
+      {/* Scrolling track */}
       <div
         className="flex whitespace-nowrap"
         style={{ animation: `marquee-${direction} ${speed}s linear infinite` }}
       >
-        {/* Two identical halves — animation moves -50% for seamless loop */}
         <span><TrackContent items={items} /></span>
         <span aria-hidden><TrackContent items={items} /></span>
       </div>
+
+      {/* Gradient fade — left and right edges */}
+      <div
+        className="absolute inset-y-0 left-0 w-32 pointer-events-none"
+        style={{ background: "linear-gradient(to right, var(--color-forest), transparent)" }}
+      />
+      <div
+        className="absolute inset-y-0 right-0 w-32 pointer-events-none"
+        style={{ background: "linear-gradient(to left, var(--color-forest), transparent)" }}
+      />
     </div>
   );
 }
@@ -75,8 +85,8 @@ export function About() {
       data-section-theme="light"
       className="bg-sage overflow-hidden"
     >
-      {/* ── Marquee banners ── */}
-      <div className="pt-16 sm:pt-24 pb-16 sm:pb-20 space-y-1">
+      {/* ── Marquee band — forest bg ── */}
+      <div className="bg-forest pt-16 sm:pt-24 pb-16 sm:pb-20 space-y-1">
         <MarqueeRow items={ROW_ONE} direction="left" />
         <MarqueeRow items={ROW_TWO} direction="right" />
       </div>
