@@ -34,10 +34,10 @@ export function Services() {
     <section
       id="values"
       data-section-theme="light"
-      className="bg-forest pt-20 pb-16 sm:pt-40 sm:pb-24 lg:pt-56 lg:pb-36"
+      className="bg-forest pt-12 pb-16 sm:pt-16 sm:pb-24 lg:pt-[calc(var(--spacing)*22)] lg:pb-36"
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16 lg:gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 sm:gap-16 lg:gap-24 items-start">
 
           {/* Left — sticky while right column scrolls */}
           <div className="lg:sticky lg:top-[220px]">
@@ -56,7 +56,7 @@ export function Services() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.7, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[1.1rem] sm:text-[1.3rem] text-forest/65 leading-relaxed font-sans"
+              className="text-[1.25rem] sm:text-[1.3rem] text-forest leading-relaxed font-sans"
             >
               Good work isn&apos;t just about the final deliverable. It&apos;s the process, the communication,
               and the way we work together. These are the things I build around.
@@ -74,17 +74,17 @@ export function Services() {
                 transition={{ duration: 0.7, delay: idx * 0.08, ease: [0.22, 1, 0.36, 1] }}
                 className="flex gap-6"
               >
-                <div className="w-12 h-12 rounded-full bg-forest flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <span className="font-display font-bold text-base text-sage">
+                <div className="w-[60px] h-[60px] rounded-full bg-forest flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span className="font-display font-bold text-[1.6rem] text-sage">
                     {p.number}
                   </span>
                 </div>
 
                 <div>
-                  <h3 className="font-display font-semibold text-[1.25rem] sm:text-[1.65rem] leading-tight text-forest mb-2">
+                  <h3 className="font-display font-semibold text-[1.35rem] sm:text-[1.65rem] leading-tight text-forest mb-2">
                     {p.title}
                   </h3>
-                  <p className="text-[1.1rem] text-forest/65 leading-relaxed font-sans">
+                  <p className="text-[1.2rem] text-forest leading-relaxed font-sans">
                     {p.description}
                   </p>
                 </div>

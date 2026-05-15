@@ -128,6 +128,20 @@ export const projects: Project[] = [
     services: ["Web Design", "Brand Identity"],
   },
   {
+    id: "yoga-hive",
+    title: "Yoga Hive",
+    category: "Web Design",
+    description: "Placeholder description for Yoga Hive.",
+    gradient: "linear-gradient(135deg, #5a7a7e 0%, #2d4a50 100%)",
+    images: [
+      "/sean-corey-design-yoga-hive-1.jpg",
+      "/sean-corey-design-yoga-hive-2.jpg",
+      "/sean-corey-design-yoga-hive-3.jpg",
+      "/sean-corey-design-yoga-hive-4.jpg",
+    ],
+    services: ["Web Design", "UX Design"],
+  },
+  {
     id: "vadavas-by-lex",
     title: "Vadavas by Lex",
     category: "Design Direction",
@@ -168,19 +182,5 @@ export const projects: Project[] = [
       "/sean-corey-design-smokin-joes-4.jpg",
     ],
     services: ["Web Design", "UI Design"],
-  },
-  {
-    id: "yoga-hive",
-    title: "Yoga Hive",
-    category: "Web Design",
-    description: "Placeholder description for Yoga Hive.",
-    gradient: "linear-gradient(135deg, #5a7a7e 0%, #2d4a50 100%)",
-    images: [
-      "/sean-corey-design-yoga-hive-1.jpg",
-      "/sean-corey-design-yoga-hive-2.jpg",
-      "/sean-corey-design-yoga-hive-3.jpg",
-      "/sean-corey-design-yoga-hive-4.jpg",
-    ],
-    services: ["Web Design", "UX Design"],
   },
 ];
