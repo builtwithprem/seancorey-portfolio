@@ -127,7 +127,7 @@ export function Navbar() {
       {/* Soft gradient fade below the nav */}
       <motion.div
         style={{ background: navGradient }}
-        className="fixed top-[72px] left-0 right-0 h-24 pointer-events-none z-40"
+        className="fixed top-[72px] left-0 right-0 h-12 sm:h-24 pointer-events-none z-40"
       />
 
       <motion.header
