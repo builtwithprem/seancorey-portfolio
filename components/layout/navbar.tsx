@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
 import { buttonVariants } from "@/components/ui/button";
-import { motion, useScroll, useMotionValue, useMotionValueEvent } from "motion/react";
+import { motion, useScroll, useMotionValue, useMotionValueEvent, useMotionTemplate } from "motion/react";
 import { cn, lerp, rgb } from "@/lib/utils";
 import { NAV_LINKS, scrollToSection } from "@/lib/nav";
 import { Logo } from "@/components/layout/logo";
@@ -118,8 +118,21 @@ export function Navbar() {
     return () => window.removeEventListener("palette-tick", refresh);
   }, [updateNavColors, scrollY]);
 
+  // Gradient strip just below the navbar — fades from nav bg to transparent
+  // Uses the same navBg motion value so it tracks scroll + scheme switches
   return (
     <>
+      {/* Soft gradient fade below the nav — mask controls the curve,
+          backgroundColor drives the colour so it tracks nav + schemes */}
+      <motion.div
+        style={{
+          backgroundColor: navBg,
+          maskImage: "linear-gradient(to bottom, black 0%, black 25%, transparent 85%)",
+          WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 25%, transparent 85%)",
+        }}
+        className="fixed top-[72px] left-0 right-0 h-12 sm:h-24 pointer-events-none z-[1]"
+      />
+
       <motion.header
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}

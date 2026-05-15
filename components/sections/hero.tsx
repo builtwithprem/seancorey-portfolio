@@ -17,7 +17,7 @@ export function Hero() {
       <div className="relative max-w-7xl mx-auto px-6 lg:px-8 flex flex-col pt-24 sm:pt-[11rem]">
         <div className="w-full pb-24">
 
-          <h1 className="font-display font-bold tracking-tight mb-8 max-w-[1000px]">
+          <h1 className="font-display font-bold tracking-tight mb-8 max-w-[1000px] pt-4 sm:pt-0">
             <motion.span
               className="block text-[clamp(2.35rem,5vw,4.5rem)] text-forest leading-[1.2]"
               initial={{ opacity: 0, y: 18 }}
