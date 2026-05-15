@@ -82,10 +82,10 @@ export function About() {
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-          className="flex justify-center mb-12"
+          className="flex justify-center mb-16"
         >
           <div
-            className="w-[140px] h-[140px] rounded-full overflow-hidden flex-shrink-0"
+            className="w-[180px] h-[180px] rounded-full overflow-hidden flex-shrink-0"
             style={{ border: "2px solid color-mix(in srgb, var(--color-forest) 15%, transparent)" }}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -113,7 +113,7 @@ export function About() {
               {era.body.map((para, i) => (
                 <p
                   key={i}
-                  className={`text-[1.1rem] sm:text-[1.3rem] text-forest/65 leading-relaxed font-sans ${i > 0 ? "mt-4" : ""}`}
+                  className={`text-[1rem] sm:text-[1.2rem] text-forest/65 leading-relaxed font-sans ${i > 0 ? "mt-4" : ""}`}
                 >
                   {para}
                 </p>
