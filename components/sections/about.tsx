@@ -50,7 +50,7 @@ interface MarqueeRowProps {
   speed?: number;
 }
 
-function MarqueeRow({ items, direction, speed = 38 }: MarqueeRowProps) {
+function MarqueeRow({ items, direction, speed = 24 }: MarqueeRowProps) {
   return (
     <div className="relative overflow-hidden w-full select-none py-3">
       <div
